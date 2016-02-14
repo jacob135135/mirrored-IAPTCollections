@@ -1,0 +1,219 @@
+(dp1
+S'output'
+p2
+S'Unable to open included view file: C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\applications\\Whatever\\views\\longboxes-layout.html'
+p3
+sS'layer'
+p4
+S'ParserContainer'
+p5
+sS'code'
+p6
+S'{{extend \'longboxes-layout.html\'}}\n    <!-- @IAPT: A div that you can style for your introductory text -->\n    <div id="intro">\n        <p>Welcome one and all to the newly release Longboxes.</p>\n    </div>\n\n<div>\n\t<h4>Click on a username below to see their public collection </h4>\n\t\n\t\n\t{{for user_dta in users_data:\n\t\tusername = str(user_dta.username)\n\t\tusr_id = str(user_dta.id)}}\n\n\t\t{{if (usr_id == str(session.current_user_id)):}} <!-- Logged-in user\'s public collection -->\n\t\t\t{{username += " (you)"}}\n\t\t{{pass}}\n\t\t\t<a class=\'proper_a\' href="viewUserComics.html?user_id={{=usr_id}}">&nbsp;{{=username}}&nbsp;</a>\t\t\t\n\t{{pass}}\t\n\n</div>\n\n<h2 class=\'centered\'>5 biggest public boxes</h2>\n<!-- (UP TO) 5 biggest boxes followed by 5 newest boxes(can be empty)-->\n<div class=\'container clearfix\'>\n    {{cur_comic_n = 0}}\n    {{for index in range(len(boxes_info)):}}\n\t\t{{cur_box_id = boxes_info[index][\'id\']\n\t\t  owner = False}}\n\t\t{{if (boxes_info[index][\'owner_id\'] == session.current_user_id):\n\t\t\towner = True\n          pass}}\n\t\t{{owner_username = boxes_info[index][\'owner_usern\']}}\n\n        {{if index == len(boxes_info)/2:}}\n\t\t\t<h2 class=\'centered\'>5 newest public boxes</h2>\n\t\t{{pass}}\n        <div class=\'row clearfix\'>\n\t    <h3 class=\'centered\'>\n                <strong>{{=boxes_info[index][\'title\']}}</strong> created on {{=boxes_info[index][\'date_created\']}}\n\t    {{if ((index > 0) and owner):}}\t \n\t\t <a href="editBox.html?id={{=cur_box_id}}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>\n\t\t <span class="glyphicon glyphicon-trash selectable" onclick="deleteBox({{=cur_box_id}})" aria-hidden="true"></span>\n \t    {{pass}}\n            </h3>\n\t    {{for i in range(boxes_lengths[index]): }} <!-- Going through comics in this box-->\n\t\t\t{{comic_id = comics_data[cur_comic_n][0].id}}\n\t        <div class=\'col-md-2 centered blueish\'>\n\t\t\t\t<a href="viewComicFullInfo.html?id={{=comic_id}}&owner={{=str(owner)}}">\n\t        {{if(comics_data[cur_comic_n][0].image):}}\t\n\t            <img class=\'img_thumbnail\' src="{{=URL(\'download\', args=comics_data[cur_comic_n][0].image)}}" />\n\t        {{else:}}\n\t            <img class=\'img_thumbnail\' src="../../Longboxes/static/images/question.jpg" alt="My Logo" />\n\t        {{pass}}\n\t        <p>\n\t\t    {{=comics_data[cur_comic_n][0].title}} <br>\n\t            Issue number {{=comics_data[cur_comic_n][0].issue_number}} <br>\n\t\t\t\t{{if owner:}}\t            \n\t\t\t\t\tYou own this comic\n\t\t\t\t{{else:}}\n\t\t\t\t\t<strong>{{=owner_username}} owns this comic </strong>\n\t\t\t\t{{pass}}\n\t\t\t</p></a>\n\t\t\t{{if owner:}}\n\t\t\t\t{{comic_id = comics_data[cur_comic_n][0].id}}\n\t\t\t\t<span class="glyphicon glyphicon-trash selectable" onclick="deleteComic({{=cur_box_id}}, {{=comic_id}})" aria-hidden="true"></span>\n\t\t\t{{pass}}\n\t        </div>\n\t        {{cur_comic_n+=1}} <!-- Updating index of current comic so that next comic is known-->\n\t    {{pass}}\n\t</div>\n    {{pass}}\n\n</div>\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.IOError object>"
+p13
+sS'__str__'
+p14
+S"<method-wrapper '__str__' of exceptions.IOError object>"
+p15
+sS'__reduce__'
+p16
+S'<built-in method __reduce__ of exceptions.IOError object>'
+p17
+sS'__dict__'
+p18
+S'{}'
+p19
+sS'__sizeof__'
+p20
+S'<built-in method __sizeof__ of exceptions.IOError object>'
+p21
+sS'__init__'
+p22
+S"<method-wrapper '__init__' of exceptions.IOError object>"
+p23
+sS'__setattr__'
+p24
+S"<method-wrapper '__setattr__' of exceptions.IOError object>"
+p25
+sS'__reduce_ex__'
+p26
+S'<built-in method __reduce_ex__ of exceptions.IOError object>'
+p27
+sS'__new__'
+p28
+S'<built-in method __new__ of type object>'
+p29
+sS'errno'
+p30
+S'2'
+sS'__format__'
+p31
+S'<built-in method __format__ of exceptions.IOError object>'
+p32
+sS'__class__'
+p33
+S"<type 'exceptions.IOError'>"
+p34
+sS'filename'
+p35
+S"r'C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\applications\\Whatever\\views\\longboxes-layout.html'"
+p36
+sS'__doc__'
+p37
+S"'I/O operation failed.'"
+p38
+sS'__getitem__'
+p39
+S"<method-wrapper '__getitem__' of exceptions.IOError object>"
+p40
+sS'__setstate__'
+p41
+S'<built-in method __setstate__ of exceptions.IOError object>'
+p42
+sS'__getattribute__'
+p43
+S"<method-wrapper '__getattribute__' of exceptions.IOError object>"
+p44
+sS'args'
+p45
+S"(2, 'No such file or directory')"
+p46
+sS'__subclasshook__'
+p47
+S'<built-in method __subclasshook__ of type object>'
+p48
+sS'__unicode__'
+p49
+S'<built-in method __unicode__ of exceptions.IOError object>'
+p50
+sS'strerror'
+p51
+S"'No such file or directory'"
+p52
+sS'__delattr__'
+p53
+S"<method-wrapper '__delattr__' of exceptions.IOError object>"
+p54
+sS'__repr__'
+p55
+S"<method-wrapper '__repr__' of exceptions.IOError object>"
+p56
+sS'__hash__'
+p57
+S"<method-wrapper '__hash__' of exceptions.IOError object>"
+p58
+ssS'evalue'
+p59
+S"[Errno 2] No such file or directory: 'C:\\\\Users\\\\Jakub\\\\Downloads\\\\web2py_win\\\\web2py\\\\applications\\\\Whatever\\\\views\\\\longboxes-layout.html'"
+p60
+sS'frames'
+p61
+(lp62
+(dp63
+S'file'
+p64
+S'C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\gluon\\template.py'
+p65
+sS'dump'
+p66
+(dp67
+S'builtinopen'
+p68
+S'<built-in function open>'
+p69
+sS'fileobj'
+p70
+S'undefined'
+p71
+sS'filepath'
+p72
+S"r'C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\applications\\Whatever\\views\\longboxes-layout.html'"
+p73
+ssS'lnum'
+p74
+I450
+sS'lines'
+p75
+(dp76
+I448
+S'        # try to read the text.'
+p77
+sI449
+S'        try:'
+p78
+sI450
+S"            fileobj = open(filepath, 'rb')"
+p79
+sI451
+S'            text = fileobj.read()'
+p80
+sI452
+S'            fileobj.close()'
+p81
+sI453
+S'        except IOError:'
+p82
+sI454
+S"            self._raise_error('Unable to open included view file: ' + filepath)"
+p83
+sI445
+S'        # Get the path of the file on the system.'
+p84
+sI446
+S'        filepath = self.path and os.path.join(self.path, filename) or filename'
+p85
+sI447
+S''
+ssS'call'
+p86
+S"(self=<gluon.template.TemplateParser object>, filename='longboxes-layout.html')"
+p87
+sS'func'
+p88
+S'_get_file_text'
+p89
+sasS'pyver'
+p90
+S'Python 2.7.9: C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\web2py.exe (prefix: )'
+p91
+sS'etype'
+p92
+S"<type 'exceptions.IOError'>"
+p93
+sS'date'
+p94
+S'Fri Feb 12 17:43:25 2016'
+p95
+sS'locals'
+p96
+(dp97
+S'self'
+p98
+S'<gluon.template.TemplateParser object>'
+p99
+sS'filepath'
+p100
+S"r'C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\applications\\Whatever\\views\\longboxes-layout.html'"
+p101
+sS'context'
+p102
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AppConfig': <function AppConfig>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, ...}"
+p103
+sg35
+S"'longboxes-layout.html'"
+p104
+sssS'traceback'
+p105
+S'Traceback (most recent call last):\n  File "C:\\Users\\Jakub\\Downloads\\web2py_win\\web2py\\gluon\\template.py", line 450, in _get_file_text\n    fileobj = open(filepath, \'rb\')\nIOError: [Errno 2] No such file or directory: \'C:\\\\Users\\\\Jakub\\\\Downloads\\\\web2py_win\\\\web2py\\\\applications\\\\Whatever\\\\views\\\\longboxes-layout.html\'\n'
+p106
+s.

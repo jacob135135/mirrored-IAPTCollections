@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+  <head>
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
+  </head>
+  <title>
+    Whatever
+  </title>
+  <body>
+    <header role="banner">
+      <div id="header_top">
+        <div class="header_left">
+          <button class="btn btn-link"> Skip to content </button>
+          <button class="btn btn-link sml_spacing"> Skip to search </button>
+          <button class="btn btn-link sml_spacing"> Dyslexia </button>
+          <button class="btn btn-link med_spacing"> Contrast </button>
+
+          <button class="btn btn-link">A-</button>
+          <button class="btn btn-link">A</button>
+          <button class="btn btn-link">A+</button>
+        </div>
+        <div class="header_right">
+          <button class="btn btn-link sml_spacing">Website plan</button>
+          <button class="btn btn-link sml_spacing">Glossary</button>
+          <button class="btn btn-link">Log in</button>
+        </div>
+      </div>
+
+
+      <div id="header_bottom" class="clearfix">
+        <div class="header_left">
+
+            <a href="http://127.0.0.1:8000/Whatever/default/index">
+              <img src="../static/images/whatever.png" class="small_margins picture button_to_image" alt="page-logo">
+            </a>
+
+        </div>
+        <div id="main-search" class="small_margins pull-right">
+          <form method="post" action="/form2viewparameters" role="search">
+            <input type="hidden" name="Redirect" value="/search">
+            <label for="keywords" class="sr-only">Perform search</label>
+            <input type="search" id="keywords" name="keywords" placeholder="Search for ..." class="">
+            <input type="submit" value="Search" title="Search for this ..." class="">
+
+          </form>
+        </div>
+
+    </header>
+    <div>
+    <div id="left_div">
+      <button class="btn small_margins">My collection</button><br>
+      <button class="btn small_margins">My wishlist</button><br>
+      <button class="btn small_margins">Trade</button><br>
+      <button class="btn small_margins">Advanced search</button>
+    </div>
+
+    <div id="middle_div">
+      sfsdf
+    </div>
+
+     <div id="right_div">
+       Right Stuff
+     </div>
+
+     <br style="clear: left;" />
+</div>
+
+  </body>
+</html>
