@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+  <head>
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
+    <script src="{{=URL('static','js/whatever.js')}}"></script>
+    <script src="{{=URL('static','js/jquery.js')}}"></script>
+    <script>
+      $(document).ready (doStuffOnload);
+    </script>
+
+</head>
+  <title>
+    Whatever sdf
+  </title>
+  <body>
+    <header role="banner">
+      <div id="header_top">
+        <div class="header_left">
+          <a href="#middle_div"><button class="btn btn-link"> Skip to content </button></a>
+          <a href="#top_search"><button class="btn btn-link sml_spacing"> Skip to search </button></a>
+          <button id="dyslexia_btn" class="btn btn-link sml_spacing" onclick="toggleDyslexia()"> Dyslexia </button>
+          <button id="high_contrast_btn" class="btn btn-link med_spacing" onclick="toggleContrast()"> Contrast </button>
+
+          <button class="btn btn-link" onclick="decFont()">A-</button>
+          <button class="btn btn-link" onclick="applySizing(14)">A</button>
+          <button class="btn btn-link" onclick="incFont()">A+</button>
+        </div>
+        <div class="header_right">
+          <button class="btn btn-link sml_spacing">Website plan</button>
+          <button class="btn btn-link sml_spacing">Glossary</button>
+          <button class="btn btn-link">Log in</button>
+        </div>
+      </div>
+
+
+      <div id="header_bottom" class="clearfix">
+        <div class="header_left">
+
+            <a href={{=URL('default','index')}}>
+              <img src="../static/images/whatever.png" class="small_margins picture button_to_image" alt="page-logo">
+            </a>
+
+        </div>
+        <div class="col-md-3 pull-right small_margins">
+          <div class="input-group">
+            <label for="top_search" class="sr-only">Perform search</label>
+            <input type="text" id="top_search"  class="form-control child_size_of_parent" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button">Search</button>
+            </span>
+          </div>
+        </div>
+
+    </header>
+    <div>
+    <div id="left_div">
+      <button class="btn btn-primary small_margins full_width">My collection</button><br>
+      <button class="btn btn-primary small_margins full_width">My wishlist</button><br>
+      <button class="btn btn-primary small_margins full_width">Trade</button><br>
+      <button class="btn btn-primary small_margins full_width">Advanced search</button>
+    </div>
+
+    <div id="middle_div">
+      <h1 class="small_margins">Welcome to Whatever</h1>
+      <p>
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+        dsfsdfsdfsdfsdfsdf sdf sdf sdf sdfs dfsd fdsfsdfsdfsdfsdfsdf sdf sdf sd
+      </p>
+    </div>
+
+     <div id="right_div">
+       <h2 class="centered">Did you know?</h2>
+     </div>
+
+     <br style="clear: left;" />
+</div>
+
+  </body>
+</html>

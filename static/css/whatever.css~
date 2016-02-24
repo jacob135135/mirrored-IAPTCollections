@@ -1,0 +1,113 @@
+header
+{
+	min-width: 835px;
+	overflow:auto; 
+}
+
+#header_top
+{
+	background-color: #051c2e;
+	overflow: auto;
+}
+
+#header_bottom
+{
+	overflow: auto;
+}
+
+.centered
+ {
+	text-align: center;
+}
+
+.sml_spacing
+{
+	margin-left: 5px;
+}
+
+.med_spacing
+{
+	margin-left: 10px;
+}
+
+.big_spacing
+{
+	margin-left: 20px;
+}
+	
+.header_left
+{
+	float: left;
+	overflow: auto;
+}
+
+.header_right
+{
+	float: right;
+	overflow: auto;
+}
+
+
+.container 
+{
+	position: relative;
+}
+
+.small_margins
+{
+	margin: 5px;
+}
+
+.picture
+{
+	border-radius: 10px;
+	overflow: hidden;
+	vertical-align: baseline; /* default need to prevent bootstrap's middle*/
+}
+
+#search_div
+{
+	float: right;
+	#overflow: auto;
+}
+
+.max_width_300
+{
+	max-width: 240px;
+}
+
+.clickable
+{
+	cursor: pointer;
+}
+
+#left_div
+{
+	min-height: 300px;
+	background-color: #f3f3f3;
+	width: 250px;
+	float: left
+}
+
+#right_div
+{
+	float: right; 
+	width: 200px;
+	background-color: brown;
+	min-height: 300px;
+}
+
+#middle_div
+{
+	float: left;
+	background-color: yellow;
+	min-height: 300px;
+	min-width: 300px;
+	width: calc(100% - 450px);
+}
+
+.full_width
+{
+	width: calc(100% - 10px);
+}
+

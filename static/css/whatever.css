@@ -1,0 +1,140 @@
+@font-face { font-family: open-dyslexic; src: url('ttf/OpenDyslexic-Regular.ttf'); }
+
+
+header
+{
+	min-width: 835px;
+	overflow:auto;
+}
+
+body
+{
+	background-color: #F5F5F5;
+}
+#header_top
+{
+	background-color: #051c2e;
+	overflow: auto;
+}
+
+#header_bottom
+{
+	overflow: auto;
+}
+
+.centered
+ {
+	text-align: center;
+}
+
+.sml_spacing
+{
+	margin-left: 5px;
+}
+
+.med_spacing
+{
+	margin-left: 10px;
+}
+
+.big_spacing
+{
+	margin-left: 20px;
+}
+
+.header_left
+{
+	float: left;
+	overflow: auto;
+}
+
+.header_right
+{
+	float: right;
+	overflow: auto;
+}
+
+
+.container
+{
+	position: relative;
+}
+
+.small_margins
+{
+	margin: 5px;
+}
+
+.picture
+{
+	border-radius: 10px;
+	overflow: hidden;
+	vertical-align: baseline; /* default need to prevent bootstrap's middle*/
+}
+
+#search_div
+{
+	float: right;
+	#overflow: auto;
+}
+
+.clickable
+{
+	cursor: pointer;
+}
+
+#left_div
+{
+	min-height: 300px;
+	background-color: #edd9c0;
+	width: 250px;
+	float: left
+}
+
+#right_div
+{
+	float: right;
+	width: 200px;
+	background-color: #c9d8c5;
+	min-height: 300px;
+}
+
+#middle_div
+{
+	float: left;
+	background-color: #fae596;
+	min-height: 300px;
+	min-width: 300px;
+	width: calc(100% - 450px);
+}
+
+.full_width
+{
+	width: calc(100% - 10px);
+}
+
+.dyslexia
+{
+	font-family: open-dyslexic;
+}
+
+#dyslexia_btn.dyslexia
+{
+	font-weight: bold;
+}
+
+.child_size_of_parent
+{
+	height: 100%;
+}
+
+.high_contrast * {
+    background-color: yellow!important;
+    background-image: none!important;
+    color: black!important;
+}
+
+#high_contrast_btn.high_contrast
+{
+	font-weight: bold;
+}
