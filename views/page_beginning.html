@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+  <head>
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
+    <script src="{{=URL('static','js/whatever.js')}}"></script>
+    <script src="{{=URL('static','js/jquery.js')}}"></script>
+    <script>
+      $(document).ready (doStuffOnload);
+    </script>
+
+</head>
+  <title>
+    Whatever sdf
+  </title>
+  <body>
+    <header role="banner">
+      <div id="header_top">
+        <div class="header_left">
+          <a href="#middle_div"><button class="btn btn-link"> Skip to content </button></a>
+          <a href="#top_search"><button class="btn btn-link sml_spacing"> Skip to search </button></a>
+          <button id="dyslexia_btn" class="btn btn-link sml_spacing" onclick="toggleDyslexia()"> Dyslexia </button>
+          <button id="high_contrast_btn" class="btn btn-link med_spacing" onclick="toggleContrast()"> Contrast </button>
+
+          <button id="sm_a" class="btn btn-link" onclick="decFont()">A-</button>
+          <button class="btn btn-link" onclick="applySizing(14)">A</button>
+          <button id="aa" class="btn btn-link" onclick="incFont()">A+</button>
+        </div>
+        <div class="header_right">
+          <button class="btn btn-link sml_spacing">Website plan</button>
+          <button class="btn btn-link sml_spacing">Glossary</button>
+          <button class="btn btn-link">Log in</button>
+        </div>
+      </div>
+
+
+      <div id="header_bottom">
+        <div class="header_left">
+            <a href="http://127.0.0.1:8000/IAPTCollections/default/index">
+              <img src="../static/images/whatever.png" class="small_margins picture button_to_image" alt="page-logo">
+            </a>
+
+        </div>
+        <div class="properly_centered">
+          <div id='search_div' class="col-md-5 small_margins">
+            <div class="input-group">
+              <label for="top_search" class="sr-only">Perform search</label>
+              <input type="text" class="form-control " placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">Search</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div style="display: -webkit-flex; display: flex;">
+      <div id="left_div">
+        <button class="btn btn-primary small_margins full_width">My collection</button><br>
+        <button class="btn btn-primary small_margins full_width">My wishlist</button><br>
+        <button class="btn btn-primary small_margins full_width">My have list</button><br>
+        <button class="btn btn-primary small_margins full_width">Trade</button><br>
+        <button class="btn btn-primary small_margins full_width">Advanced search</button>
+      </div>
