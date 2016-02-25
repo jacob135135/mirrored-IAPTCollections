@@ -10,16 +10,19 @@ header
 body
 {
 	background-color: #F5F5F5;
+	word-wrap: break-word;
 }
 #header_top
 {
 	background-color: #051c2e;
 	overflow: auto;
+	border-bottom: 1px solid #051c2e;
 }
 
 #header_bottom
 {
-	overflow: auto;
+	display: -webkit-flex;
+  display: flex;
 }
 
 .centered
@@ -46,6 +49,8 @@ body
 {
 	float: left;
 	overflow: auto;
+	-webkit-flex: none;
+	flex: none;
 }
 
 .header_right
@@ -53,7 +58,6 @@ body
 	float: right;
 	overflow: auto;
 }
-
 
 .container
 {
@@ -72,11 +76,11 @@ body
 	vertical-align: baseline; /* default need to prevent bootstrap's middle*/
 }
 
-#search_div
+/*#search_div
 {
 	float: right;
 	#overflow: auto;
-}
+}*/
 
 .clickable
 {
@@ -85,27 +89,26 @@ body
 
 #left_div
 {
-	min-height: 300px;
+	-webkit-flex: none;
+          flex: none;
+  width: 250px;
 	background-color: #edd9c0;
-	width: 250px;
-	float: left
 }
 
 #right_div
 {
-	float: right;
+	-webkit-flex: none;
+          flex: none;
 	width: 200px;
 	background-color: #c9d8c5;
-	min-height: 300px;
 }
 
 #middle_div
 {
-	float: left;
+	-webkit-flex: 3;
+          flex: 3;
 	background-color: #fae596;
-	min-height: 300px;
-	min-width: 300px;
-	width: calc(100% - 450px);
+	min-width: 450px;
 }
 
 .full_width
@@ -129,9 +132,14 @@ body
 }
 
 .high_contrast * {
-    background-color: yellow!important;
-    background-image: none!important;
-    color: black!important;
+  background-color: yellow!important;
+  background-image: none!important;
+  color: black!important;
+}
+
+div .high_contrast
+{
+	border: 1px solid black;
 }
 
 #high_contrast_btn.high_contrast
@@ -139,7 +147,52 @@ body
 	font-weight: bold;
 }
 
-#formformat{
-    margin-left: 30%;
-    margin-right:30%;
+span.centered:first-child
+{
+  background-color: #f8f;
+  float: left;
+}
+
+span.centered:last-child
+{
+  background-color: #8ff;
+  float: right;
+}
+
+.item_placeholder
+{
+	height: 100px;
+	width: 100px;
+}
+
+#search_div
+{
+	#position: absolute;
+	#left: calc(50% - 160px);
+	#padding-top: 40px;
+}
+
+.item_view
+{
+  display: inline-block;
+  width: 180px;
+  height: 100px;
+  margin: 1px 0px 0px 0px;
+}
+
+
+img.item_view
+{
+	width: 180px;
+	height: 80px;
+}
+
+.properly_centered
+{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
