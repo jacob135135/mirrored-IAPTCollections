@@ -21,6 +21,7 @@ function toggleDyslexia()
 {
 	$('.btn').toggleClass("dyslexia");
 	$('body').toggleClass("dyslexia");
+	$('div').toggleClass("dyslexia");
 
 	localStorage.setItem('dyslexia_on', "");
 	if ($("body").hasClass("dyslexia"))
@@ -31,6 +32,11 @@ function toggleContrast()
 {
 	$('.btn').toggleClass("high_contrast");
 	$('body').toggleClass("high_contrast");
+	$('#left_div').toggleClass("high_contrast");
+	$('#right_div').toggleClass("high_contrast");
+	$('#middle_div').toggleClass("high_contrast");
+	$('#top_search').toggleClass("high_contrast");
+	$('#header_top').toggleClass("high_contrast");
 
 	localStorage.setItem('high_contrast_on', "");
 	if ($("body").hasClass("high_contrast"))
@@ -68,5 +74,7 @@ function applySizing(req_size)
   $('body').css('font-size', req_size);
   $('.btn').css('font-size', req_size);
   $('input').css('font-size', req_size);
+	$('#sm_a').css('font-size', req_size - 2);
+	$('#aa').css('font-size', req_size + 4);
   localStorage.setItem('font_req_size', req_size);
 }
