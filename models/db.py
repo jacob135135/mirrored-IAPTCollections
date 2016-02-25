@@ -19,22 +19,21 @@ db = DAL('sqlite://whatever.db')
 auth = Auth(db)
 db.define_table(
     auth.settings.table_user_name,
-    Field('username', length=128, default='',unique=True),
-    Field('password', 'password', length=512,
+    Field('username', length=128, default='',unique=True), # required
+    Field('password', 'password', length=512,            # required
           readable=False, label='Password'),
-    Field('registration_key', length=512,
+    Field('registration_key', length=512,                # required
           writable=False, readable=False, default=''),
-    Field('reset_password_key', length=512,
+    Field('reset_password_key', length=512,              # required
           writable=False, readable=False, default=''),
-    Field('registration_id', length=512,
+    Field('registration_id', length=512,                 # required
           writable=False, readable=False, default=''))
 
-#validators
+## do not forget validators
 custom_auth_table = db[auth.settings.table_user_name] # get the custom_auth_table
 custom_auth_table.username.requires =   IS_NOT_EMPTY(error_message=auth.messages.is_empty)
 custom_auth_table.password.requires = [ CRYPT()]
-custom_auth_table.username.requires = [
-  IS_NOT_IN_DB(db, custom_auth_table.username)]
+custom_auth_table.username.requires = [IS_NOT_IN_DB(db, custom_auth_table.username)]
 
 
 auth.settings.table_user = custom_auth_table # tell auth to use custom_auth_table
@@ -43,7 +42,7 @@ auth.define_tables(username=True)
 
 db.define_table('collection',
 Field('dateCreated','date',readable = False, writable = False, default = datetime.date.today()),
-Field('private','boolean'),
+Field('private','boolean', default = True),
 Field('name','string', length = 128),
 Field('ownedBy','reference auth_user', readable = False, writable = False, default = auth.user))
 
@@ -53,7 +52,7 @@ db.collection.name.requires = IS_NOT_EMPTY(error_message="Please enter a name fo
 
 
 db.define_table('item',
-Field('image','string'),
+Field('image','upload'),
 Field('name','string'),
 Field('price','integer'),
 Field('type', 'list:string'),
@@ -66,7 +65,7 @@ db.item.name.requires = IS_NOT_EMPTY(error_message="Please add a name for the it
 db.item.description.requires = IS_LENGTH(maxsize=300, error_message = "Description is too long. Maximum 300 characters")
 
 if auth.user:
-    db.item.inCollection.requires = IS_IN_DB(db(db.collection.ownedBy==auth.user.id), 'collection.id', '%(name)s', multiple = True)
+    db.item.inCollection.requires = IS_IN_DB(db((db.collection.ownedBy==auth.user.id) &(db.collection.name != "Want List") & (db.collection.name != "Have List")), 'collection.id', '%(name)s', multiple = True)
 else: db.item.inCollection.requires = IS_IN_DB(db(db.collection.id > 0), 'collection.id', '%(name)s')
 
 db.item.type.requires = IS_IN_SET(['Advertising and Brand',

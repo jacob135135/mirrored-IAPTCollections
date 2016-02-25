@@ -38,7 +38,14 @@ def user():
     """
     return dict(form=auth())
 
-
+def addItem():
+    addform = SQLFORM(db.item, formstyle = 'bootstrap3_stacked')
+    if addform.process().accepted:
+       response.flash = 'form accepted'
+       redirect(URL('default','index'))
+    elif addform.errors:
+       response.flash = 'form has errors'
+    return dict (form=addform)
 @cache.action()
 def download():
     """
