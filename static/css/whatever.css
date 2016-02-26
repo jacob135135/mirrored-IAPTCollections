@@ -76,12 +76,6 @@ body
 	vertical-align: baseline; /* default need to prevent bootstrap's middle*/
 }
 
-/*#search_div
-{
-	float: right;
-	#overflow: auto;
-}*/
-
 .clickable
 {
 	cursor: pointer;
@@ -190,6 +184,8 @@ img.item_view
 .properly_centered
 {
   display: -webkit-flex;
+	-webkit-flex: 3;
+          flex: 3;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
