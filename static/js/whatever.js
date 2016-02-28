@@ -78,3 +78,12 @@ function applySizing(req_size)
 	$('#aa').css('font-size', req_size + 4);
   localStorage.setItem('font_req_size', req_size);
 }
+
+function deleteCollection(collection_id)
+{
+	ask=confirm("Are you sure you want to delete this collection? \n Items contained in this collection will be permanently lost");
+    if(ask)
+	{
+		window.location="deleteCollection?id=" + collection_id;
+	}
+}

@@ -192,3 +192,8 @@ img.item_view
   -webkit-justify-content: center;
   justify-content: center;
 }
+
+.collection_span
+{
+	font-size: 30px;
+}

@@ -64,4 +64,17 @@ def call():
     """
     return service()
 
+def collections():
+    return dict()
 
+def collection():
+    return dict()
+
+def new_collection():
+    return dict()
+
+def edit_collection():
+    return dict()
+
+def add_to_collection():
+    return dict()
