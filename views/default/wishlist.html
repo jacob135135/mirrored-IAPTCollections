@@ -1,0 +1,47 @@
+{{include 'page_beginning.html'}}
+
+      <div id="middle_div">
+        <h1 class="small_margins">My wishlist</h1>
+      </br>
+
+        <div class="col-xs-7">
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm selected"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
+          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
+          <br>
+          <button onclick="window.location.href='add_to_wishlist'" class="btn btn-default small_margins">Add new item to wishlist</button>
+        </div>
+
+        <div class="col-xs-5">
+            <div class="item_view"><img src="../static/images/question.jpg" alt="img1" class="item_view img-rounded"></div>
+            <div>
+              Name: <b>whatever</b><br>
+              Value: £30<br>
+              (Other stuff??)
+              <br>
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" rows="8" disabled>Sample text that was given in description, Maybe need to say somewhere to edit go to collection or sth...
+              </textarea>
+              <button onclick="window.location.href='edit_wishlist_item'" class="btn btn-default small_margins">Edit item</button>
+              <button class="btn btn-default small_margins">Remove from wishlist</button>
+            </div>
+
+
+
+        </div>
+
+      </div>
+
+{{include 'page_end.html'}}

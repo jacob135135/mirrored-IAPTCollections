@@ -78,3 +78,15 @@ def edit_collection():
 
 def add_to_collection():
     return dict()
+
+def wishlist():
+    return dict()
+
+def have_list():
+    return dict()
+
+def edit_wishlist_item():
+    return dict()
+
+def add_to_wishlist():
+    return dict()
