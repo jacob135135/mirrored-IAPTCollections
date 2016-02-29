@@ -31,11 +31,12 @@ function toggleDyslexia()
 function toggleContrast()
 {
 	$('.btn').toggleClass("high_contrast");
+	$('input').toggleClass("high_contrast");
+	$('textarea').toggleClass("high_contrast");
 	$('body').toggleClass("high_contrast");
 	$('#left_div').toggleClass("high_contrast");
 	$('#right_div').toggleClass("high_contrast");
 	$('#middle_div').toggleClass("high_contrast");
-	$('#top_search').toggleClass("high_contrast");
 	$('#header_top').toggleClass("high_contrast");
 
 	localStorage.setItem('high_contrast_on', "");
@@ -86,4 +87,17 @@ function deleteCollection(collection_id)
 	{
 		window.location="deleteCollection?id=" + collection_id;
 	}
+}
+function init_price_range()
+{
+	$('#price_range_slider').jRange({
+    from: 0,
+    to: 100,
+    step: 5,
+    scale: [0,25,50,75,100],
+    format: '£%s',
+    width: 230,
+    showLabels: true,
+    isRange : true});
+		$('#price_range_slider').jRange('setValue', '0,100');
 }
