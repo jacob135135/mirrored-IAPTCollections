@@ -3,7 +3,7 @@
 
 header
 {
-	min-width: 835px;
+	min-width: 980px;
 	overflow:auto;
 }
 
@@ -17,6 +17,7 @@ body
 	background-color: #051c2e;
 	overflow: auto;
 	border-bottom: 1px solid #051c2e;
+	min-width: 980px;
 }
 
 #header_bottom
@@ -51,12 +52,14 @@ body
 	overflow: auto;
 	-webkit-flex: none;
 	flex: none;
+	min-width: 600px;
 }
 
 .header_right
 {
 	float: right;
 	overflow: auto;
+	min-width: 300px;
 }
 
 .container
