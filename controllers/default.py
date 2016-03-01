@@ -71,7 +71,19 @@ def collection():
     return dict()
 
 def new_collection():
-    return dict()
+    addform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
+               DIV(INPUT(_name='name', _placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
+               DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked="checked"),'Private?'),_class="checkbox col-xs-12"),
+               DIV(INPUT(_type='submit',_class="btn btn-default"),_class="col-xs-12"),_class="small_margins")
+    if addform.accepts(request,session):
+        db.collection.insert(name=request.vars.name,private=request.vars.private)
+        db.commit
+        response.flash = 'New product added to store.'
+    elif addform.errors:
+        response.flash = 'One or more of your form fields has an error. Please see below for more information'
+    else:
+        response.flash = 'Please complete the form below to add a new product.'
+    return dict(addform=addform)
 
 def edit_collection():
     return dict()
@@ -89,7 +101,4 @@ def edit_wishlist_item():
     return dict()
 
 def add_to_wishlist():
-    return dict()
-
-def advanced_search():
     return dict()

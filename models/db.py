@@ -13,6 +13,8 @@ import datetime
 #    db = DAL(myconf.take('db.uri'), pool_size=myconf.take('db.pool_size', cast=int), check_reserved=['all'])
 #else:
     ## connect to Google BigTable (optional 'google:datastore://namespace')
+
+
 db = DAL('sqlite://whatever.db')
 
 
@@ -42,13 +44,16 @@ auth.define_tables(username=True)
 
 db.define_table('collection',
 Field('dateCreated','date',readable = False, writable = False, default = datetime.date.today()),
-Field('private','boolean', default = True),
-Field('name','string', length = 128),
+Field('name','string', label='Name*', length = 128),
+Field('private','boolean',label='Private?', default = True),
 Field('ownedBy','reference auth_user', readable = False, writable = False, default = auth.user))
 
 #validators
 db.collection.dateCreated.requires = IS_DATE(format=T('%d-%m-%Y'),error_message='Date must be in format DD-MM-YYYY')
 db.collection.name.requires = IS_NOT_EMPTY(error_message="Please enter a name for the collection")
+db.collection.name.widget = lambda f,v: SQLFORM.widgets.string.widget(f, v,
+    _placeholder='Name of collection...', _class = "form-control")
+
 
 
 db.define_table('item',
