@@ -164,9 +164,7 @@ span.centered:last-child
 
 #search_div
 {
-	#position: absolute;
-	#left: calc(50% - 160px);
-	#padding-top: 40px;
+	width: 400px;
 }
 
 .item_view
@@ -236,4 +234,18 @@ img.item_view_sm
 .selected
 {
 	border: 5px solid blue;
+}
+
+button.transp
+{
+	background-color: inherit;
+}
+.glyphicon
+{
+	font-size: 25px;
+}
+
+.h_with_icons
+{
+	display:inline;
 }
