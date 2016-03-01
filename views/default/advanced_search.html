@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="{{=URL('static','css/jquery.range.css')}}"/>
 <script src="{{=URL('static','js/jquery.range-min.js')}}"></script>
-<script>$(document).ready(init_price_range)</script>
 
       <div id="middle_div">
         <form class="small_margins">
@@ -10,8 +9,14 @@
             <label for="name">Keyword*</label>
             <input class="form-control" id="name" placeholder="Search for...">
             <br>
-            <label for="price_range_slider">Price range*</label><br><br>
-            <input id="price_range_slider">
+            <div class="form-group col-xs-6">
+              <label for="price_range_min">Minimum price (in £)*</label>
+              <input id="price_range_min" value='0'>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="price_range_max">Maximum price (in £)*</label>
+              <input id="price_range_max" value='1000'>
+            </div>
             <br><br>
             <label class="checkbox-inline">
               <input type="checkbox" id="inlineCheckbox3" value="option3"> Search my collection

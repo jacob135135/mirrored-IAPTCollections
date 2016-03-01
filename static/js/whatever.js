@@ -88,16 +88,3 @@ function deleteCollection(collection_id)
 		window.location="deleteCollection?id=" + collection_id;
 	}
 }
-function init_price_range()
-{
-	$('#price_range_slider').jRange({
-    from: 0,
-    to: 100,
-    step: 5,
-    scale: [0,25,50,75,100],
-    format: '£%s',
-    width: 230,
-    showLabels: true,
-    isRange : true});
-		$('#price_range_slider').jRange('setValue', '0,100');
-}

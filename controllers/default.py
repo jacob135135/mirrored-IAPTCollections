@@ -102,3 +102,6 @@ def edit_wishlist_item():
 
 def add_to_wishlist():
     return dict()
+
+def advanced_search():
+    return dict()
