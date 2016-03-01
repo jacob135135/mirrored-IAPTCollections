@@ -174,7 +174,7 @@ span.centered:last-child
   height: 100px;
   margin: 1px 0px 0px 0px;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 
@@ -197,7 +197,7 @@ img.item_view_sm
 {
 	width: 100px;
 	height: 70px;
-	margin-bottom: : 20px;
+	margin-bottom: : 15px;
 }
 .properly_centered
 {

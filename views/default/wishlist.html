@@ -21,7 +21,7 @@
           <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
           <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
           <br>
-          <button onclick="window.location.href='add_to_wishlist'" class="btn btn-default small_margins">Add new item to wishlist</button>
+          <button onclick="window.location.href='add_to_wishlist'" class="transp small_margins"><span class="glyphicon glyphicon-plus-sign"></span>Add new item to wishlist</button>
         </div>
 
         <div class="col-xs-5">
@@ -34,14 +34,11 @@
               <label for="description">Description:</label>
               <textarea class="form-control" id="description" rows="8" disabled>Sample text that was given in description, Maybe need to say somewhere to edit go to collection or sth...
               </textarea>
-              <button onclick="window.location.href='edit_wishlist_item'" class="btn btn-default small_margins">Edit item</button>
-              <button class="btn btn-default small_margins">Remove from wishlist</button>
+              <button onclick="window.location.href='edit_wishlist_item'" class="transp small_margins"><span class="glyphicon glyphicon-edit"></span>edit item</button>
+              <button class="transp small_margins"><span class="glyphicon glyphicon-trash"></span>remove from wishlist</button>
+
             </div>
-
-
-
         </div>
-
       </div>
 
 {{include 'page_end.html'}}
