@@ -46,7 +46,7 @@
 
       <div id="header_bottom">
             <a href="{{=URL('default', 'index')}}">
-              <img src="../static/images/whatever.png" class="small_margins picture button_to_image" alt="page-logo">
+              <img src="{{=URL('static','images/whatever.png')}}" class="small_margins picture button_to_image" alt="page-logo">
             </a>
 
         <div class="properly_centered">
@@ -65,9 +65,9 @@
 
     <div class="flex_div">
       <div id="left_div">
-        <button onclick="window.location.href='collections'" class="btn btn-primary small_margins full_width">My collections</button><br>
-        <button onclick="window.location.href='wishlist'" class="btn btn-primary small_margins full_width">My wishlist</button><br>
-        <button onclick="window.location.href='have_list'" class="btn btn-primary small_margins full_width">My have list</button><br>
+         <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">My collections</button><br></a>
+         <a href="{{=URL('default','wishlist')}}"><button class="btn btn-primary small_margins full_width">My wishlist</button><br></a>
+         <a href="{{=URL('default','have_list')}}"><button class="btn btn-primary small_margins full_width">My have list</button><br></a>
         <button class="btn btn-primary small_margins full_width">Trade</button><br>
-        <button onclick="window.location.href='advanced_search'" class="btn btn-primary small_margins full_width">Advanced search</button>
+         <a href="{{=URL('default','advanced_search')}}"><button class="btn btn-primary small_margins full_width">Advanced search</button></a>
       </div>
