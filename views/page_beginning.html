@@ -27,9 +27,19 @@
           <button id="aa" class="btn btn-link" onclick="incFont()">A+</button>
         </div>
         <div class="header_right">
+          {{if auth.user:}} <!--Have username and logout if logged in-->
+          <a href="{{=URL('default','collections')}}"><button class="btn btn-link sml_spacing">{{=auth.user.username}}</button></a>
           <button class="btn btn-link sml_spacing">Website plan</button>
           <button class="btn btn-link sml_spacing">Glossary</button>
-          <button class="btn btn-link">Log in</button>
+          <a href="{{=URL('default','user/logout')}}"><button class="btn btn-link">Logout</button></a>
+
+          {{else:}} <!--Have register and login buttons if not logged in-->
+          <a href="{{=URL('default','user/register')}}"><button class="btn btn-link sml_spacing">Register</button></a>
+          <button class="btn btn-link sml_spacing">Website plan</button>
+          <button class="btn btn-link sml_spacing">Glossary</button>
+          <a href="{{=URL('default','user/login')}}"><button class="btn btn-link">Log in</button></a>
+          {{pass}}
+
         </div>
       </div>
 
