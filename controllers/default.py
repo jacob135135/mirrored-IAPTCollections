@@ -63,8 +63,9 @@ def collections():
                     items = db((db.item.ownedBy == auth.user.id)).select())
     else:
         return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select())
+
 def collection():
-    return dict()
+    return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
 
 def new_collection():
     addform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),

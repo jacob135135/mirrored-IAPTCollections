@@ -15,9 +15,9 @@
          {{if c.id in i.inCollection: }}
 
           {{if i.image == None:}}
-            <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="img1" class="item_view"><br>{{=i.name}}</div>
+            <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="img1" class="item_view"><br><b>{{=i.name}}</b></div>
           {{else:}}
-          <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img1" class="item_view"><br>{{=i.name}}</div>
+          <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img1" class="item_view"><br><b>{{=i.name}}</b></div>
           {{pass}}
           {{pass}}
           {{pass}}
