@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
     <script src="{{=URL('static','js/whatever.js')}}"></script>
     <script src="{{=URL('static','js/jquery.js')}}"></script>
+    <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script>
       $(document).ready (doStuffOnload);
     </script>
@@ -37,7 +38,9 @@
           <a href="{{=URL('default','user/register')}}"><button class="btn btn-link sml_spacing">Register</button></a>
           <button class="btn btn-link sml_spacing">Website plan</button>
           <button class="btn btn-link sml_spacing">Glossary</button>
-          <a href="{{=URL('default','user/login')}}"><button class="btn btn-link">Log in</button></a>
+          <!-- <a href="{{=URL('default','user/login')}}"><button class="btn btn-link">Log in</button></a> -->
+           <button class="btn btn-link" data-toggle="modal" data-target="#myModal">Log in</button>
+           {{include 'login_modal.html'}}
           {{pass}}
 
         </div>
