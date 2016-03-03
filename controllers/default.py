@@ -146,3 +146,6 @@ def add_to_wishlist():
 
 def advanced_search():
     return dict()
+
+def trade():
+    return dict()

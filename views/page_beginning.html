@@ -3,11 +3,13 @@
   <head>
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/jquery-ui.css')}}"/>
+
     <script src="{{=URL('static','js/whatever.js')}}"></script>
     <script src="{{=URL('static','js/jquery.js')}}"></script>
-    <script>
-      $(document).ready (doStuffOnload);
-    </script>
+    <script src="{{=URL('static','js/jquery-ui.js')}}"></script>
+
+    <script>$(document).ready (doStuffOnload);</script>
 
 </head>
   <title>
@@ -68,6 +70,6 @@
          <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">My collections</button><br></a>
          <a href="{{=URL('default','wishlist')}}"><button class="btn btn-primary small_margins full_width">My wishlist</button><br></a>
          <a href="{{=URL('default','have_list')}}"><button class="btn btn-primary small_margins full_width">My have list</button><br></a>
-        <button class="btn btn-primary small_margins full_width">Trade</button><br>
+         <a href="{{=URL('default','trade')}}"><button class="btn btn-primary small_margins full_width">Trade</button><br></a>
          <a href="{{=URL('default','advanced_search')}}"><button class="btn btn-primary small_margins full_width">Advanced search</button></a>
       </div>
