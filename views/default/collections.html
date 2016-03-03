@@ -6,16 +6,25 @@
         <br><br><br><br>
         {{for c in collections:}}
         <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
-          &nbsp;<button onclick="window.location.href='collection'" class="transp"><span class="glyphicon glyphicon-eye-open"></span>view</button>
-          &nbsp;<button onclick="window.location.href='add_to_collection'" class="transp"><span class="glyphicon glyphicon-plus-sign"></span>add</button>
-          &nbsp;<button onclick="window.location.href='edit_collection/'+ {{=c.id}}" class="transp"><span class="glyphicon glyphicon-edit"></span>edit</button>
+          &nbsp;<a href="{{=URL('default','collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-eye-open"></span>view</button></a>
+          &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>add</button></a>
+          &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>edit</button></a>
           &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>del</button>
-
         <div class="centered small_margins">
-          <div class="item_view"><img src="../static/images/question.jpg" alt="img1" class="item_view"><br>whatever</div>
-          <div class="item_view"><img src="../static/images/question.jpg" alt="img2" class="item_view"><br>whatever</div>
-        </div>
+         {{for i in items:}}
+         {{if c.id in i.inCollection: }}
+
+          {{if i.image == None:}}
+            <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="img1" class="item_view"><br>{{=i.name}}</div>
+          {{else:}}
+          <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img1" class="item_view"><br>{{=i.name}}</div>
+          {{pass}}
+          {{pass}}
+          {{pass}}
+          </div>
         <br><br>
+
+
         {{pass}}
 
 
