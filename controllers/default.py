@@ -149,3 +149,6 @@ def advanced_search():
 
 def trade():
     return dict()
+
+def trade_history():
+    return dict()

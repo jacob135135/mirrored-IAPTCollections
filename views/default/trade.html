@@ -2,7 +2,8 @@
     <script>$(document).ready (initTrade);</script>
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">Trade</h1>
-        <button id="better_trade_view" class="btn btn-primary small_margins">better view(coming soon)</button>
+        <button id="better_trade_view" class="transp small_margins"><span class="glyphicon glyphicon-fullscreen"></span>better view</button>
+
         <span class="glyphicon glyphicon-info-sign small_margins go_left"></span>
         <p class="small_margins ">
 
@@ -45,7 +46,11 @@
         </div>
       </div>
 
-        <button id="propose_trade" class="btn btn-primary small_margins">Propose trade</button>
+        <button id="propose_trade" class="transp small_margins"><span class="glyphicon glyphicon-shopping-cart"></span>propose trade</button>
+        <a href="{{=URL('default','trade_history')}}">
+          <button id="view_trade_hist" class="transp small_margins"><span class="glyphicon glyphicon-list-alt"></span>trade history</button>
+        </a>
+
       </div>
 
 {{include 'page_end.html'}}
