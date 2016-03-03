@@ -88,14 +88,3 @@ function deleteCollection(collection_id)
 		window.location="deleteCollection?id=" + collection_id;
 	}
 }
-
-function initTrade()
-{
-		$( "#sortable1, #sortable2" ).sortable({
-			connectWith: ".connectedSortable"
-		}).disableSelection();
-
-		$( "#sortable3, #sortable4" ).sortable({
-			connectWith: ".connectedSortable2"
-		}).disableSelection();
-}

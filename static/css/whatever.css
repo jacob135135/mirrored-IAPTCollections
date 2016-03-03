@@ -26,13 +26,25 @@ body
   display: flex;
 }
 
-.centered {text-align: center;}
+.centered
+ {
+	text-align: center;
+}
 
-.sml_spacing {margin-left: 5px;}
+.sml_spacing
+{
+	margin-left: 5px;
+}
 
-.med_spacing {margin-left: 10px;}
+.med_spacing
+{
+	margin-left: 10px;
+}
 
-.big_spacing {margin-left: 20px;}
+.big_spacing
+{
+	margin-left: 20px;
+}
 
 .header_left
 {
@@ -50,9 +62,15 @@ body
 	min-width: 300px;
 }
 
-.container {position: relative;}
+.container
+{
+	position: relative;
+}
 
-.small_margins {margin: 5px;}
+.small_margins
+{
+	margin: 5px;
+}
 
 .picture
 {
@@ -61,7 +79,10 @@ body
 	vertical-align: baseline; /* default need to prevent bootstrap's middle*/
 }
 
-.clickable {cursor: pointer;}
+.clickable
+{
+	cursor: pointer;
+}
 
 #left_div
 {
@@ -87,13 +108,25 @@ body
 	min-width: 530px;
 }
 
-.full_width {width: calc(100% - 10px);}
+.full_width
+{
+	width: calc(100% - 10px);
+}
 
-.dyslexia {font-family: open-dyslexic;}
+.dyslexia
+{
+	font-family: open-dyslexic;
+}
 
-#dyslexia_btn.dyslexia {font-weight: bold;}
+#dyslexia_btn.dyslexia
+{
+	font-weight: bold;
+}
 
-.child_size_of_parent {height: 100%;}
+.child_size_of_parent
+{
+	height: 100%;
+}
 
 .high_contrast * {
   background-color: yellow!important;
@@ -101,9 +134,15 @@ body
   color: black!important;
 }
 
-div .high_contrast {border: 1px solid black;}
+div .high_contrast
+{
+	border: 1px solid black;
+}
 
-#high_contrast_btn.high_contrast {font-weight: bold;}
+#high_contrast_btn.high_contrast
+{
+	font-weight: bold;
+}
 
 span.centered:first-child
 {
@@ -123,7 +162,10 @@ span.centered:last-child
 	width: 100px;
 }
 
-#search_div {width: 400px;}
+#search_div
+{
+	width: 400px;
+}
 
 .item_view
 {
@@ -169,45 +211,41 @@ img.item_view_sm
   justify-content: center;
 }
 
-.collection_span {font-size: 30px;}
+.collection_span
+{
+	font-size: 30px;
+}
 
-.flex_div {display: -webkit-flex; display: flex;}
+.flex_div
+{
+	display: -webkit-flex; display: flex;
+}
 
-.min250px {min-width: 250px;}
+.min250px
+{
+	min-width: 250px;
+}
 
-.min150px {min-width: 150px;}
+.min150px
+{
+	min-width: 150px;
+}
 
-.selected {border: 5px solid blue;}
+.selected
+{
+	border: 5px solid blue;
+}
 
-button.transp {background-color: inherit;}
+button.transp
+{
+	background-color: inherit;
+}
+.glyphicon
+{
+	font-size: 25px;
+}
 
-.glyphicon {font-size: 25px;}
-
-.h_with_icons {display:inline;}
-
-#sortable1, #sortable2, #sortable3, #sortable4 {
-		border: 1px solid black;
-		width: 142px;
-		min-height: 200px;
-		list-style-type: none;
-		margin: 0;
-		padding: 5px 0 0 0;
-		float: left;
-		margin-right: 10px;
-	}
-	#sortable1 li, #sortable2 li #sortable3 li, #sortable4 li{
-		margin: 0 5px 5px 5px;
-		padding: 5px;
-		font-size: 1.2em;
-		width: 120px;
-	}
-
-	#propose_trade {margin-top: 25px;}
-
-	.go_left {float: left;}
-
-	#better_trade_view
-	{
-		float: right;
-		margin-right: 20px;
-	}
+.h_with_icons
+{
+	display:inline;
+}

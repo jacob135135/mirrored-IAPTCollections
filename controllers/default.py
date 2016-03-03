@@ -38,14 +38,7 @@ def user():
     """
     return dict(form=auth())
 
-def addItem():
-    addform = SQLFORM(db.item, formstyle = 'bootstrap3_stacked')
-    if addform.process().accepted:
-       response.flash = 'form accepted'
-       redirect(URL('default','index'))
-    elif addform.errors:
-       response.flash = 'form has errors'
-    return dict (form=addform)
+
 @cache.action()
 def download():
     """
@@ -66,7 +59,8 @@ def call():
 
 def collections():
     if auth.user:
-        return dict(collections= db((db.collection.ownedBy == auth.user.id) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select())
+        return dict(collections= db((db.collection.ownedBy == auth.user.id) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
+                    items = db((db.item.ownedBy == auth.user.id)).select())
     else:
         return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select())
 def collection():
@@ -102,7 +96,40 @@ def edit_collection():
         response.flash = 'Please complete the form below to add a new product.'
     return dict(updateform=updateform)
 def add_to_collection():
-    return dict()
+    record = db.collection(request.args(0))
+    inCollectionList=[record.id]
+    addform = FORM(DIV(
+               DIV(LABEL('Name*', _for='product_name')),
+               DIV(INPUT(_name='name',_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               BR(),
+               DIV(LABEL('Value*', _for='product_name')),
+               DIV(INPUT(_name='value',_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
+               BR(),
+               DIV(LABEL('Type*', _for='product_name')),
+               DIV(SELECT('Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
+                          'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
+                          'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_class="form-control")),
+              _class='form-group col-xs-6'),
+               DIV(
+               DIV(LABEL('Image*', _for='product_name')),
+               DIV(INPUT(_name='image',_type='file')),
+               BR(),
+               DIV(LABEL('Description', _for='product_name')),
+               DIV(TEXTAREA(_name='description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
+               BR(),
+               DIV(INPUT(_type='submit',_class="form-control btn btn-default")),
+                   _class='form-group col-xs-6'),_class="small_margins")
+    if addform.accepts(request,session):
+        image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
+        db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
+                       inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
+        db.commit
+        redirect(URL('default','collections'))
+    elif addform.errors:
+        response.flash = 'One or more of your form fields has an error. Please see below for more information'
+    else:
+        response.flash = 'Please complete the form below to add a new product.'
+    return dict(addform=addform)
 
 def wishlist():
     return dict()
@@ -117,7 +144,4 @@ def add_to_wishlist():
     return dict()
 
 def advanced_search():
-    return dict()
-
-def trade():
     return dict()
