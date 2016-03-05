@@ -17,7 +17,7 @@ def index():
     return auth.wiki()
     """
     response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    return dict(message=T('Welcome to web2py!'),form=auth())
 
 
 def user():
@@ -38,6 +38,8 @@ def user():
     """
     return dict(form=auth())
 
+def login_modal():
+    return dict(form=auth())
 
 @cache.action()
 def download():
@@ -62,10 +64,11 @@ def collections():
         return dict(collections= db((db.collection.ownedBy == auth.user.id) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
                     items = db((db.item.ownedBy == auth.user.id)).select())
     else:
-        return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select())
+        return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
+                    items = db((db.item.id > 0)).select(),form=auth())
 
 def collection():
-    return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
+    return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)),form=auth())
 
 def new_collection():
     addform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
@@ -80,7 +83,7 @@ def new_collection():
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
-    return dict(addform=addform)
+    return dict(addform=addform,form=auth())
 
 def edit_collection():
     record = db.collection(request.args(0))
@@ -95,7 +98,7 @@ def edit_collection():
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
-    return dict(updateform=updateform, collection=record)
+    return dict(updateform=updateform, collection=record,form=auth())
 def add_to_collection():
     record = db.collection(request.args(0))
     inCollectionList=[record.id]
@@ -135,30 +138,30 @@ def add_to_collection():
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
-    return dict(addform=addform, collection=record)
+    return dict(addform=addform, collection=record,form=auth())
 
 def wishlist():
     myWishList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
-    return dict(items = db((db.item.inCollection.contains(myWishList[0].id))).select())
+    return dict(items = db((db.item.inCollection.contains(myWishList[0].id))).select(),form=auth())
 
 def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
-    return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
+    return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select(),form=auth())
 
 def edit_wishlist_item():
-    return dict()
+    return dict(form=auth())
 
 def add_to_wishlist():
-    return dict()
+    return dict(form=auth())
 
 def advanced_search():
-    return dict()
+    return dict(form=auth())
 
 def trade():
-    return dict()
+    return dict(form=auth())
 
 def trade_history():
-    return dict()
+    return dict(form=auth())
 
 def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()
@@ -166,9 +169,9 @@ def item_info_by_id():
     owner = db(db.auth_user.id == owner_id).select(db.auth_user.username)
 
     theirHaveList = db((db.collection.ownedBy == owner_id) & (db.collection.name == "Have List")).select()
-    if (owner_id != auth.user.id) & (theirHaveList[0].id not in info.inCollection): ## is info.incollection correct? This should be the item.incollection and will work
+    if (owner_id != auth.user.id) and (theirHaveList[0].id in info[0].inCollection):
         is_tradable = True
     else:
         is_tradable = False
     ## NEED is_tradable = True/False
-    return dict(info = info, owner= owner)
+    return dict(info = info, owner= owner, is_tradable = is_tradable)
