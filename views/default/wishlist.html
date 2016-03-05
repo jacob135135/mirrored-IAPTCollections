@@ -1,44 +1,37 @@
 {{include 'page_beginning.html'}}
+  <script>$(document).ready (addEnterListeners);</script>
 
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">My wishlist</h1>
       </br>
 
+
+      <div id="middle_div" tabindex="0">
+
         <div class="col-xs-7">
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm selected"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img1" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img2" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img3" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img4" class="item_view_sm"><br>whatever</div>
-          <div class="item_view_sm clickable"><img src="../static/images/question.jpg" alt="img5" class="item_view_sm"><br>whatever</div>
-          <br>
+          {{for i in items:}}
+          {{if i.image == None:}}
+            <a tabindex="0" onclick="getItemAllInfo({{=i.id}});"><div class="item_view_sm"><img data_id="{{=i.id}}" src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view_sm"><br>{{=i.name}}</div></a>
+          {{else:}}
+            <a tabindex="0" onclick="getItemAllInfo({{=i.id}});"><div class="item_view_sm"><img data_id="{{=i.id}}" src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view_sm"><br>{{=i.name}}</div></a>
+          {{pass}}
+          {{pass}}
+
+        </div>
+
+        <div class="col-xs-5" id="ajax_content_div">
+            (Click on an item to view full its information.)
+        </div>
+
+      </div>
+
+
+
+        <div class="col-xs-7">
           <button onclick="window.location.href='add_to_wishlist'" class="transp small_margins"><span class="glyphicon glyphicon-plus-sign"></span>Add new item to wishlist</button>
         </div>
 
-        <div class="col-xs-5">
-            <div class="item_view"><img src="../static/images/question.jpg" alt="img1" class="item_view"></div>
-            <div>
-              Name: <b>whatever</b><br>
-              Value: £30<br>
-              (Other stuff??)
-              <br>
-              <label for="description">Description:</label>
-              <textarea class="form-control" id="description" rows="8" disabled>Sample text that was given in description, Maybe need to say somewhere to edit go to collection or sth...
-              </textarea>
-              <button onclick="window.location.href='edit_wishlist_item'" class="transp small_margins"><span class="glyphicon glyphicon-edit"></span>Edit item</button>
-              <button class="transp small_margins"><span class="glyphicon glyphicon-trash"></span>Remove from wishlist</button>
 
-            </div>
-        </div>
       </div>
 
 {{include 'page_end.html'}}

@@ -103,13 +103,15 @@ def add_to_collection():
                DIV(LABEL('Name*', _for='product_name')),
                DIV(INPUT(_name='name',_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
                BR(),
-               DIV(LABEL('Value*', _for='product_name')),
+               DIV(LABEL('Value*', _for='product_value')),
                DIV(INPUT(_name='value',_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
                BR(),
-               DIV(LABEL('Type*', _for='product_name')),
+               DIV(LABEL('Type*', _for='product_type')),
                DIV(SELECT('Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
                           'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_class="form-control")),
+               BR(),
+               DIV(LABEL(INPUT(_name='have_list',_type="checkbox", _checked=record.private),'Add to have list'),_class="small_margins checkbox"),
               _class='form-group col-xs-6'),
                DIV(
                DIV(LABEL('Image*', _for='product_name')),
@@ -121,6 +123,9 @@ def add_to_collection():
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
     if addform.accepts(request,session):
+        if request.vars.have_list:
+            myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
+            inCollectionList.append(myHaveList[0].id)
         image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
@@ -133,10 +138,12 @@ def add_to_collection():
     return dict(addform=addform, collection=record)
 
 def wishlist():
-    return dict()
+    myWishList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
+    return dict(items = db((db.item.inCollection.contains(myWishList[0].id))).select())
 
 def have_list():
-    return dict()
+    myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
+    return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
 def edit_wishlist_item():
     return dict()
