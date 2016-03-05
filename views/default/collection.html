@@ -5,18 +5,35 @@
         &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(collection.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add</button></a>
         &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(collection.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit</button></a>
         &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
-        </br>
-        <div class="centered small_margins">
+      </br><br><br>
+
+        <div class="col-xs-7">
           {{for i in items:}}
           {{if i.image == None:}}
-            <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="img1" class="item_view"><br><b>{{=i.name}}</b></div>
+            <div class="item_view_sm"><img id="i.id" src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view_sm"><br>{{=i.name}}</div>
           {{else:}}
-          <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img1" class="item_view"><br><b>{{=i.name}}</b></div>
+          <div class="item_view_sm"><img id="i.id" src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view_sm"><br>{{=i.name}}</div>
           {{pass}}
           {{pass}}
 
         </div>
-        
+
+        <div class="col-xs-5">
+            <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img1" class="item_view img-rounded"></div>
+            <div>
+              Name: <b>whatever</b><br>
+              Value: £30<br>
+              (Other stuff??)
+              <br>
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" rows="8" disabled>Sample text that was given in description, Maybe need to say somewhere to edit go to collection or sth...
+              </textarea>
+              <button onclick="window.location.href='edit_wishlist_item'" class="transp small_margins"><span class="glyphicon glyphicon-edit"></span>Edit item</button>
+              <button class="transp small_margins"><span class="glyphicon glyphicon-trash"></span>Remove from wishlist</button>
+
+            </div>
+        </div>
+
       </div>
 
 {{include 'page_end.html'}}

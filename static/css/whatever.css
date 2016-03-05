@@ -55,6 +55,8 @@ body
 
 .small_margins {margin: 5px;}
 
+.middle_margins {margin: 15px;}
+
 .picture
 {
 	border-radius: 10px;
@@ -126,35 +128,53 @@ span.centered:last-child
 
 #search_div {width: 400px;}
 
-.item_view
+div.item_view
 {
   display: inline-block;
   width: 170px;
-  height: 100px;
+  height: 120px;
   margin: 1px 0px 0px 0px;
 	text-align: center;
-	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-radius: 10px;
+	border: 2px solid black;
+	overflow: hidden;
 }
 
+div.others_div
+{
+	display: inline-block;
+	width: 170px;
+  height: 120px;
+	text-align: center;
+	line-height: 120px;
+	border-radius: 10px;
+	border: 2px solid black;
+}
 
 img.item_view
 {
+	border-radius: 10px;
 	width: 170px;
 	height: 80px;
 }
 
-.item_view_sm
+div.item_view_sm
 {
 	display: inline-block;
-	width: 100px;
-	height: 80px;
+	width: 110px;
+	height: 115px;
 	margin: 1px 0px 0px 0px;
 	text-align: center;
+	padding-bottom: 15px;
+	border-radius: 5px;
+	border: 2px solid black;
+	overflow: hidden;
 }
 
 img.item_view_sm
 {
-	width: 100px;
+	width: 110px;
 	height: 70px;
 	margin-bottom: : 15px;
 }
