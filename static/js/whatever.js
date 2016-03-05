@@ -124,3 +124,43 @@ function toggleAdvancedSearchCheckoxes()
 		}
 	});
 }
+
+function getItemAllInfo(item_id)
+{
+	info_page = window.location.origin + "/IAPTCollections/default/item_info_by_id.json?id=" + item_id;
+
+	$.ajax({
+	  url: info_page
+	}).done(function(data ) {
+		if (!data['info'][0]['image'])
+			img_src = "/IAPTCollections/static/images/question.jpg";
+		else
+			img_src = "/IAPTCollections/default/download/" + data['info'][0]['image'];
+
+		new_html = "<div class='item_view'><img src='" + img_src ;
+		new_html += "' alt='selected item image' class='item_view'><br>First Item</div>";
+		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
+		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
+		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
+		new_html += "<div>Category: <b>" + data['info'][0]['type'] + "</b><br>";
+
+		new_html += "<label for='description'>Description:</label>";
+		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
+		new_html += "<button onclick='window.location.href=\'../edit_wishlist_item\' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+		new_html += "<button class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from wishlist</button>";
+		new_html += "</div>";
+
+		$('#ajax_content_div').html(new_html);
+	});
+}
+
+function addEnterListeners()
+{
+	$('#middle_div a').keydown( function(e) {
+			var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+			if(key == 13) {
+			 e.preventDefault();
+				 $(this).click();
+			}
+	});
+ }

@@ -233,3 +233,8 @@ button.transp {background-color: inherit;}
 		float: right;
 		margin-right: 20px;
 	}
+
+	a
+	{
+		cursor: pointer;
+	}

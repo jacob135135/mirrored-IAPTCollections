@@ -152,3 +152,10 @@ def trade():
 
 def trade_history():
     return dict()
+
+def item_info_by_id():
+    info = db(db.item.id == request.get_vars.id).select()
+    owner_id = db(db.item.id == request.get_vars.id).select(db.item.ownedBy)[0].ownedBy
+    owner = db(db.auth_user.id == owner_id).select(db.auth_user.username)
+    ## NEED is_tradable = True/False
+    return dict(info = info, owner= owner)
