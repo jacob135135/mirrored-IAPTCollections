@@ -164,5 +164,11 @@ def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()
     owner_id = db(db.item.id == request.get_vars.id).select(db.item.ownedBy)[0].ownedBy
     owner = db(db.auth_user.id == owner_id).select(db.auth_user.username)
+
+    theirHaveList = db((db.collection.ownedBy == owner_id) & (db.collection.name == "Have List")).select()
+    if (owner_id != auth.user.id) & (theirHaveList[0].id not in info.inCollection): ## is info.incollection correct? This should be the item.incollection and will work
+        is_tradable = True
+    else:
+        is_tradable = False
     ## NEED is_tradable = True/False
     return dict(info = info, owner= owner)
