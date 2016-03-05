@@ -87,7 +87,7 @@ def edit_collection():
     updateform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
                DIV(INPUT(_name='name', value = record.name,_placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
                DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked=record.private),'Private'),_class="checkbox col-xs-12"),
-               DIV(INPUT(_type='submit',_class="btn btn-default"),_class="col-xs-12"),_class="small_margins")
+               DIV(INPUT(_type='submit', _value="Submit" ,_class="btn btn-primary"),_class="col-xs-12"),_class="small_margins")
     if updateform.accepts(request,session):
         record.update_record(name=request.vars.name,private=request.vars.private)
         redirect(URL('default','collections'))
