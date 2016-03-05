@@ -31,14 +31,10 @@
         <div class="header_right">
           {{if auth.user:}} <!--Have username and logout if logged in-->
           <a href="{{=URL('default','collections')}}"><button class="btn btn-link sml_spacing">{{=auth.user.username}}</button></a>
-          <button class="btn btn-link sml_spacing">Website plan</button>
-          <button class="btn btn-link sml_spacing">Glossary</button>
           <a href="{{=URL('default','user/logout')}}"><button class="btn btn-link">Logout</button></a>
 
           {{else:}} <!--Have register and login buttons if not logged in-->
           <a href="{{=URL('default','user/register')}}"><button class="btn btn-link sml_spacing">Register</button></a>
-          <button class="btn btn-link sml_spacing">Website plan</button>
-          <button class="btn btn-link sml_spacing">Glossary</button>
           <a href="{{=URL('default','user/login')}}"><button class="btn btn-link">Log in</button></a>
           {{pass}}
 
@@ -70,6 +66,6 @@
          <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">My collections</button><br></a>
          <a href="{{=URL('default','wishlist')}}"><button class="btn btn-primary small_margins full_width">My wishlist</button><br></a>
          <a href="{{=URL('default','have_list')}}"><button class="btn btn-primary small_margins full_width">My have list</button><br></a>
-         <a href="{{=URL('default','trade')}}"><button class="btn btn-primary small_margins full_width">Trade</button><br></a>
+         <a href="{{=URL('default','trade_history')}}"><button class="btn btn-primary small_margins full_width">My transactions</button><br></a>
          <a href="{{=URL('default','advanced_search')}}"><button class="btn btn-primary small_margins full_width">Advanced search</button></a>
       </div>

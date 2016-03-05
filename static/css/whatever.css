@@ -47,7 +47,8 @@ body
 {
 	float: right;
 	overflow: auto;
-	min-width: 300px;
+	min-width: 100px;
+	text-align: right;
 }
 
 .container {position: relative;}
@@ -210,10 +211,4 @@ button.transp {background-color: inherit;}
 	{
 		float: right;
 		margin-right: 20px;
-	}
-
-	#view_trade_hist {
-		margin-top: 25px;
-		float: right;
-		margin-right: 10px;
 	}

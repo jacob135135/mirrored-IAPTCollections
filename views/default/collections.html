@@ -2,14 +2,14 @@
 
       <div id="middle_div" tabindex="0">
         <h1 class="h_with_icons small_margins">My collections</h1>
-        &nbsp;<button onclick="window.location.href='new_collection'" class="transp"><span class="glyphicon glyphicon-plus-sign"></span>add collection</button>
+        &nbsp;<button onclick="window.location.href='new_collection'" class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add collection</button>
         <br><br><br><br>
         {{for c in collections:}}
         <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
-          &nbsp;<a href="{{=URL('default','collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-eye-open"></span>view</button></a>
-          &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>add</button></a>
-          &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>edit</button></a>
-          &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>del</button>
+          &nbsp;<a href="{{=URL('default','collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-eye-open"></span>View</button></a>
+          &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add</button></a>
+          &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit</button></a>
+          &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
         <div class="centered small_margins">
          {{for i in items:}}
          {{if c.id in i.inCollection: }}

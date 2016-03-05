@@ -99,3 +99,28 @@ function initTrade()
 			connectWith: ".connectedSortable2"
 		}).disableSelection();
 }
+
+function toggleAdvancedSearchCheckoxes()
+{
+	// When Only search collection of clicked
+	$("#only_one_user").change(function() {
+		if(this.checked) {
+			$('#my_collection').attr('checked', false);
+			$('#all_collections').attr('checked', false);
+
+			$('#single_collection_owner').attr('disabled', false);
+
+		}	else {
+			$('#only_one_user').attr('checked', false);
+			$('#single_collection_owner').attr('disabled', true);
+		}
+	});
+
+	// When my_collection or all_collections checked
+	$("#my_collection, #all_collections").change(function() {
+		if(this.checked) {
+			$('#only_one_user').attr('checked', false);
+			$('#single_collection_owner').attr('disabled', true);
+		}
+	});
+}

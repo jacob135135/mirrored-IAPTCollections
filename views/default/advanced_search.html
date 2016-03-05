@@ -1,9 +1,9 @@
 {{include 'page_beginning.html'}}
-
-<link rel="stylesheet" href="{{=URL('static','css/jquery.range.css')}}"/>
-<script src="{{=URL('static','js/jquery.range-min.js')}}"></script>
+      <script>$(document).ready (toggleAdvancedSearchCheckoxes);</script>
 
       <div id="middle_div" tabindex="0">
+        <h1 class="small_margins">Advanced search</h1>
+
         <form class="small_margins">
           <div class="form-group col-xs-6"> <!-- left part -->
             <label for="name">Keyword*</label>
@@ -18,17 +18,18 @@
               <input class="form-control col-xs-8" id="price_range_max" value='1000'>
             </div>
             <br><br>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="inlineCheckbox3" value="option3"> Search my collection
+            <label for="my_collection" class="checkbox-inline">
+              <input type="checkbox" name="my_collection" id="my_collection"> Search my collection
             </label>
             <br>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="inlineCheckbox3" value="option3" checked> Search all collections
+            <label for="all_collections" class="checkbox-inline">
+              <input type="checkbox" name="all_collections" id="all_collections" checked> Search all collections
             </label>
-            <br>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="inlineCheckbox3" value="option3"> Only search collection of:
+            <br><br>
+            <label for="only_one_user" class="checkbox-inline">
+              <input type="checkbox" name="only_one_user" id="only_one_user"> Only search collection of
             </label>
+            <label for="single_collection_owner" class="checkbox-inline">(collection owner)</label>
             <br>
             <div class="col-xs-10">
               <input class="form-control" id="single_collection_owner" placeholder="Search collection of..." disabled>
@@ -38,7 +39,7 @@
           </div>
 
           <div class="form-group col-xs-6"> <!-- right part -->
-            <label>Search in categories</label>
+            <p><b>Search in categories:</b></p>
             <br>
             <label class="checkbox-inline">
               <input type="checkbox" id="inlineCheckbox1" value="option1"> Category A
@@ -81,8 +82,11 @@
             <label class="checkbox-inline">
               <input type="checkbox" id="inlineCheckbox3" value="option3"> Category A
             </label>
-            <br><br>
-            <button type="submit" class="form-control btn btn-default">Perform search</button>
+            <br><br><br>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="only_tradeables" id="only_tradeables"> Only show tradeables:
+            </label><br><br>
+            <button type="submit" class="form-control btn btn-primary">Perform search</button>
           </div>
 
         </form>

@@ -70,8 +70,8 @@ def collection():
 def new_collection():
     addform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
                DIV(INPUT(_name='name', _placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
-               DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked="checked"),'Private?'),_class="checkbox col-xs-12"),
-               DIV(INPUT(_type='submit',_class="btn btn-default"),_class="col-xs-12"),_class="small_margins")
+               DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked="checked"),'Private'),_class="checkbox col-xs-12"),
+               DIV(INPUT(_type='submit', _value='Submit',_class="btn btn-primary"),_class="col-xs-12"),_class="small_margins")
     if addform.accepts(request,session):
         db.collection.insert(name=request.vars.name,private=request.vars.private)
         db.commit
@@ -86,7 +86,7 @@ def edit_collection():
     record = db.collection(request.args(0))
     updateform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
                DIV(INPUT(_name='name', value = record.name,_placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
-               DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked=record.private),'Private?'),_class="checkbox col-xs-12"),
+               DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked=record.private),'Private'),_class="checkbox col-xs-12"),
                DIV(INPUT(_type='submit',_class="btn btn-default"),_class="col-xs-12"),_class="small_margins")
     if updateform.accepts(request,session):
         record.update_record(name=request.vars.name,private=request.vars.private)
@@ -95,7 +95,7 @@ def edit_collection():
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
-    return dict(updateform=updateform)
+    return dict(updateform=updateform, collection=record)
 def add_to_collection():
     record = db.collection(request.args(0))
     inCollectionList=[record.id]
@@ -118,7 +118,7 @@ def add_to_collection():
                DIV(LABEL('Description', _for='product_name')),
                DIV(TEXTAREA(_name='description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
                BR(),
-               DIV(INPUT(_type='submit',_class="form-control btn btn-default")),
+               DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
     if addform.accepts(request,session):
         image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
@@ -130,7 +130,7 @@ def add_to_collection():
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
-    return dict(addform=addform)
+    return dict(addform=addform, collection=record)
 
 def wishlist():
     return dict()
