@@ -144,12 +144,13 @@ div.item_view
 div.others_div
 {
 	display: inline-block;
-	width: 170px;
+  width: 170px;
   height: 120px;
 	text-align: center;
-	line-height: 120px;
+	padding-top: 45px;
 	border-radius: 10px;
 	border: 2px solid black;
+	overflow: hidden;
 }
 
 img.item_view
