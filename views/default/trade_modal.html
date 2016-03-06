@@ -3,12 +3,16 @@
     <div class="trade_modal modal-content">
       <div class="trade_modal modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h1 class="modal-title" id="myModalLabel2">Vider trade view</h1>
+        <h1 class="modal-title" id="myModalLabel2">Wider trade view</h1>
       </div>
       <div class="trade_modal modal-body">
         {{include 'default/trade_shared.html'}}
+        <p>Warning: Pressing <b>esc</b> or <b>clicking outside of trade view </b> before clicking
+          <button class="transp small_margins" disabled><span class="glyphicon glyphicon-shopping-cart"></span>Propose trade</button>
+          discards all changes.
       </div>
-      <button id="propose_trade" class="transp small_margins"><span class="glyphicon glyphicon-shopping-cart"></span>propose trade</button>
+      <button id="propose_trade" class="transp small_margins"><span class="glyphicon glyphicon-shopping-cart"></span>Propose trade</button>
+      <br><br><br>
     </div>
   </div>
 </div>

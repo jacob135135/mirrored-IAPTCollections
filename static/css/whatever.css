@@ -240,6 +240,7 @@ button.transp {background-color: inherit;}
 #trade_modal
 {
 	margin-top: 20px;
+	height: 100%;
 }
 
 .trade_modal
