@@ -255,3 +255,10 @@ button.transp {background-color: inherit;}
 	margin-top: 10px;
 	border: 2px solid red;
 }
+
+#backToTop
+{
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}
