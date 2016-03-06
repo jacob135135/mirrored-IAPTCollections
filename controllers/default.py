@@ -157,22 +157,23 @@ def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
-def remove_item():
-    if request.args.list == 0:
-        item = db.item(request.args.item)
-        item.delete()
-    elif request.args.list == 1:
+def delete_item():
+    if (request.args(0) == '0'):
+        db(db.item.id ==  request.args(1)).delete()
+    elif request.args(0) == '1':
         record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
-        item = db.item(request.args.item)
+        item = db.item(request.args(1))
         collectionList = item.inCollection
         collectionList.remove(record.id)
         item.update_record(inCollection=collectionList)
-    elif request.args.list == 2:
+    elif request.args(0) == '2':
         record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()[0]
-        item = db.item(request.args.item)
+        item = db.item(request.args(1))
         collectionList = item.inCollection
         collectionList.remove(record.id)
         item.update_record(inCollection=collectionList)
+
+    return dict()
 def edit_item():
     record = db.item(request.args(0))
     if record.image == None:
