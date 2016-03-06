@@ -157,7 +157,8 @@ function getItemAllInfo(item_id)
 
 		new_html += "<label for='description'>Description:</label>";
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
-		new_html += "<button onclick='editCollection(1)' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+		item_id = data['info'][0]['id'];
+		new_html += "<button onclick='editCollection("+ item_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 		//						^ I need the 1 to be item_id but dont know how. Otherwise it should work.
 		new_html += "<button class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from wishlist</button>";
 		new_html += "</div>";
