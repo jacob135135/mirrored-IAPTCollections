@@ -177,3 +177,34 @@ function addEnterListeners()
 			}
 	});
  }
+
+function showLoginModal()
+{
+		$('#myModal').modal('show');
+}
+
+function redirIfAllowed(url)
+{
+	info_page = window.location.origin + "/IAPTCollections/default/logged_in.json"
+
+	$.ajax({
+	  url: info_page
+	}).done(function(data ) {
+		if (data['logged_in'] != null)
+	{
+		redir_url = window.location.origin + "/IAPTCollections/default/" + url;
+		console.log(redir_url);
+		window.location.href = redir_url;
+	}
+	else
+	{
+		showLoginModal();
+		console.log("Not logged in");
+	}
+	});
+}
+
+function redirToHome()
+{
+	window.location.href = window.location.origin + "/IAPTCollections/default/";
+}

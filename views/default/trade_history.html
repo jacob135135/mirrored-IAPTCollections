@@ -1,4 +1,7 @@
 {{include 'page_beginning.html'}}
+    {{if not auth.user:}}
+      <script>$(document).ready (redirToHome);</script>
+    {{pass}}
 
       <div id="middle_div">
         <h1 class="small_margins">Ongoing transactions</h1>

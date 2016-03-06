@@ -1,5 +1,9 @@
 {{include 'page_beginning.html'}}
 
+      {{if not auth.user:}}
+        <script>$(document).ready (redirToHome);</script>
+      {{pass}}
+
       <div id="middle_div" tabindex="0">
         <h1 class="h_with_icons small_margins">My collections</h1>
         &nbsp;<button onclick="window.location.href='new_collection'" class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add collection</button>

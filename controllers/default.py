@@ -285,13 +285,16 @@ def add_to_havelist():
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform, collection=record)
 def advanced_search():
-    return dict()
+    return dict(form=auth())
 
 def trade():
     return dict()
 
 def trade_history():
     return dict()
+
+def logged_in():
+    return dict(logged_in = auth.user)
 
 def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()

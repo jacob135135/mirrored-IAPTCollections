@@ -1,5 +1,9 @@
 {{include 'page_beginning.html'}}
-  <script>$(document).ready (addEnterListeners);</script>
+
+    {{if not auth.user:}}
+      <script>$(document).ready (redirToHome);</script>
+    {{pass}}
+    <script>$(document).ready (addEnterListeners);</script>
 
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">My have list</h1>

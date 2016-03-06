@@ -1,4 +1,8 @@
 {{include 'page_beginning.html'}}
+    {{if not auth.user:}}
+      <script>$(document).ready (redirToHome);</script>
+    {{pass}}
+
     <script>$(document).ready (initTrade);</script>
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">Trade</h1>
