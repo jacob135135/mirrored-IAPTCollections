@@ -157,6 +157,22 @@ def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
+def remove_item():
+    if request.args(0) == 0:
+        item = db.item(request.args(0))
+        item.delete()
+    elif request.args(0) == 1:
+        record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
+        item = db.item(request.args(0))
+        collectionList = item.inCollection
+        collectionList.remove(record.id)
+        item.update_record(inCollection=collectionList)
+    elif request.args(0) == 2:
+        record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()[0]
+        item = db.item(request.args(0))
+        collectionList = item.inCollection
+        collectionList.remove(record.id)
+        item.update_record(inCollection=collectionList)
 def edit_item():
     record = db.item(request.args(0))
     if record.image == None:
@@ -278,14 +294,43 @@ def add_to_havelist():
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
         db.commit
-        redirect(URL('default','wishlist'))
+        redirect(URL('default','have_list'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform, collection=record)
 def advanced_search():
-    return dict(form=auth())
+    searchform = FORM(DIV(
+               DIV(LABEL('Keyword*', _for='keyword')),
+               DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Seach for...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               BR(),
+               DIV(LABEL('Minimum price (in £)*', _for='price_range_min'),
+               INPUT(_name='price_range_min',_value = 0,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control col-xs-8",_id='price_range_min'),_class='form-group col-xs-6'),
+               DIV(LABEL('Maximum price (in £)*', _for='price_range_max'),
+               INPUT(_name='price_range_max',_value = 9999,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control col-xs-8",_id='price_range_max'),_class='form-group col-xs-6'),
+               BR(),
+               BR(),
+               DIV(LABEL(INPUT(_name='my_collection',_type="checkbox",_id='my_collection' ),'Search my collection'),_class="checkbox-inline",_for='my_collection'),
+               BR(),
+               DIV(LABEL(INPUT(_name='all_collections',_type="checkbox",_id='all_collections' ),'Search all public collections'),_class="checkbox-inline",_for='all_collections'),
+               BR(),BR(),
+               DIV(LABEL(INPUT(_name='only_one_user',_type="checkbox",_id='only_one_user' ),'Only search collection of:'),_class="checkbox-inline",_for='only_one_user'),
+               BR(),
+               DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Seach for...",requires=IS_NOT_EMPTY(),_class="form-control")),
+
+
+              _class='form-group col-xs-6'),
+               DIV(
+               DIV(LABEL('Image*', _for='product_name')),
+               DIV(INPUT(_name='image',_type='file')),
+               BR(),
+               DIV(LABEL('Description', _for='product_name')),
+               DIV(TEXTAREA(_name='description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
+               BR(),
+               DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
+                   _class='form-group col-xs-6'),_class="small_margins")
+    return dict(searchform=searchform,form=auth())
 
 def trade():
     return dict()
