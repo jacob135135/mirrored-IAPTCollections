@@ -157,6 +157,11 @@ def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
+def trade():
+    record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
+    return dict(items = db((db.item.inCollection.contains(record.id))).select(),form=auth())
+
+
 def delete_item():
     if (request.args(0) == '0'):
         db(db.item.id ==  request.args(1)).delete()
@@ -333,8 +338,7 @@ def advanced_search():
                    _class='form-group col-xs-6'),_class="small_margins")
     return dict(searchform=searchform,form=auth())
 
-def trade():
-    return dict(form=auth())
+
 
 def trade_history():
     return dict(form=auth())

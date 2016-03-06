@@ -13,11 +13,9 @@
 <div class="col-xs-3">
   <p><b>Your tradeables</b></p>
   <ol id="sortable1" class="connectedSortable">
-    <li tabindex="0" class="ui-state-highlight clickable">Item 1</li>
-    <li tabindex="0" class="ui-state-highlight clickable">Item 2</li>
-    <li tabindex="0" class="ui-state-highlight clickable">Item 3</li>
-    <li tabindex="0" class="ui-state-highlight clickable">Item 4</li>
-    <li tabindex="0" class="ui-state-highlight clickable">Item 5</li>
+    {{for i in items:}}
+    <li tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
+    {{pass}}
   </ol>
 </div>
 
