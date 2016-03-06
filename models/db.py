@@ -145,7 +145,8 @@ auth.settings.reset_password_requires_verification = True
 ## login after registration and redirect to home page
 
 auth.settings.login_after_registration = True
-auth.settings.login_next = URL('default', 'index')
+auth.settings.on_failed_authorization = URL('user',args='on_failed_authorization')
+auth.settings.login_url = URL('default','index')
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = True, name = "Default Collection", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Have List", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Want List", ownedBy = form.vars.id ))

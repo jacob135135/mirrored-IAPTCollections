@@ -16,7 +16,10 @@ function doStuffOnload()
 		toggleContrast();
 	}
 }
-
+function showModal()
+{
+        $('#myModal').modal('show');
+}
 function toggleDyslexia()
 {
 	$('.btn').toggleClass("dyslexia");
@@ -89,6 +92,13 @@ function deleteCollection(collection_id)
 	}
 }
 
+function editCollection(item_id)
+{
+	{
+		window.location="/IAPTCollections/default/edit_item/" + item_id;
+	}
+}
+
 function initTrade()
 {
 		$( "#sortable1, #sortable2" ).sortable({
@@ -137,6 +147,7 @@ function getItemAllInfo(item_id)
 		else
 			img_src = "/IAPTCollections/default/download/" + data['info'][0]['image'];
 
+
 		new_html = "<div class='item_view'><img src='" + img_src ;
 		new_html += "' alt='selected item image' class='item_view'><br>First Item</div>";
 		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
@@ -146,7 +157,8 @@ function getItemAllInfo(item_id)
 
 		new_html += "<label for='description'>Description:</label>";
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
-		new_html += "<button onclick='window.location.href=\'../edit_wishlist_item\' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+		new_html += "<button onclick='editCollection(1)' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+		//						^ I need the 1 to be item_id but dont know how. Otherwise it should work.
 		new_html += "<button class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from wishlist</button>";
 		new_html += "</div>";
 

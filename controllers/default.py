@@ -17,7 +17,7 @@ def index():
     return auth.wiki()
     """
     response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    return dict(message=T('Welcome to web2py!'),form=auth())
 
 
 def user():
@@ -36,10 +36,12 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
-    return dict()
+    return dict(form=auth())
+def handle_user():
+   return dict(form=auth())
 
 def login_modal():
-    return dict()
+    return dict(form=auth())
 
 @cache.action()
 def download():
@@ -62,10 +64,10 @@ def call():
 def collections():
     if auth.user:
         return dict(collections= db((db.collection.ownedBy == auth.user.id) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
-                    items = db((db.item.ownedBy == auth.user.id)).select())
+                    items = db((db.item.ownedBy == auth.user.id)).select(),form=auth())
     else:
         return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
-                    items = db((db.item.id > 0)).select())
+                    items = db((db.item.id > 0)).select(),form=auth())
 
 def collection():
     return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
@@ -84,7 +86,7 @@ def new_collection():
     else:
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform)
-
+@auth.requires_login()
 def edit_collection():
     record = db.collection(request.args(0))
     updateform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
@@ -145,17 +147,62 @@ def add_to_collection():
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform, collection=record)
 
+@auth.requires_login()
 def wishlist():
     myWishList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
     return dict(items = db((db.item.inCollection.contains(myWishList[0].id))).select())
 
+@auth.requires_login()
 def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
-def edit_wishlist_item():
-    return dict()
-
+def edit_item():
+    record = db.item(request.args(0))
+    if record.image == None:
+        src = URL('static','images/question.jpg')
+        alt = "?"
+    else:
+        src = URL('default','download', args=record.image)
+        alt = "img for" + record.name
+    editform = FORM(DIV(
+               DIV(LABEL('Name*', _for='product_name')),
+               DIV(INPUT(_name='name',_value=record.name,_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               BR(),
+               DIV(LABEL('Value*', _for='product_value')),
+               DIV(INPUT(_name='value',_value=record.price,_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
+               BR(),
+               DIV(LABEL('Type*', _for='product_type')),
+               DIV(SELECT('Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
+                          'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
+                          'Themed','Toys and Games','Miscellaneous',_name='type',value=record.type,_class="form-control")),
+              _class='form-group col-xs-6'),
+               DIV(
+               DIV(LABEL('Current Image', _for='product_image')),
+               DIV(IMG(_src=src,_alt=alt,_class="item_view")),
+               BR(),
+               DIV(LABEL('Change image: ', _for='product_name')),
+               DIV(INPUT(_name='image',_type='file')),
+               BR(),
+               DIV(LABEL('Description', _for='product_name')),
+               DIV(TEXTAREA(_name='description',value=record.description,_class='form-control',_rows='8',_placeholder='Please enter item description')),
+               BR(),
+               DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
+                   _class='form-group col-xs-6'),_class="small_margins")
+    if editform.accepts(request,session):
+        try:
+            len(request.vars.image) #This means image not uploaded
+            image = record.image
+        except TypeError:
+            image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
+        record.update_record(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
+                       image=image)
+        redirect(URL('default','collections'))
+    elif editform.errors:
+        response.flash = 'One or more of your form fields has an error. Please see below for more information'
+    else:
+        response.flash = 'Please complete the form below to add a new product.'
+    return dict(editform=editform)
 def add_to_wishlist():
     record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()[0]
     inCollectionList=[record.id]
