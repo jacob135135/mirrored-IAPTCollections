@@ -92,10 +92,10 @@ function deleteCollection(collection_id)
 	}
 }
 
-function editCollection(item_id)
+function editCollection(item_id, list_id)
 {
 	{
-		window.location="/IAPTCollections/default/edit_item/" + item_id;
+		window.location="/IAPTCollections/default/edit_item/" + item_id + "?list_id=" + list_id;
 	}
 }
 
@@ -135,7 +135,7 @@ function toggleAdvancedSearchCheckoxes()
 	});
 }
 
-function getItemAllInfo(item_id)
+function getItemAllInfo(item_id, list_id)
 {
 	info_page = window.location.origin + "/IAPTCollections/default/item_info_by_id.json?id=" + item_id;
 
@@ -147,6 +147,20 @@ function getItemAllInfo(item_id)
 		else
 			img_src = "/IAPTCollections/default/download/" + data['info'][0]['image'];
 
+		if (list_id == 0)
+		{
+			list_name = "collection";
+		}
+		else if (list_id == 1)
+		{
+			list_name = "have list";
+		}
+		else if (list_id == 2)
+		{
+			list_name = "wish list";
+		}
+
+		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
 
 		new_html = "<div class='item_view'><img src='" + img_src ;
 		new_html += "' alt='selected item image' class='item_view'><br>First Item</div>";
@@ -158,9 +172,11 @@ function getItemAllInfo(item_id)
 		new_html += "<label for='description'>Description:</label>";
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
 		item_id = data['info'][0]['id'];
-		new_html += "<button onclick='editCollection("+ item_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+		new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 		//						^ I need the 1 to be item_id but dont know how. Otherwise it should work.
-		new_html += "<button class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from wishlist</button>";
+		oncl =  "delItembyUrl('" + del_url + "')";
+		console.log(oncl);
+		new_html += "<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from " + list_name + "</button>";
 		new_html += "</div>";
 
 		$('#ajax_content_div').html(new_html);
@@ -193,7 +209,6 @@ function redirIfAllowed(url)
 		if (data['logged_in'] != null)
 	{
 		redir_url = window.location.origin + "/IAPTCollections/default/" + url;
-		console.log(redir_url);
 		window.location.href = redir_url;
 	}
 	else
@@ -206,4 +221,14 @@ function redirIfAllowed(url)
 function redirToHome()
 {
 	window.location.href = window.location.origin + "/IAPTCollections/default/";
+}
+
+function delItembyUrl(url)
+{
+	console.log(url);
+	$.ajax({
+	  url: url
+	}).done(function() {
+		location.reload();
+	});
 }
