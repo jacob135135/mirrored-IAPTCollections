@@ -232,7 +232,7 @@ def add_to_wishlist():
             len(request.vars.image) #This means image not uploaded
             image = None
         except TypeError:
-            comic_data.update_record(image=request.vars.image) #Image has been uploaded (as the exception occured); update image in db
+
             image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
@@ -273,7 +273,7 @@ def add_to_havelist():
             len(request.vars.image) #This means image not uploaded
             image = None
         except TypeError:
-            comic_data.update_record(image=request.vars.image) #Image has been uploaded (as the exception occured); update image in db
+
             image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
