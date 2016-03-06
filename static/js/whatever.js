@@ -199,7 +199,6 @@ function redirIfAllowed(url)
 	else
 	{
 		showLoginModal();
-		console.log("Not logged in");
 	}
 	});
 }

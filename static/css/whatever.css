@@ -235,6 +235,16 @@ button.transp {background-color: inherit;}
 	}
 
 	a
-	{
-		cursor: pointer;
-	}
+	{cursor: pointer;}
+
+#trade_modal
+{
+	margin-top: 20px;
+}
+
+.trade_modal
+{
+	width: 98%;
+	height: auto;
+	margin: 0 auto;
+}

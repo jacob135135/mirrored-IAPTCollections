@@ -333,10 +333,10 @@ def advanced_search():
     return dict(searchform=searchform,form=auth())
 
 def trade():
-    return dict()
+    return dict(form=auth())
 
 def trade_history():
-    return dict()
+    return dict(form=auth())
 
 def logged_in():
     return dict(logged_in = auth.user)
