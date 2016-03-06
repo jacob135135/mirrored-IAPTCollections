@@ -249,3 +249,9 @@ button.transp {background-color: inherit;}
 	height: auto;
 	margin: 0 auto;
 }
+
+.warning
+{
+	margin-top: 10px;
+	border: 2px solid red;
+}

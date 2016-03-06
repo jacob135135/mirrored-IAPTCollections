@@ -6,10 +6,14 @@
         <h1 class="modal-title" id="myModalLabel2">Wider trade view</h1>
       </div>
       <div class="trade_modal modal-body">
+        <div>
         {{include 'default/trade_shared.html'}}
-        <p>Warning: Pressing <b>esc</b> or <b>clicking outside of trade view </b> before clicking
+      </div>
+
+        <div class="col-xs-12 warning">Warning: Pressing <b>esc</b> or <b>clicking outside of trade view </b> before clicking
           <button class="transp small_margins" disabled><span class="glyphicon glyphicon-shopping-cart"></span>Propose trade</button>
           discards all changes.
+        </div>
       </div>
       <button id="propose_trade" class="transp small_margins"><span class="glyphicon glyphicon-shopping-cart"></span>Propose trade</button>
       <br><br><br>
