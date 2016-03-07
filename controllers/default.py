@@ -472,6 +472,13 @@ def trade_history():
 def logged_in():
     return dict(logged_in = auth.user)
 
+def add_item_to_havelist():
+    myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
+    item = db.item(request.args(0))
+    collectionList = item.inCollection
+    collectionList.append(myHaveList[0].id)
+    item.update_record(inCollection=collectionList)
+
 def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()
     owner_id = db(db.item.id == request.get_vars.id).select(db.item.ownedBy)[0].ownedBy
