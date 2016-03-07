@@ -110,7 +110,7 @@ function initTrade()
 		}).disableSelection();
 }
 
-function toggleAdvancedSearchCheckoxes()
+function runAdvSearchScripts()
 {
 	// When Only search collection of clicked
 	$("#only_one_user").change(function() {
@@ -133,6 +133,8 @@ function toggleAdvancedSearchCheckoxes()
 			$('#single_collection_owner').attr('disabled', true);
 		}
 	});
+
+	triggerAutoComplUsers();
 }
 
 function getItemAllInfo(item_id, list_id)
@@ -175,7 +177,7 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 		//						^ I need the 1 to be item_id but dont know how. Otherwise it should work.
 		oncl =  "delItembyUrl('" + del_url + "')";
-		console.log(oncl);
+
 		new_html += "<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from " + list_name + "</button>";
 		new_html += "</div>";
 
@@ -225,10 +227,22 @@ function redirToHome()
 
 function delItembyUrl(url)
 {
-	console.log(url);
 	$.ajax({
 	  url: url
 	}).done(function() {
 		location.reload();
 	});
+}
+
+function triggerAutoComplUsers()
+{
+	url = window.location.origin + "/IAPTCollections/default/all_users";
+	$.ajax({
+	  url: url
+	}).done(function(data) {
+
+		$("#single_collection_owner").autocomplete({
+	      source: data
+	    });
+		});
 }
