@@ -385,7 +385,7 @@ def advanced_search():
                DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
                 BR(), BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
-                   _class='form-group col-xs-6'),_class="small_margins",action="{{=URL('default','search_results')}}", method="post")
+                   _class='form-group col-xs-6'),_class="small_margins")
     results = []
     if request.vars.only_tradables:
         temprows = db(db.collection.name == 'Have List').select()
@@ -459,7 +459,7 @@ def advanced_search():
     else:
         response.flash = 'Please complete the form below to add a new product.'
 
-    return dict(searchform=searchform,items = results, form=auth())
+    return dict(searchform=searchform, form=auth())
 @auth.requires_login()
 def search_results():
     results = session.results

@@ -4,9 +4,9 @@
       <script>$(document).ready (redirToHome);</script>
     {{pass}}
     <script>$(document).ready (addEnterListeners);</script>
-
+      {{if items != []:}}
       <div id="middle_div" tabindex="0">
-        <h1 class="small_margins">Search results</h1>
+        <h1 class="small_margins">Search results:</h1>
       </br>
 
 
@@ -32,5 +32,11 @@
 
 
       </div>
+      {{else:}}
+      <div id="middle_div" tabindex="0">
+        <h1 class="small_margins">No results found</h1>
+      </br>
+        </div>
+       {{pass}}
 
 {{include 'page_end.html'}}
