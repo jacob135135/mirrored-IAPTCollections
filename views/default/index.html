@@ -2,6 +2,9 @@
 
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">Welcome to Whatever</h1>
+        {{if request.args(0) == 'register':}}
+           <script>$(document).ready (showLoginModal());</script>
+        {{pass}}
         <p class="small_margins">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod
           bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra

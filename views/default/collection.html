@@ -10,7 +10,7 @@
         <h1 class="small_margins h_with_icons">{{=collection.name}}</h1>
         &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(collection.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add</button></a>
         &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(collection.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit</button></a>
-        &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
+        &nbsp;<button onclick="deleteCollection({{=collection.id}})" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
       </br><br><br>
 
         <div class="col-xs-7">
