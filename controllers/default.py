@@ -8,6 +8,9 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
 
+typeList = ['Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
+                          'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
+                          'Themed','Toys and Games','Miscellaneous']
 def index():
     """
     example action using the internationalization operator T and flash
@@ -94,7 +97,11 @@ def edit_collection():
                DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked=record.private),'Private'),_class="checkbox col-xs-12"),
                DIV(INPUT(_type='submit', _value="Submit" ,_class="btn btn-primary"),_class="col-xs-12"),_class="small_margins")
     if updateform.accepts(request,session):
-        record.update_record(name=request.vars.name,private=request.vars.private)
+        if request.vars.private:
+            x = True
+        else:
+            x = False
+        record.update_record(name=request.vars.name,private=x)
         redirect(URL('default','collections'))
     elif updateform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -309,12 +316,12 @@ def add_to_havelist():
 def advanced_search():
     searchform = FORM(DIV(
                DIV(LABEL('Keyword*', _for='keyword')),
-               DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Seach for...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Search for...",requires=IS_NOT_EMPTY(),_class="form-control")),
                BR(),
                DIV(LABEL('Minimum price (in £)*', _for='price_range_min'),
-               INPUT(_name='price_range_min',_value = 0,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control col-xs-8",_id='price_range_min'),_class='form-group col-xs-6'),
+               INPUT(_name='price_range_min',_value = 0,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,10000),_class="form-control col-xs-8",_id='price_range_min'),_class='form-group col-xs-6'),
                DIV(LABEL('Maximum price (in £)*', _for='price_range_max'),
-               INPUT(_name='price_range_max',_value = 9999,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control col-xs-8",_id='price_range_max'),_class='form-group col-xs-6'),
+               INPUT(_name='price_range_max',_value = 9999,requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,10000),_class="form-control col-xs-8",_id='price_range_max'),_class='form-group col-xs-6'),
                BR(),
                BR(),
                DIV(LABEL(INPUT(_name='my_collection',_type="checkbox",_id='my_collection' ),'Search my collection'),_class="checkbox-inline",_for='my_collection'),
@@ -322,21 +329,113 @@ def advanced_search():
                DIV(LABEL(INPUT(_name='all_collections',_type="checkbox",_id='all_collections' ),'Search all public collections'),_class="checkbox-inline",_for='all_collections'),
                BR(),BR(),
                DIV(LABEL(INPUT(_name='only_one_user',_type="checkbox",_id='only_one_user' ),'Only search collection of:'),_class="checkbox-inline",_for='only_one_user'),
+               LABEL('(Collection owner)', _for='single_collection_owner'),
                BR(),
-               DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Seach for...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               DIV(INPUT(_name='single_collection_owner',_id='single_collection_owner',_placeholder = "Search for...",_disabled = True,_class="form-control")),
 
 
               _class='form-group col-xs-6'),
                DIV(
-               DIV(LABEL('Image*', _for='product_name')),
-               DIV(INPUT(_name='image',_type='file')),
-               BR(),
-               DIV(LABEL('Description', _for='product_name')),
-               DIV(TEXTAREA(_name='description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
-               BR(),
+               P(B('Search in categories:')),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Advertising and Brand'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox"),'Architectural'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox"),'Art'),_class="checkbox-inline",),
+                      BR(),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Books,Magazines and Paper'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Clothing,Fabric and Textiles'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Coins,Currency,Stamps'),_class="checkbox-inline",),
+                      BR(),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Glass and Pottery'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Household Items'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Memorabilia'),_class="checkbox-inline",),
+                   BR(),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Music'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Nature and Animals'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Sports'),_class="checkbox-inline",),
+                   BR(),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Technology'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Themed'),_class="checkbox-inline",),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Toys and Games'),_class="checkbox-inline",),
+                   BR(),
+               DIV(LABEL(INPUT(_type="checkbox" ),'Miscellaneous'),_class="checkbox-inline",),
+                    BR(),BR(),
+               DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
+                BR(), BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
-    return dict(searchform=searchform,form=auth())
+    results = []
+    if request.vars.only_tradables:
+        temprows = db(db.collection.name == 'Have List').select()
+    else:
+        temprows = db(db.collection.private == False).select()
+    public_collection = []
+    for x in temprows:
+        public_collection.append(x.id)
+    if searchform.accepts(request,session):
+
+        if (request.vars.my_collection and request.vars.all_collections):
+            tempresults = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+             & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+            for x in tempresults:
+                if ([i for i in x.inCollection if i in public_collection] != []):
+                    results.append(x)
+
+
+        elif request.vars.my_collection:
+
+             if request.vars.only_tradables:
+                 record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
+                 results = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+            & (db.item.ownedBy == auth.user.id) & (db.item.inCollection.contains(record.id))& (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+
+             else:
+                results = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+            & (db.item.ownedBy == auth.user.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+
+        elif request.vars.all_collections:
+
+            tempresults = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+            & (db.item.ownedBy != auth.user.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+            for x in tempresults:
+                if ([i for i in x.inCollection if i in public_collection] != []):
+                    results.append(x)
+
+        elif request.vars.only_one_user:
+
+            record = db((db.auth_user.username == request.vars.single_collection_owner)).select()[0]
+
+            tempresults = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+            & (db.item.ownedBy == record.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+            for x in tempresults:
+                if ([i for i in x.inCollection if i in public_collection] != []):
+                    results.append(x)
+
+        else:
+            tempresults = db(
+                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+             & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
+             ).select()
+            for x in tempresults:
+                if ([i for i in x.inCollection if i in public_collection] != []):
+                    results.append(x)
+
+    elif searchform.errors:
+
+        response.flash = 'One or more of your form fields has an error. Please see below for more information'
+    else:
+        response.flash = 'Please complete the form below to add a new product.'
+
+    return dict(searchform=searchform,items = results, form=auth())
 
 
 
