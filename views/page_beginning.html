@@ -35,10 +35,10 @@
           <a href="{{=URL('default','user/logout')}}"><button class="btn btn-link">Logout</button></a>
 
           {{else:}} <!--Have register and login buttons if not logged in-->
-          <a href="{{=URL('default','user/register')}}"><button class="btn btn-link sml_spacing">Register</button></a>
+          <!--<a href="{{=URL('default','user/register')}}"><button class="btn btn-link sml_spacing">Register</button></a>-->
           <!--<a href="{{=URL('default','user/login')}}"><button class="btn btn-link">Log in</button></a>-->
 
-          <button class="btn btn-link" data-toggle="modal" data-target="#myModal">Log in</button>
+          <button class="btn btn-link" data-toggle="modal" data-target="#myModal">Log in / Register</button>
            {{include 'default/login_modal.html'}}
           {{pass}}
 
