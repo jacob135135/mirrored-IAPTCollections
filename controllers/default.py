@@ -179,12 +179,9 @@ def trade_info():
 
 def all_users():
     allusers = []
-    users = db(db.auth_user.id > 0).select()
-    for x in users:
-        tempdict = {}
-        tempdict['name'] = x.username
-        allusers.append(tempdict)
-    return dict(allusers=allusers)
+    users = db(db.auth_user.id > 0).select(db.auth_user.username)
+
+    return response.json(users)
 def create_new_trade():
     db.item.insert(user_1_trading_items=request.vars.user_1_trading_items,user_2_trading_items=request.vars.user_2_trading_items,
                    user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
