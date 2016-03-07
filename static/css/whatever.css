@@ -262,3 +262,21 @@ button.transp {background-color: inherit;}
 	bottom: 10px;
 	right: 10px;
 }
+
+label.categ
+{
+	font-weight: normal;
+	margin-right: 26px;
+}
+
+.categ1
+{
+	font-weight: normal;
+	margin-right: 49px;
+}
+
+.categ2
+{
+	font-weight: normal;
+	margin-right: 15px;
+}
