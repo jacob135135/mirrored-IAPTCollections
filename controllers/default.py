@@ -155,6 +155,10 @@ def add_to_collection():
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform, collection=record)
 
+def delete_collection():
+    db(db.collection.id ==  request.args(0)).delete()
+    return dict()
+
 @auth.requires_login()
 def wishlist():
     myWishList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
@@ -164,6 +168,7 @@ def wishlist():
 def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
+
 
 @auth.requires_login()
 def trade():

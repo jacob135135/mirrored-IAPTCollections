@@ -16,10 +16,7 @@ function doStuffOnload()
 		toggleContrast();
 	}
 }
-function showModal()
-{
-        $('#myModal').modal('show');
-}
+
 function toggleDyslexia()
 {
 	$('.btn').toggleClass("dyslexia");
@@ -88,8 +85,17 @@ function deleteCollection(collection_id)
 	ask=confirm("Are you sure you want to delete this collection? \n Items contained in this collection will be permanently lost");
     if(ask)
 	{
-		window.location="deleteCollection?id=" + collection_id;
+		add_url = window.location.origin + "/IAPTCollections/default/delete_collection/" + collection_id;
+
+		$.ajax({
+		  url: add_url
+		}).done(function() {
+			window.location="/IAPTCollections/default/collections/";
+		});
 	}
+
+
+
 }
 
 function editCollection(item_id, list_id)

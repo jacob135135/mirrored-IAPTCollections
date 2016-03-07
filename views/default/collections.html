@@ -13,7 +13,7 @@
           &nbsp;<a href="{{=URL('default','collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-eye-open"></span>View</button></a>
           &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add</button></a>
           &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit</button></a>
-          &nbsp;<button onclick="deleteCollection(1)" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
+          &nbsp;<button onclick="deleteCollection({{=c.id}})" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
         <div class="centered small_margins">
           <a href="{{=URL('default','collection',args=''+str(c.id))}}">
           {{tot = 0}}
