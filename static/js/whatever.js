@@ -149,6 +149,7 @@ function getItemAllInfo(item_id, list_id)
 		else
 			img_src = "/IAPTCollections/default/download/" + data['info'][0]['image'];
 
+		list_name = '';
 		if (list_id == 0)
 		{
 			list_name = "collection";
@@ -170,15 +171,34 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
 		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
 		new_html += "<div>Category: <b>" + data['info'][0]['type'] + "</b><br>";
+		new_html += "<div>Owner: <b>" + data['info'][0]['ownedBy'] + "</b><br>";
 
 		new_html += "<label for='description'>Description:</label>";
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
 		item_id = data['info'][0]['id'];
-		new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
-		//						^ I need the 1 to be item_id but dont know how. Otherwise it should work.
-		oncl =  "delItembyUrl('" + del_url + "')";
 
-		new_html += "<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from " + list_name + "</button>";
+		console.log(data);
+		console.log(data['wishlist_ok']);
+		console.log(data['is_tradable']);
+		if (list_name)
+		{
+			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+
+			if (data['have_list_ok'] && list_id == 0)
+				new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+
+			oncl =  "delItembyUrl('" + del_url + "')";
+
+			new_html += "<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from " + list_name + "</button>";
+		}
+		else
+		{
+			if (data['wishlist_ok'])
+				new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
+		  if (data['is_tradable'])
+			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
+		}
+
 		new_html += "</div>";
 
 		$('#ajax_content_div').html(new_html);
