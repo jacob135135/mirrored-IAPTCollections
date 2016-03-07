@@ -141,6 +141,12 @@ div.item_view
 	overflow: hidden;
 }
 
+.item_view_fit
+{
+	height: inherit;
+	width: inherit;
+}
+
 div.others_div
 {
 	display: inline-block;

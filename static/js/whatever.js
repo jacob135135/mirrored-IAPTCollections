@@ -166,12 +166,15 @@ function getItemAllInfo(item_id, list_id)
 		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
 
 		new_html = "<div class='item_view'><img src='" + img_src ;
-		new_html += "' alt='selected item image' class='item_view'><br>First Item</div>";
+		new_html += "' alt='selected item image' class='item_view_fit'></div>";
 		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
 		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
 		new_html += "<div>Category: <b>" + data['info'][0]['type'] + "</b><br>";
-		new_html += "<div>Owner: <b>" + data['info'][0]['ownedBy'] + "</b><br>";
+
+		logged_in_id = data['logged_in'];
+		owner_id = data['info'][0]['ownedBy'];
+
 
 		new_html += "<label for='description'>Description:</label>";
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
@@ -193,7 +196,7 @@ function getItemAllInfo(item_id, list_id)
 			if (data['wishlist_ok'])
 				new_html += "<button onclick='addtoWishlist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
 		  if (data['is_tradable'])
-			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
+				new_html += "<button onclick='proposeTrade(" + logged_in_id + "," + owner_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
 		}
 
 		new_html += "</div>";
@@ -285,4 +288,11 @@ function addtoWishlist(item_id)
 	}).done(function() {
 		location.reload();
 	});
+}
+
+function proposeTrade(user1_id, user2_id)
+{
+	req_url = window.location.origin + "/IAPTCollections/default/trade/" + user1_id + "/" + user2_id;
+
+	window.location.href = req_url;
 }
