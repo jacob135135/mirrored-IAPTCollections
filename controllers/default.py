@@ -174,8 +174,14 @@ def trade():
 
 def trade_info():
     record = db.trades(request.args(0))
+    user_1_trading_items = ""
+    user_2_trading_items = ""
+    for x in record.user_1_trading_items:
+        user_1_trading_items += str(x.id) + ","
+    for x in record.user_2_trading_items:
+        user_2_trading_items += str(x.id) + ","
 
-    return dict(user_1_trading_items = list(record.user_1_trading_items),user_2_trading_items=list(record.user_2_trading_items)
+    return dict(user_1_trading_items = user_1_trading_items,user_2_trading_items=user_2_trading_items
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
 def all_users():
