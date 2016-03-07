@@ -390,7 +390,7 @@ def advanced_search():
     if request.vars.only_tradables:
         temprows = db(db.collection.name == 'Have List').select()
     else:
-        temprows = db(db.collection.private == False).select()
+        temprows = db((db.collection.private == False) & (db.collection.name != "Want List")).select()
     public_collection = []
     for x in temprows:
         public_collection.append(x.id)
@@ -403,7 +403,7 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                    results.append(x)
+                        results.append(x)
 
 
         elif request.vars.my_collection:
@@ -429,7 +429,7 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                    results.append(x)
+                        results.append(x)
 
         elif request.vars.only_one_user:
 
@@ -441,7 +441,7 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                    results.append(x)
+                        results.append(x)
 
         else:
             tempresults = db(
@@ -449,8 +449,8 @@ def advanced_search():
              & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
             for x in tempresults:
-                if ([i for i in x.inCollection if i in public_collection] != []):
-                    results.append(x)
+                if ([i for i in x.inCollection if i in public_collection] != []):#
+                        results.append(x)
         session.results = results
         redirect(URL('default','search_results'))
     elif searchform.errors:
