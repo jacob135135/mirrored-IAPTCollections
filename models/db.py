@@ -54,6 +54,14 @@ db.collection.name.requires = IS_NOT_EMPTY(error_message="Please enter a name fo
 db.collection.name.widget = lambda f,v: SQLFORM.widgets.string.widget(f, v,
     _placeholder='Name of collection...', _class = "form-control")
 
+db.define_table('trades',
+Field('user_1_trading_items', 'list:reference item'),
+Field('user_2_trading_items', 'list:reference item'),
+Field('user_1','reference auth_user'),
+Field('user_2','reference auth_user'),
+Field('user_to_respond','reference auth_user'))
+
+#validators
 
 
 db.define_table('item',

@@ -93,7 +93,7 @@ def new_collection():
 def edit_collection():
     record = db.collection(request.args(0))
     updateform = FORM(DIV(LABEL('Name*', _for='product_name',_class="checkbox col-xs-12")),
-               DIV(INPUT(_name='name', value = record.name,_placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
+               DIV(INPUT(_name='name',_id='product_name', value = record.name,_placeholder = "Name of collection...",requires=IS_NOT_EMPTY(),_class="form-control"),_class = "form-group col-xs-6"),
                DIV(LABEL(INPUT(_name='private',_type="checkbox", _checked=record.private),'Private'),_class="checkbox col-xs-12"),
                DIV(INPUT(_type='submit', _value="Submit" ,_class="btn btn-primary"),_class="col-xs-12"),_class="small_margins")
     if updateform.accepts(request,session):
@@ -113,24 +113,24 @@ def add_to_collection():
     inCollectionList=[record.id]
     addform = FORM(DIV(
                DIV(LABEL('Name*', _for='product_name')),
-               DIV(INPUT(_name='name',_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               DIV(INPUT(_name='name',_id='product_name',_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
                BR(),
                DIV(LABEL('Value*', _for='product_value')),
-               DIV(INPUT(_name='value',_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
+               DIV(INPUT(_name='value',_id='product_value',_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
                BR(),
                DIV(LABEL('Type*', _for='product_type')),
                DIV(SELECT('Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
-                          'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_class="form-control")),
+                          'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_id='product_type',_class="form-control")),
                BR(),
                DIV(LABEL(INPUT(_name='have_list',_type="checkbox"),'Add to have list'),_class="small_margins checkbox"),
               _class='form-group col-xs-6'),
                DIV(
-               DIV(LABEL('Image*', _for='product_name')),
-               DIV(INPUT(_name='image',_type='file')),
+               DIV(LABEL('Image*', _for='product_image')),
+               DIV(INPUT(_name='image',_type='file',_id='product_image')),
                BR(),
-               DIV(LABEL('Description', _for='product_name')),
-               DIV(TEXTAREA(_name='description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
+               DIV(LABEL('Description', _for='product_description')),
+               DIV(TEXTAREA(_name='description',_id='product_description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
                BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
@@ -164,11 +164,25 @@ def have_list():
     myHaveList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()
     return dict(items = db((db.item.inCollection.contains(myHaveList[0].id))).select())
 
+@auth.requires_login()
 def trade():
-    record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
-    return dict(items = db((db.item.inCollection.contains(record.id))).select(),form=auth())
+    recordUser1 = db((db.collection.ownedBy == request.args(0)) & (db.collection.name == "Have List")).select()[0]
+    recordUser2 = db((db.collection.ownedBy == request.args(1)) & (db.collection.name == "Have List")).select()[0]
+    return dict(user1Tradables = db((db.item.inCollection.contains(recordUser1.id))).select(),
+                user2Tradables = db((db.item.inCollection.contains(recordUser2.id))).select())
 
+def trade_info():
+    record = db.trades(request.args(0))
 
+    return dict(user_1_trading_items = list(record.user_1_trading_items),user_2_trading_items=list(record.user_2_trading_items)
+                ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
+
+def create_new_trade():
+    db.item.insert(user_1_trading_items=request.vars.user_1_trading_items,user_2_trading_items=request.vars.user_2_trading_items,
+                   user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
+    db.commit
+
+    ## the request.vars.... is where you can add what is coming from your form and this will create a new trade.
 def delete_item():
     if (request.args(0) == '0'):
         db(db.item.id ==  request.args(1)).delete()
@@ -196,25 +210,24 @@ def edit_item():
         alt = "img for" + record.name
     editform = FORM(DIV(
                DIV(LABEL('Name*', _for='product_name')),
-               DIV(INPUT(_name='name',_value=record.name,_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
+               DIV(INPUT(_name='name',_id='product_name',_value=record.name,_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
                BR(),
                DIV(LABEL('Value*', _for='product_value')),
-               DIV(INPUT(_name='value',_value=record.price,_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
+               DIV(INPUT(_name='value',_id='product_value',_value=record.price,_placeholder = "Value of item...",requires=IS_NOT_EMPTY() and IS_INT_IN_RANGE(0,9999),_class="form-control")),
                BR(),
                DIV(LABEL('Type*', _for='product_type')),
                DIV(SELECT('Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
-                          'Themed','Toys and Games','Miscellaneous',_name='type',value=record.type,_class="form-control")),
+                          'Themed','Toys and Games','Miscellaneous',_name='type',_id='product_type',value=record.type[0],_class="form-control")),
               _class='form-group col-xs-6'),
                DIV(
-               DIV(LABEL('Current Image', _for='product_image')),
-               DIV(IMG(_src=src,_alt=alt,_class="item_view")),
+               DIV(IMG(_id='product_current_image',_src=src,_alt=alt,_class="item_view")),
                BR(),
-               DIV(LABEL('Change image: ', _for='product_name')),
-               DIV(INPUT(_name='image',_type='file')),
+               DIV(LABEL('Change image: ', _for='product_image')),
+               DIV(INPUT(_name='image',_type='file',_id='product_image')),
                BR(),
-               DIV(LABEL('Description', _for='product_name')),
-               DIV(TEXTAREA(_name='description',value=record.description,_class='form-control',_rows='8',_placeholder='Please enter item description')),
+               DIV(LABEL('Description', _for='product_description')),
+               DIV(TEXTAREA(_name='description',_id='product_description',value=record.description,_class='form-control',_rows='8',_placeholder='Please enter item description')),
                BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
@@ -226,7 +239,12 @@ def edit_item():
             image = db.item.image.store(request.vars.image.file,request.vars.image.filename)
         record.update_record(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        image=image)
-        redirect(URL('default','collections'))
+        if request.vars['list_id'] == '0':
+            redirect(URL('default','collections'))
+        if request.vars['list_id'] == '1':
+            redirect(URL('default','have_list'))
+        if request.vars['list_id'] == '2':
+            redirect(URL('default','wishlist'))
     elif editform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
     else:
