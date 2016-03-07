@@ -14,7 +14,7 @@
   <p><b>Your tradeables</b></p>
   <ol id="sortable1" class="connectedSortable">
     {{for i in user1Tradables:}}
-    <li tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
+    <li data-id="{{=i.id}}" tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
     {{pass}}
   </ol>
 </div>
@@ -33,7 +33,7 @@
   <p><b>Their items</b></p>
   <ol id="sortable4" class="connectedSortable2">
     {{for i in user2Tradables:}}
-    <li tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
+    <li data-id="{{=i.id}}" tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
     {{pass}}
   </ol>
 </div>

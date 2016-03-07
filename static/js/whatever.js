@@ -296,3 +296,35 @@ function proposeTrade(user1_id, user2_id)
 
 	window.location.href = req_url;
 }
+
+function proposeChosTrade()
+{
+	pathname = window.location.pathname;
+	user1_id = pathname.split("/")[4];
+	user2_id = pathname.split("/")[5];
+
+	user1_items = '';
+	user2_items = '';
+
+	$('#sortable3 li.clickable').each(function() {
+  	user2_items += $(this).attr("data-id") + ",";
+	});
+	user2_items = user2_items.substr(0, user2_items.length -1);
+
+	$('#sortable2 li').each(function() {
+  	user1_items += $(this).attr("data-id") + ",";
+	});
+	user1_items = user1_items.substr(0, user1_items.length-1);
+
+	add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
+	$form = $("<form method='post' action=" + add_url +"></form>");
+	$form.append("<input id='user_1_trading_items' name='user_1_trading_items' value=" + user1_items + ">");
+	$form.append("<input id='user_2_trading_items' name='user_2_trading_items' value=" + user2_items + ">");
+	$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
+	$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
+	$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
+	$('body').append($form);
+	$form.submit();
+	window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+
+}
