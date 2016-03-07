@@ -11,6 +11,7 @@
 typeList = ['Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
                           'Themed','Toys and Games','Miscellaneous']
+
 def index():
     """
     example action using the internationalization operator T and flash
@@ -384,7 +385,7 @@ def advanced_search():
                DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
                 BR(), BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
-                   _class='form-group col-xs-6'),_class="small_margins")
+                   _class='form-group col-xs-6'),_class="small_margins",action="{{=URL('default','search_results')}}", method="post")
     results = []
     if request.vars.only_tradables:
         temprows = db(db.collection.name == 'Have List').select()
@@ -450,7 +451,8 @@ def advanced_search():
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
                     results.append(x)
-
+        session.results = results
+        redirect(URL('default','search_results'))
     elif searchform.errors:
 
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -458,7 +460,10 @@ def advanced_search():
         response.flash = 'Please complete the form below to add a new product.'
 
     return dict(searchform=searchform,items = results, form=auth())
-
+@auth.requires_login()
+def search_results():
+    results = session.results
+    return dict(items=results)
 
 
 def trade_history():
