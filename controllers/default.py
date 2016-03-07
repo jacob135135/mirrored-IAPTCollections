@@ -479,6 +479,16 @@ def add_item_to_havelist():
     collectionList.append(myHaveList[0].id)
     item.update_record(inCollection=collectionList)
 
+def add_item_to_wishlist():
+    myWantList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
+    item = db.item(request.args(0))
+    collectionList = [myWantList[0].id]
+
+    db.item.insert(name=item.name,price=item.price,type=item.type,description=item.description,
+                       inCollection=collectionList,ownedBy=item.ownedBy,image=item.image)
+    db.commit
+
+
 def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()
     owner_id = db(db.item.id == request.get_vars.id).select(db.item.ownedBy)[0].ownedBy
