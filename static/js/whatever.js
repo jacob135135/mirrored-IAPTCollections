@@ -177,15 +177,12 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
 		item_id = data['info'][0]['id'];
 
-		console.log(data);
-		console.log(data['wishlist_ok']);
-		console.log(data['is_tradable']);
 		if (list_name)
 		{
 			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 
 			if (data['have_list_ok'] && list_id == 0)
-				new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
 
 			oncl =  "delItembyUrl('" + del_url + "')";
 
@@ -194,7 +191,7 @@ function getItemAllInfo(item_id, list_id)
 		else
 		{
 			if (data['wishlist_ok'])
-				new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
+				new_html += "<button onclick='addtoWishlist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
 		  if (data['is_tradable'])
 			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
 		}
@@ -265,4 +262,27 @@ function triggerAutoComplUsers()
 	      source: data
 	    });
 		});
+}
+
+
+function addtoHavelist(item_id)
+{
+	add_url = window.location.origin + "/IAPTCollections/default/add_item_to_havelist/" + item_id;
+
+	$.ajax({
+	  url: add_url
+	}).done(function() {
+		location.reload();
+	});
+}
+
+function addtoWishlist(item_id)
+{
+	add_url = window.location.origin + "/IAPTCollections/default/add_item_to_wishlist/" + item_id;
+
+	$.ajax({
+	  url: add_url
+	}).done(function() {
+		location.reload();
+	});
 }
