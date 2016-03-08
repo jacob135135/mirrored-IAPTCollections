@@ -166,6 +166,12 @@ img.item_view
 	height: 80px;
 }
 
+div.error
+{
+	text-align: center;
+	font-weight: bold;
+	color: red;
+}
 div.item_view_sm
 {
 	display: inline-block;
