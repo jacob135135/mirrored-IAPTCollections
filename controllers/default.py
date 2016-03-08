@@ -79,6 +79,7 @@ def collections():
         return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
                     items = db((db.item.id > 0)).select(),form=auth())
 
+@auth.requires_login()
 def collection():
     return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
 

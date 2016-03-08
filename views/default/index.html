@@ -4,6 +4,8 @@
         <h1 class="small_margins">Welcome to Whatever</h1>
         {{if request.args(0) == 'register':}}
            <script>$(document).ready (showLoginModal());</script>
+          {{elif request.vars['_next'] != None:}}
+           <script>$(document).ready (showLoginModal());</script>
         {{pass}}
         <p class="small_margins">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod
