@@ -71,7 +71,7 @@ db.define_table('item',
 Field('image','upload'),
 Field('name','string'),
 Field('price','integer'),
-Field('type', 'list:string'),
+Field('type', 'string'),
 Field('description','string'),
 Field('inCollection', 'list:reference collection'),
 Field('ownedBy','reference auth_user', readable = False, writable = False, default = auth.user))

@@ -386,31 +386,50 @@ def advanced_search():
               _class='form-group col-xs-6'),
                DIV(
                P(B('Search in categories:')),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Art', _class="categ1"),_class="checkbox-inline"),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Music', _class="categ"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='art',_type="checkbox",_checked=True ),'Art', _class="categ1"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='music',_type="checkbox",_checked=True ),'Music', _class="categ"),_class="checkbox-inline"),
                BR(),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Sports', _class="categ"),_class="checkbox-inline"),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Technology', _class="categ"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='sports',_type="checkbox",_checked=True ),'Sports', _class="categ"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='tech',_type="checkbox",_checked=True  ),'Technology', _class="categ"),_class="checkbox-inline"),
                BR(),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Themed', _class="categ2"),_class="checkbox-inline"),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Memorabilia', _class="categ"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='themed',_type="checkbox",_checked=True  ),'Themed', _class="categ2"),_class="checkbox-inline"),
+               DIV(LABEL(INPUT(_name ='memorabilia',_type="checkbox",_checked=True  ),'Memorabilia', _class="categ"),_class="checkbox-inline"),
                BR(),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Advertising and Brand', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox"),'Architectural', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Books,Magazines and Paper', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Clothing,Fabric and Textiles', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Coins,Currency,Stamps', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Glass and Pottery', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Household Items', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Nature and Animals', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Toys and Games', _class="categ"),),
-               DIV(LABEL(INPUT(_type="checkbox" ),'Miscellaneous', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='ads',_type="checkbox",_checked=True  ),'Advertising and Brand', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='architect',_type="checkbox",_checked=True ),'Architectural', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='books',_type="checkbox",_checked=True ),'Books,Magazines and Paper', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='clothing',_type="checkbox",_checked=True ),'Clothing,Fabric and Textiles', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='coins',_type="checkbox",_checked=True  ),'Coins,Currency,Stamps', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='glass',_type="checkbox",_checked=True  ),'Glass and Pottery', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='house',_type="checkbox",_checked=True  ),'Household Items', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='nature',_type="checkbox",_checked=True ),'Nature and Animals', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='toys',_type="checkbox",_checked=True ),'Toys and Games', _class="categ"),),
+               DIV(LABEL(INPUT(_name ='misc',_type="checkbox",_checked=True  ),'Miscellaneous', _class="categ"),),
                     BR(),
                DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
                 BR(), BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
     results = []
+    thingthing = []
+    if request.vars.art:thingthing.append('Art')
+    if request.vars.music:thingthing.append('Music')
+    if request.vars.sports:thingthing.append('Sports')
+    if request.vars.tech:thingthing.append('Technology')
+    if request.vars.themed:thingthing.append('Themed')
+    if request.vars.memorabilia:thingthing.append('Memorabilia')
+    if request.vars.ads:thingthing.append('Advertising and Brand')
+    if request.vars.architect:thingthing.append('Architectural')
+    if request.vars.books:thingthing.append('Books,Magazines and Paper')
+    if request.vars.clothing:thingthing.append('Clothing,Fabric and Textiles')
+    if request.vars.coins:thingthing.append('Coins,Currency,Stamps')
+    if request.vars.glass:thingthing.append('Glass and Pottery')
+    if request.vars.house:thingthing.append('Household Items')
+    if request.vars.nature:thingthing.append('Nature and Animals')
+    if request.vars.toys:thingthing.append('Toys and Games')
+    if request.vars.misc:thingthing.append('Miscellaneous')
+
+
     if request.vars.only_tradables:
         temprows = db(db.collection.name == 'Have List').select()
     else:
@@ -427,23 +446,29 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                        results.append(x)
+                        if x.type in thingthing:
+                            results.append(x)
 
 
         elif request.vars.my_collection:
 
              if request.vars.only_tradables:
                  record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
-                 results = db(
+                 tempresults = db(
                  ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
             & (db.item.ownedBy == auth.user.id) & (db.item.inCollection.contains(record.id))& (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
-
+                 for x in tempresults:
+                    if x.type in thingthing:
+                        results.append(x)
              else:
-                results = db(
+                tempresults = db(
                  ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
             & (db.item.ownedBy == auth.user.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
+                for x in tempresults:
+                    if x.type in thingthing:
+                        results.append(x)
 
         elif request.vars.all_collections:
 
@@ -453,7 +478,8 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                        results.append(x)
+                        if x.type in thingthing:
+                            results.append(x)
 
         elif request.vars.only_one_user:
 
@@ -465,7 +491,8 @@ def advanced_search():
              ).select()
             for x in tempresults:
                 if ([i for i in x.inCollection if i in public_collection] != []):
-                        results.append(x)
+                        if x.type in thingthing:
+                            results.append(x)
 
         else:
             tempresults = db(
@@ -473,8 +500,9 @@ def advanced_search():
              & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
             for x in tempresults:
-                if ([i for i in x.inCollection if i in public_collection] != []):#
-                        results.append(x)
+                if ([i for i in x.inCollection if i in public_collection] != []):
+                    if x.type in thingthing:
+                            results.append(x)
         session.results = results
         redirect(URL('default','search_results'))
     elif searchform.errors:
@@ -497,7 +525,7 @@ def quick_search():
     for x in tempresults:
         if ([i for i in x.inCollection if i in public_collection] != []):#
                 results.append(x)
-    return dict(items = results, x= tempresults)
+    return dict(items = results)
 @auth.requires_login()
 def search_results():
     results = session.results
