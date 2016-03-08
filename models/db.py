@@ -35,7 +35,10 @@ db.define_table(
 custom_auth_table = db[auth.settings.table_user_name] # get the custom_auth_table
 custom_auth_table.username.requires =   IS_NOT_EMPTY(error_message=auth.messages.is_empty)
 custom_auth_table.password.requires = [ CRYPT()]
+custom_auth_table.password.requires = [IS_NOT_EMPTY(error_message="Please type a password")]
 custom_auth_table.username.requires = [IS_NOT_IN_DB(db, custom_auth_table.username)]
+
+
 
 
 auth.settings.table_user = custom_auth_table # tell auth to use custom_auth_table
@@ -153,8 +156,10 @@ auth.settings.reset_password_requires_verification = True
 ## login after registration and redirect to home page
 
 auth.settings.login_after_registration = True
-auth.settings.on_failed_authorization = URL('user',args='on_failed_authorization')
 auth.settings.login_url = URL('default','index')
+
+
+
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = True, name = "Default Collection", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Have List", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Want List", ownedBy = form.vars.id ))

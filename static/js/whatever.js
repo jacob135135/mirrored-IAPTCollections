@@ -303,6 +303,7 @@ function proposeTrade(user1_id, user2_id)
 	window.location.href = req_url;
 }
 
+
 function proposeChosTrade()
 {
 	pathname = window.location.pathname;
@@ -331,6 +332,12 @@ function proposeChosTrade()
 	$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
 	$('body').append($form);
 	$form.submit();
-	window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+
+
+	$.ajax({
+	}).done(function() {
+		window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+	});
+
 
 }

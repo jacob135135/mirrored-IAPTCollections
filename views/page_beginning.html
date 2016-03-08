@@ -50,18 +50,20 @@
             <a href="{{=URL('default', 'index')}}">
               <img src="{{=URL('static','images/whatever.png')}}" class="small_margins picture button_to_image" alt="page-logo">
             </a>
-
-        <div class="properly_centered">
+        <form class="properly_centered" method='post' action={{=URL('default','quick_search')}}>
+          <div class="properly_centered">
           <div id='search_div' class="col-md-5 small_margins">
             <div class="input-group">
               <label for="top_search" class="sr-only">Perform search</label>
-              <input type="text" id="top_search" class="form-control child_size_of_parent" placeholder="Search for...">
+              <input type="text" name="top_search" id="top_search" class="form-control child_size_of_parent" placeholder="Search for...">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">Search</button>
+                <button type="submit" class="btn btn-primary">Search</button>
               </span>
             </div>
           </div>
         </div>
+        </form>
+
       </div>
     </header>
 

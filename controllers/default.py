@@ -40,7 +40,13 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
-    return dict(form=auth())
+    form = auth()
+    if form.process().accepted:
+        response.flash = 'form accepted'
+    elif form.errors:
+        response.flash = 'form has errors'
+    return dict(form=form)
+
 def handle_user():
    return dict(form=auth())
 
@@ -195,12 +201,18 @@ def all_users():
     for x in users:
         allusers.append(x.username)
     return response.json(allusers)
+
+
 def create_new_trade():
-    db.item.insert(user_1_trading_items=request.vars.user_1_trading_items,user_2_trading_items=request.vars.user_2_trading_items,
+    db.trades.insert(user_1_trading_items=request.vars.user_1_trading_items,user_2_trading_items=request.vars.user_2_trading_items,
                    user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
     db.commit
-
+    return dict()
     ## the request.vars.... is where you can add what is coming from your form and this will create a new trade.
+
+def TEST_PAGE():
+    return dict(s = session.tests)
+
 def delete_item():
     if (request.args(0) == '0'):
         db(db.item.id ==  request.args(1)).delete()
@@ -471,6 +483,20 @@ def advanced_search():
         response.flash = 'Please complete the form below to add a new product.'
 
     return dict(searchform=searchform, form=auth())
+
+def quick_search():
+    results = []
+    temprows = db((db.collection.private == False) & (db.collection.name != "Want List")).select()
+    public_collection = []
+    for x in temprows:
+        public_collection.append(x.id)
+    tempresults = db(
+                 ((db.item.name.like('%' + request.vars.top_search + '%'))| (db.item.description.like('%' + request.vars.top_search + '%')))
+             ).select()
+    for x in tempresults:
+        if ([i for i in x.inCollection if i in public_collection] != []):#
+                results.append(x)
+    return dict(items = results, x= tempresults)
 @auth.requires_login()
 def search_results():
     results = session.results
