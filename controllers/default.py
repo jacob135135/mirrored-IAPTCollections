@@ -205,7 +205,9 @@ def all_users():
 
 
 def create_new_trade():
-    db.trades.insert(user_1_trading_items=request.vars.user_1_trading_items,user_2_trading_items=request.vars.user_2_trading_items,
+    user_1_trading_items = request.vars.user_1_trading_items.split(',',1)
+    user_2_trading_items = request.vars.user_2_trading_items.split(',',1)
+    db.trades.insert(user_1_trading_items=user_1_trading_items,user_2_trading_items=user_2_trading_items,
                    user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
     db.commit
     return dict()
