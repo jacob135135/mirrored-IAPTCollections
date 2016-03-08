@@ -339,21 +339,26 @@ function proposeChosTrade()
 	});
 	user1_items = user1_items.substr(0, user1_items.length-1);
 
-	add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
-	$form = $("<form method='post' action=" + add_url +"></form>");
-	$form.append("<input id='user_1_trading_items' name='user_1_trading_items' value=" + user1_items + ">");
-	$form.append("<input id='user_2_trading_items' name='user_2_trading_items' value=" + user2_items + ">");
-	$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
-	$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
-	$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
-	$('body').append($form);
-	$form.submit();
+	if (user1_items && user2_items)
+	{
+		add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
+		$form = $("<form method='post' action=" + add_url +"></form>");
+		$form.append("<input id='user_1_trading_items' name='user_1_trading_items' value=" + user1_items + ">");
+		$form.append("<input id='user_2_trading_items' name='user_2_trading_items' value=" + user2_items + ">");
+		$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
+		$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
+		$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
+		$('body').append($form);
+		$form.submit();
 
-
-	$.ajax({
-	}).done(function() {
-		window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
-	});
-
+		$.ajax({
+		}).done(function() {
+			window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+		});
+	}
+	else
+	{
+		$('.trading_div_errors').html("<b>Both users need to offer at least 1 item.</b>");
+	}
 
 }
