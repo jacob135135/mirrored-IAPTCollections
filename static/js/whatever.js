@@ -348,7 +348,7 @@ function proposeChosTrade()
 		$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
 		$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
 		$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
-		$('body').append($form);
+		//$('body').append($form);
 		$form.submit();
 
 		$.ajax({
@@ -361,4 +361,47 @@ function proposeChosTrade()
 		$('.trading_div_errors').html("<b>Both users need to offer at least 1 item.</b>");
 	}
 
+}
+
+function initEnterSupp()
+{
+	$('#sortable1 li.clickable').keydown( function(e) {
+			var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+			if(key == 13) {
+			 e.preventDefault();
+				 $('#sortable2').append(this);
+				 $('#sortable1 li.clickable').focus();
+				 initEnterSupp();
+			}
+	});
+
+	$('#sortable2 li.clickable').keydown( function(e) {
+			var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+			if(key == 13) {
+			 e.preventDefault();
+				 $('#sortable1').append(this);
+				 $('#sortable2 li.clickable').focus();
+				 initEnterSupp();
+			}
+	});
+
+	$('#sortable4 li.clickable').keydown( function(e) {
+			var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+			if(key == 13) {
+			 e.preventDefault();
+				 $('#sortable3').append(this);
+				 $('#sortable4 li.clickable').focus();
+				 initEnterSupp();
+			}
+	});
+
+	$('#sortable3 li.clickable').keydown( function(e) {
+			var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+			if(key == 13) {
+			 e.preventDefault();
+				 $('#sortable4').append(this);
+				 $('#sortable3 li.clickable').focus();
+				 initEnterSupp();
+			}
+	});
 }
