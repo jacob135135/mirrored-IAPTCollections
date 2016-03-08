@@ -11,6 +11,8 @@
         {{
             if not 'register' in request.args(0):
                 form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
+            elif 'register' in request.args(0):
+                form.add_button(T('Back to login'),URL(args='login', vars={'_next': request.vars._next} if request.vars._next else {'_next':'backtologin'}),_class='btn btn-default')
             pass
         =form
         pass
