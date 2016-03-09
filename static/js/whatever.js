@@ -460,6 +460,7 @@ function initTradeStuff()
 
 			//$('#modal_trade_st .propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
 			$('.propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
+			$('.propose_trade').attr("onclick","proposeChosTrade(1)");
 
 
 		});
