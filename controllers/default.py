@@ -213,6 +213,10 @@ def edit_trade():
                    user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
     return dict()
 
+def accept_trade():
+    record = db.trades(request.args(0))
+    record.update_record(user_to_respond = None)
+    return dict()
 
 def delete_trade():
     db(db.trades.id ==  request.args(0)).delete()
