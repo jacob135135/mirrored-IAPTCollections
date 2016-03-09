@@ -231,6 +231,76 @@ function getItemAllInfo(item_id, list_id)
 	});
 }
 
+function getItemAllInfoForUser(item_id, list_id)
+{
+	info_page = window.location.origin + "/IAPTCollections/default/item_info_by_id.json?id=" + item_id;
+
+	$.ajax({
+	  url: info_page
+	}).done(function(data ) {
+		if (!data['info'][0]['image'])
+			img_src = "/IAPTCollections/static/images/question.jpg";
+		else
+			img_src = "/IAPTCollections/default/download/" + data['info'][0]['image'];
+
+		list_name = '';
+		if (list_id == 0)
+		{
+			list_name = "collection";
+		}
+		else if (list_id == 1)
+		{
+			list_name = "have list";
+		}
+		else if (list_id == 2)
+		{
+			list_name = "wish list";
+		}
+
+		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user"
+		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
+
+		new_html = "<div class='item_view'><img src='" + img_src ;
+		new_html += "' alt='selected item image' class='item_view_fit'></div>";
+		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
+		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
+		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
+
+
+
+		logged_in_id = data['logged_in'];
+		owner_id = data['info'][0]['ownedBy'];
+
+
+		new_html += "<label for='description'>Description:</label>";
+		new_html += "<textarea class='form-control' id='description' rows='8' disabled>" + data['info'][0]['description'] + "</textarea>";
+		item_id = data['info'][0]['id'];
+
+		if (list_name)
+		{
+			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
+
+			if (data['have_list_ok'] && list_id == 0)
+				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+
+			oncl =  "delItembyUrl('" + del_url + "')";
+
+			new_html += "<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-trash'></span>Remove from " + list_name + "</button>";
+		}
+		else
+		{
+			if (data['wishlist_ok'])
+				new_html += "<button onclick='addtoWishlist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
+		  if (data['is_tradable'])
+				new_html += "<button onclick='proposeTrade(" + logged_in_id + "," + owner_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
+		}
+
+		new_html += "</div>";
+
+		$('#ajax_content_div').html(new_html);
+	});
+}
+
 function addEnterListeners()
 {
 	$('#middle_div a').keydown( function(e) {

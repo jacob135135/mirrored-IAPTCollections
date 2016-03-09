@@ -1,0 +1,39 @@
+{{include 'page_beginning.html'}}
+
+
+      <div id="middle_div" tabindex="0">
+        <h1 class="h_with_icons small_margins">My collections</h1>
+        <br><br>
+        {{for c in collections:}}
+        <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
+
+        <div class="centered small_margins">
+          <a href="{{=URL('default','collection_of_user',args=''+str(c.id))}}">
+          {{tot = 0}}
+          {{for i in items:}}
+            {{if c.id in i.inCollection:}}
+              {{tot += 1}}
+              {{if tot < 6:}}
+                {{if i.image == None:}}
+                  <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view"><br><b>{{=i.name}}</b></div>
+                {{else:}}
+                  <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view"><br><b>{{=i.name}}</b></div>
+                {{pass}}
+              {{pass}}
+            {{pass}}
+          {{pass}}
+          {{if tot > 5:}}
+            <div class="others_div">+ {{=tot-5}} other(s)</div>
+          {{pass}}
+          </a>
+          </div>
+        <br><br>
+
+
+        {{pass}}
+
+
+      </div>
+
+
+{{include 'page_end.html'}}

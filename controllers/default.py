@@ -76,11 +76,20 @@ def collections():
         return dict(collections= db((db.collection.ownedBy == auth.user.id) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
                     items = db((db.item.ownedBy == auth.user.id)).select(),form=auth())
     else:
-        return dict(collections= db((db.collection.id > 0) & (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
+        return dict(collections= db((db.collection.id > 0)& (db.collection.name != "Have List")& (db.collection.name != "Want List")).select(),
                     items = db((db.item.id > 0)).select(),form=auth())
+
+
+def collections_of_user():
+    return dict(collections= db((db.collection.ownedBy == request.args(0)) & (db.collection.private == False)).select(),
+                items = db((db.item.id > 0)).select())
 
 @auth.requires_login()
 def collection():
+    return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
+
+@auth.requires_login()
+def collection_of_user():
     return dict(items =db(db.item.inCollection.contains(request.args(0))).select(), collection = db.collection(request.args(0)))
 
 def new_collection():

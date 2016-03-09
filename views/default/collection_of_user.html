@@ -1,0 +1,28 @@
+{{include 'page_beginning.html'}}
+
+
+
+      <script>$(document).ready (addEnterListeners);</script>
+
+      <div id="middle_div" tabindex="0">
+        <h1 class="small_margins h_with_icons">{{=collection.name}}</h1>
+      </br><br><br>
+
+        <div class="col-xs-7">
+          {{for i in items:}}
+          {{if i.image == None:}}
+            <a tabindex="0" onclick="getItemAllInfoForUser({{=i.id}},4);"><div class="item_view_sm"><img data_id="{{=i.id}}" src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view_sm"><br>{{=i.name}}</div></a>
+          {{else:}}
+            <a tabindex="0" onclick="getItemAllInfoForUser({{=i.id}},4);"><div class="item_view_sm"><img data_id="{{=i.id}}" src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view_sm"><br>{{=i.name}}</div></a>
+          {{pass}}
+          {{pass}}
+
+        </div>
+
+        <div class="col-xs-5" id="ajax_content_div">
+            (Click on an item to view full its information.)
+        </div>
+
+      </div>
+
+{{include 'page_end.html'}}
