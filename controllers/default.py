@@ -198,7 +198,11 @@ def trade_info():
 
 def trade_history():
     myTrades = db((db.trades.user_1 == auth.user.id) | (db.trades.user_2 == auth.user.id)).select()
-    return dict(form=auth())
+    # lst = []
+    # for x in myTrades:
+    #     if x.user_to_respond  != auth.user.id:
+    #         lst.append(x)
+    # return dict(form=auth(),lst=lst)
 
 def edit_trade():
     record = db.trades(request.args(0))
@@ -211,7 +215,7 @@ def edit_trade():
 
 def delete_trade():
     db(db.trades.id ==  request.args(0)).delete()
-
+    return dict()
 
 def all_users():
     allusers = []
