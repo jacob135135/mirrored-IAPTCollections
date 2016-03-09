@@ -141,23 +141,18 @@ function runAdvSearchScripts()
 	});
 
 	// When untick all is checked
-	$("#untickall").change(function() {
-		if(this.checked) {
-			$("#art,#music,#sports,#tech,#themed,#memorabilia,#ads,#architect,#books,#clothing,#coins,#glass,#house,#nature,#toys,#misc").attr('checked', false);
-
-		}	else {
-			$('#untickall').attr('checked', false);
-		}
+	$("#untickall").click(function() {
+		$("#art,#music,#sports,#tech,#themed,#memorabilia,#ads,#architect,#books,#clothing,#coins,#glass,#house,#nature,#toys,#misc").prop('checked',false);
 	});
 
 	// When any of the categories checked
-	$("#art,#music,#sports,#tech,#themed,#memorabilia,#ads,#architect,#books,#clothing,#coins,#glass,#house,#nature,#toys,#misc").change(function() {
-		if(this.checked) {
-			$('#untickall').attr('checked', false);
-		}
+	$("#tickall").click(function() {
+		$("#art,#music,#sports,#tech,#themed,#memorabilia,#ads,#architect,#books,#clothing,#coins,#glass,#house,#nature,#toys,#misc").prop('checked',true);
 	});
+
 	triggerAutoComplUsers();
 }
+
 
 function getItemAllInfo(item_id, list_id)
 {

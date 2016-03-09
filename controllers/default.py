@@ -418,7 +418,7 @@ def add_to_havelist():
     return dict(addform=addform, collection=record)
 def advanced_search():
     searchform = FORM(DIV(
-               DIV(LABEL('Keyword*', _for='keyword')),
+               DIV(LABEL('Keyword* (for both item name and description)', _for='keyword')),
                DIV(INPUT(_name='keyword',_id='keyword',_placeholder = "Search for...",requires=IS_NOT_EMPTY(),_class="form-control")),
                BR(),
                DIV(LABEL('Minimum price (in £)*', _for='price_range_min'),
@@ -429,19 +429,21 @@ def advanced_search():
                BR(),
                DIV(LABEL(INPUT(_name='my_collection',_type="checkbox",_id='my_collection' ),'Search my collection'),_class="checkbox-inline",_for='my_collection'),
                BR(),
-               DIV(LABEL(INPUT(_name='all_collections',_type="checkbox",_id='all_collections' ),'Search all public collections'),_class="checkbox-inline",_for='all_collections'),
+               DIV(LABEL(INPUT(_name='all_collections',_type="checkbox",_id='all_collections',_checked=True ),'Search all public collections'),_class="checkbox-inline",_for='all_collections'),
                BR(),BR(),
                DIV(LABEL(INPUT(_name='only_one_user',_type="checkbox",_id='only_one_user' ),'Only search collection of:'),_class="checkbox-inline",_for='only_one_user'),
                LABEL('(Collection owner)', _for='single_collection_owner'),
                BR(),
                DIV(INPUT(_name='single_collection_owner',_id='single_collection_owner',_placeholder = "Search for...",_disabled = True,_class="form-control")),
-
+               BR(),BR(),
+               DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
 
               _class='form-group col-xs-6'),
                DIV(
                P(B('Search in categories:')),
-               DIV(LABEL(INPUT(_name ='untickall', _id ='untickall',_type="checkbox",_checked=False ),'Un-Select all categories', _class="categ1"),_class="checkbox-inline"),
-               BR(),
+               DIV(INPUT(_type='button',_id = 'untickall', _value='Unselect All', _class="form-group col-xs-6 btn-default"),
+               INPUT(_type='button',_id = 'tickall', _value='Select All', _class="form-group col-xs-6 btn-default")),
+               BR(),BR(),
                DIV(LABEL(INPUT(_name ='art',_id ='art',_type="checkbox",_checked=True ),'Art', _class="categ1"),_class="checkbox-inline"),
                DIV(LABEL(INPUT(_name ='music',_id ='music',_type="checkbox",_checked=True ),'Music', _class="categ"),_class="checkbox-inline"),
                BR(),
@@ -462,8 +464,6 @@ def advanced_search():
                DIV(LABEL(INPUT(_name ='toys',_id ='toys',_type="checkbox",_checked=True ),'Toys and Games', _class="categ"),),
                DIV(LABEL(INPUT(_name ='misc',_id ='misc',_type="checkbox",_checked=True  ),'Miscellaneous', _class="categ"),),
                     BR(),
-               DIV(LABEL(INPUT(_type="checkbox",_name='only_tradables',id='only_tradables' ),'Only show tradable items'),_class="checkbox-inline",),
-                BR(), BR(),
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
     results = []
@@ -550,15 +550,6 @@ def advanced_search():
                         if x.type in thingthing:
                             results.append(x)
 
-        else:
-            tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
-             & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
-             ).select()
-            for x in tempresults:
-                if ([i for i in x.inCollection if i in public_collection] != []):
-                    if x.type in thingthing:
-                            results.append(x)
         session.results = results
         redirect(URL('default','search_results'))
     elif searchform.errors:
