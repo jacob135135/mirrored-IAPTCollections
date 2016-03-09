@@ -360,6 +360,10 @@ function proposeChosTrade(status, trade_id)
 	{
 		user1_items = user1_items.substr(0, user1_items.length/2);
 		user2_items = user2_items.substr(0, user2_items.length/2);
+
+		// Making unique
+		user2_items = user2_items.split(',').reduce(function(a,b){if (a.indexOf(b) < 0 ) a.push(b);return a;},[]);
+		user1_items = user1_items.split(',').reduce(function(a,b){if (a.indexOf(b) < 0 ) a.push(b);return a;},[]);
 	}
 
 	if (user1_items && user2_items)
@@ -411,12 +415,15 @@ function editTrade(trade_id)
 	$('#sortable3 li.clickable').each(function() {
   	user2_items += $(this).attr("data-id") + ",";
 	});
-	user2_items = user2_items.substr(0, user2_items.length/2);
+	user2_items = user2_items.substr(0, user2_items.length -1);
 
 	$('#sortable2 li').each(function() {
   	user1_items += $(this).attr("data-id") + ",";
 	});
-	user1_items = user1_items.substr(0, user1_items.length/2);
+	user1_items = user1_items.substr(0, user1_items.length -1);
+	// Making unique
+	user2_items = user2_items.split(',').reduce(function(a,b){if (a.indexOf(b) < 0 ) a.push(b);return a;},[]);
+	user1_items = user1_items.split(',').reduce(function(a,b){if (a.indexOf(b) < 0 ) a.push(b);return a;},[]);
 
 	req_url = window.location.origin + "/IAPTCollections/default/edit_trade/" + trade_id;
 	$form = $("<form method='post' action=" + req_url +"></form>");
@@ -488,12 +495,10 @@ function initTradeStuff()
 		editing = window.location.href.split("?")[2];
 		if (editing == 'editing')
 		{
-			console.log("editing");
 			initTrade();
 			initEnterSupp();
 		}
 
-		console.log("view only");
 		trade_id = show_offer.split("=")[1];
 		req_url = window.location.origin + "/IAPTCollections/default/trade_info.json/" + trade_id;
 
