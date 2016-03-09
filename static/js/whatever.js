@@ -379,7 +379,7 @@ function proposeChosTrade(status, trade_id)
 		$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
 		$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
 		$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
-		$('body').append($form);
+		// $('body').append($form);
 		$form.submit();
 
 		$.ajax({
@@ -407,12 +407,12 @@ function editTrade(trade_id)
 	$('#sortable3 li.clickable').each(function() {
   	user2_items += $(this).attr("data-id") + ",";
 	});
-	user2_items = user2_items.substr(0, user2_items.length-3);
+	user2_items = user2_items.substr(0, user2_items.length/2 + 1);
 
 	$('#sortable2 li').each(function() {
   	user1_items += $(this).attr("data-id") + ",";
 	});
-	user1_items = user1_items.substr(0, user1_items.length-3);
+	user1_items = user1_items.substr(0, user1_items.length/2 +1);
 
 	req_url = window.location.origin + "/IAPTCollections/default/edit_trade/" + trade_id;
 	$form = $("<form method='post' action=" + req_url +"></form>");
@@ -421,7 +421,7 @@ function editTrade(trade_id)
 	$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
 	$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
 	$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
-	$('body').append($form);
+	// $('body').append($form);
 	$form.submit();
 
 	$.ajax({
