@@ -197,11 +197,12 @@ def trade_info():
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
 def trade_history():
-    myTrades = db((db.trades.user_1 == auth.user.id) | (db.trades.user_2 == auth.user.id)).select()
-    lst = []
+    myTrades = db((db.trades.user_1 == auth.user.id ) | (db.trades.user_2 == auth.user.id)).select()
+    completed = []
+    offered = []
+    
     for x in myTrades:
-        if x.user_to_respond  != auth.user.id:
-            lst.append(x)
+        lst.append(x)
     return dict(form=auth(),lst=lst)
 
 def edit_trade():
