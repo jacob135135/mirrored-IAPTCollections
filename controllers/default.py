@@ -196,6 +196,23 @@ def trade_info():
     return dict(user_1_trading_items = user_1_trading_items,user_2_trading_items=user_2_trading_items
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
+def trade_history():
+    myTrades = db((db.trades.user_1 == auth.user.id) | (db.trades.user_2 == auth.user.id)).select()
+    return dict(form=auth())
+
+def edit_trade():
+    record = db.trades(request.args(0))
+    user_1_trading_items = request.vars.user_1_trading_items.split(',',1)
+    user_2_trading_items = request.vars.user_2_trading_items.split(',',1)
+    trades.update_record(user_1_trading_items=user_1_trading_items,user_2_trading_items=user_2_trading_items,
+                   user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
+    return dict()
+
+
+def delete_trade():
+    db(db.trades.id ==  request.args(0)).delete()
+
+
 def all_users():
     allusers = []
     users = db(db.auth_user.id > 0).select(db.auth_user.username)
@@ -536,8 +553,7 @@ def search_results():
     return dict(items=results)
 
 
-def trade_history():
-    return dict(form=auth())
+
 
 def logged_in():
     return dict(logged_in = auth.user)
