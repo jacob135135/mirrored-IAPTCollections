@@ -368,7 +368,7 @@ function proposeChosTrade(status, trade_id)
 		if (status == 'accept')
 		{
 			$.ajax({
-				url: wwindow.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id
+				url: window.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id
 			}).done(function() {
 				window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
 			});
@@ -390,6 +390,7 @@ function proposeChosTrade(status, trade_id)
 		$.ajax({
 		}).done(function() {
 			window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+
 		});
 	}
 	else
@@ -500,10 +501,10 @@ function initTradeStuff()
 		$.ajax({
 		  url: req_url
 		}).done(function(data) {
-			us1 = data['user_1_trading_items'];
+			us1 = data['user_2_trading_items'];
 			us1 = us1.substr(0, us1.length-1).split(",");
 
-			us2 = data['user_2_trading_items'];
+			us2 = data['user_1_trading_items'];
 			us2 = us2.substr(0, us2.length-1).split(",");
 
 			us1.forEach(function(entry) {

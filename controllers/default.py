@@ -196,26 +196,30 @@ def trade_info():
     return dict(user_1_trading_items = user_1_trading_items,user_2_trading_items=user_2_trading_items
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
-def trade_history_test():
+def trade_history():
     myTrades = db((db.trades.user_1 == auth.user.id ) | (db.trades.user_2 == auth.user.id)).select()
 
     completed = []
     offer_received= []
     offer_sent = []
     for x in myTrades:
-        if x.user_1 == auth.user.id:
-            tradePartner = x.user_2.username
-        else:
-            tradePartner = x.user_1.username
-        s = ""
+        ITEMSREC = ""
         for y in x.user_1_trading_items:
-            s += y.name + ","
-        itemsReceived = s[:-1]
+            ITEMSREC += y.name + ","
 
-        s = ""
+        ITEMSSENT = ""
         for y in x.user_2_trading_items:
-            s += y.name + ","
-        itemsSent = s[:-1]
+            ITEMSSENT += y.name + ","
+
+        if x.user_1 == auth.user.id:
+            tradePartner = x.user_2
+            itemsReceived = ITEMSSENT[:-1]
+            itemsSent = ITEMSREC[:-1]
+        else:
+            tradePartner = x.user_1
+            itemsReceived = ITEMSREC[:-1]
+            itemsSent = ITEMSSENT[:-1]
+
         temp = dict(trade_partner = tradePartner,items_received = itemsReceived, items_sent= itemsSent, trade_id = x.id)
         if x.user_to_respond == None:
             completed.append(temp)
@@ -253,8 +257,8 @@ def all_users():
 
 
 def create_new_trade():
-    user_1_trading_items = request.vars.user_1_trading_items.split(',',1)
-    user_2_trading_items = request.vars.user_2_trading_items.split(',',1)
+    user_1_trading_items = request.vars.user_1_trading_items.split(',')
+    user_2_trading_items = request.vars.user_2_trading_items.split(',')
     db.trades.insert(user_1_trading_items=user_1_trading_items,user_2_trading_items=user_2_trading_items,
                    user_1 = request.vars.user_1,user_2 = request.vars.user_2, user_to_respond = request.vars.user_to_respond)
     db.commit

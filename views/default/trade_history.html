@@ -6,9 +6,10 @@
       <div id="middle_div">
         <h1 class="small_margins">Ongoing transactions</h1>
           <div class="small_margins">
-            {{=lst}}
+            {{if offer_received == [] and offer_sent == []:}}
             There are currently no ongoing transactions.<br>
             To offer a trade, search for an item and look for <b>Offer to trade</b> button.
+            {{else:}}
             <br><br>
             <table class="table table-bordered">
               <thead>
@@ -19,25 +20,31 @@
                   <th>Status</th>
                 </tr>
               </thead>
-                {{for x in lst:}}
+                {{for x in offer_sent:}}
                 <tr>
-                  <td>{{=x.user_to_respond.username}}</td>
+                  <td>{{=x['trade_partner'].username}}</td>
                   <td>
-                    {{s = ""}}
-                    {{for y in x.user_1_trading_items:}}
-                    {{s += y.name + ","}}
-                    {{pass}}
-                    {{=s}}
-                    </td>
-                  <td>
-                    {{s = ""}}
-                    {{for y in x.user_2_trading_items:}}
-                    {{s += y.name + ","}}
-                    {{pass}}
-                    {{=s}}
+                    {{=x['items_received']}}
                   </td>
-                  <td><b>Offer received</b><br><button onclick="proposeTrade({{=x.user_1}},{{=x.user_2}},{{=x.id}})" class="transp "><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;View their offer</button></td>
+                  <td>
+                    {{=x['items_sent']}}
+                  </td>
+                  <td><b>Offer sent</b>
                 </tr>
+                {{pass}}
+
+                {{for x in offer_received:}}
+                <tr>
+                  <td>{{=x['trade_partner'].username}}</td>
+                  <td>
+                    {{=x['items_received']}}
+                  </td>
+                  <td>
+                    {{=x['items_sent']}}
+                  </td>
+                  <td><b>Offer received</b><br><button onclick="proposeTrade({{=auth.user.id}},{{=x['trade_partner']}},{{=x['trade_id']}})" class="transp "><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;View their offer</button></td>
+                </tr>
+              {{pass}}
                 {{pass}}
 
               </tbody>
@@ -45,7 +52,9 @@
           </div>
         <br>
         <h1 class="small_margins">Completed transactions</h1>
+        {{if completed == []:}}
         There are currently no completed transactions.<br>
+        {{else:}}
         <br><br>
         <div class="small_margins">
           <table class="table table-bordered">
@@ -57,18 +66,21 @@
               </tr>
             </thead>
             <tbody class="table-striped table-bordered">
+            {{for x in completed:}}
               <tr>
-                <td>Awiol</td>
+                <td>{{=x['trade_partner'].username}}</td>
                 <td>
-                  pen, pencil, whatever
+                  {{=x['items_received']}}
                 </td>
                 <td>
-                  pen, pencil, whatever
+                  {{=x['items_sent']}}
                 </td>
               </tr>
+            {{pass}}
             </tbody>
           </table>
         </div>
+        {{pass}}
       </div>
 
 {{include 'page_end.html'}}
