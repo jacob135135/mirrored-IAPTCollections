@@ -407,12 +407,12 @@ function editTrade(trade_id)
 	$('#sortable3 li.clickable').each(function() {
   	user2_items += $(this).attr("data-id") + ",";
 	});
-	user2_items = user2_items.substr(0, user2_items.length/2 + 1);
+	user2_items = user2_items.substr(0, user2_items.length/2);
 
 	$('#sortable2 li').each(function() {
   	user1_items += $(this).attr("data-id") + ",";
 	});
-	user1_items = user1_items.substr(0, user1_items.length/2 +1);
+	user1_items = user1_items.substr(0, user1_items.length/2);
 
 	req_url = window.location.origin + "/IAPTCollections/default/edit_trade/" + trade_id;
 	$form = $("<form method='post' action=" + req_url +"></form>");
