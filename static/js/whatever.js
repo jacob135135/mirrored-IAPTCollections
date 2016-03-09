@@ -153,7 +153,12 @@ function runAdvSearchScripts()
 	triggerAutoComplUsers();
 }
 
-
+function go_to_user_collection(user_id)
+{
+	{
+		window.location="/IAPTCollections/default/collections_of_user/" + user_id;
+	}
+}
 function getItemAllInfo(item_id, list_id)
 {
 	info_page = window.location.origin + "/IAPTCollections/default/item_info_by_id.json?id=" + item_id;
@@ -189,9 +194,9 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
 		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
 		if (data['logged_in'] ==  data['info'][0]['ownedBy']){
-			new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
+			new_html += "<button onclick='go_to_user_collection(" +data['info'][0]['ownedBy']+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
 		}
-		new_html += "<div><a href='../collections_of_user'>" + data['owner'][0]['username']+ " </a><br>";
+
 
 		logged_in_id = data['logged_in'];
 		owner_id = data['info'][0]['ownedBy'];
