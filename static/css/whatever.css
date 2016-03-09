@@ -305,3 +305,9 @@ label.categ
 {
 	margin-top: -16px;
 }
+
+.sm_padding
+{
+	padding-left: 5px;
+	padding-right: 5px;
+}

@@ -450,8 +450,8 @@ def advanced_search():
               _class='form-group col-xs-6'),
                DIV(
                P(B('Search in categories:')),
-               DIV(INPUT(_type='button',_id = 'untickall', _value='Unselect All', _class="form-group col-xs-6 btn-default"),
-               INPUT(_type='button',_id = 'tickall', _value='Select All', _class="form-group col-xs-6 btn-default")),
+               DIV(INPUT(_type='button',_id = 'untickall', _value='Unselect All', _class="form-group col-xs-5 btn btn-info"),
+               INPUT(_type='button',_id = 'tickall', _value='Select All', _class="form-group col-xs-5 btn btn-info pull-right")),
                BR(),BR(),
                DIV(LABEL(INPUT(_name ='art',_id ='art',_type="checkbox",_checked=True ),'Art', _class="categ1"),_class="checkbox-inline"),
                DIV(LABEL(INPUT(_name ='music',_id ='music',_type="checkbox",_checked=True ),'Music', _class="categ"),_class="checkbox-inline"),
