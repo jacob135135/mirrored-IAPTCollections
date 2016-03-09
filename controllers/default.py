@@ -292,7 +292,7 @@ def edit_item():
         alt = "?"
     else:
         src = URL('default','download', args=record.image)
-        alt = "img for" + record.name
+        alt = "image for" + record.name
     editform = FORM(DIV(
                DIV(LABEL('Name*', _for='product_name')),
                DIV(INPUT(_name='name',_id='product_name',_value=record.name,_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
