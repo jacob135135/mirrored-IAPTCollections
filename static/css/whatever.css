@@ -236,7 +236,7 @@ button.transp {background-color: inherit;}
 		width: 120px;
 	}
 
-	#propose_trade {margin-top: 25px;}
+	.propose_trade {margin-top: 25px;}
 
 	.go_left {float: left;}
 

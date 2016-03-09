@@ -323,7 +323,7 @@ function proposeTrade(user1_id, user2_id, offer_id)
 }
 
 
-function proposeChosTrade()
+function proposeChosTrade(status)
 {
 	pathname = window.location.pathname;
 	user1_id = pathname.split("/")[4];
@@ -352,7 +352,15 @@ function proposeChosTrade()
 
 	if (user1_items && user2_items)
 	{
-		add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
+		if (status == 1)
+		{
+			//@TODO ADD URL !!!
+		}
+		else
+		{
+			add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
+		}
+
 		$form = $("<form method='post' action=" + add_url +"></form>");
 		$form.append("<input id='user_1_trading_items' name='user_1_trading_items' value=" + user1_items + ">");
 		$form.append("<input id='user_2_trading_items' name='user_2_trading_items' value=" + user2_items + ">");
@@ -419,8 +427,6 @@ function initEnterSupp()
 
 function initTradeStuff()
 {
-	initEnterSupp();
-
 	// Amend trade to be as offer
 	show_offer = window.location.href.split("?")[1];
 	if (show_offer)
@@ -452,8 +458,17 @@ function initTradeStuff()
 				$('#modal_trade_st #sortable3').append(corresp_li);
 			});
 
+			//$('#modal_trade_st .propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
+			$('.propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
+
+
 		});
 
+	}
+	else
+	{
+		initTrade();
+		initEnterSupp();
 	}
 
 }
