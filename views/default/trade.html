@@ -8,6 +8,16 @@
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins h_with_icons">Trade</h1>
         <button id="better_trade_view" onclick="$('#trade_modal').modal('show');" class="transp small_margins"><span class="glyphicon glyphicon-fullscreen"></span>Wider view</button>
+        <br>
+        <span class="glyphicon glyphicon-info-sign small_margins go_left"></span>
+        <p class="small_margins ">
+
+          &nbsp; In order to trade, please drag items you want to offer from <b>Your items</b> into <b>You are giving</b>.<br>
+          &nbsp; Similarly, drag items you want from <b>Their items</b> into <b>You are getting</b>.<br>
+          &nbsp; <strong class="hidden"> You can also tab into individual items and press enter to toggle between trading item or not</strong>
+        </p>
+        <br>
+
         {{include 'default/trade_shared.html'}}
         <div class="trading_div_errors"></div>
       </div>
