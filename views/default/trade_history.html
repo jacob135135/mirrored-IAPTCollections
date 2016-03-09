@@ -18,27 +18,27 @@
                   <th>Status</th>
                 </tr>
               </thead>
+                {{for x in lst:}}
                 <tr>
-                  <td>Awiol</td>
+                  <td>{{=x.user_to_respond.username}}</td>
                   <td>
-                    pen, whatever
-                  </td>
+                    {{s = ""}}
+                    {{for y in x.user_1_trading_items:}}
+                    {{s += y.name + ","}}
+                    {{pass}}
+                    {{=s}}
+                    </td>
                   <td>
-                    pencil, whatever
+                    {{s = ""}}
+                    {{for y in x.user_2_trading_items:}}
+                    {{s += y.name + ","}}
+                    {{pass}}
+                    {{=s}}
                   </td>
-                  <td><b>Offer received</b><br><button onclick="proposeTrade(2,3,1)" class="transp "><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;View their offer</button></td>
+                  <td><b>Offer received</b><br><button onclick="proposeTrade({{=x.user_1}},{{=x.user_2}},{{=x.id}})" class="transp "><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;View their offer</button></td>
                 </tr>
+                {{pass}}
 
-                <tr>
-                  <td>Awiol</td>
-                  <td>
-                    pen, whatever
-                  </td>
-                  <td>
-                    pencil, whatever
-                  </td>
-                  <td><b>Offer sent</b></td>
-                </tr>
               </tbody>
             </table>
           </div>
