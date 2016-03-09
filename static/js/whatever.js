@@ -336,7 +336,7 @@ function proposeTrade(user1_id, user2_id, offer_id, editing)
 }
 
 
-function proposeChosTrade(status)
+function proposeChosTrade(status, trade_id)
 {
 	pathname = window.location.pathname;
 	user1_id = pathname.split("/")[4];
@@ -367,7 +367,11 @@ function proposeChosTrade(status)
 	{
 		if (status == 'accept')
 		{
-			//@TODO ADD URL !!!
+			$.ajax({
+				url: wwindow.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id;
+			}).done(function() {
+				window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+			});
 		}
 		else
 		{
@@ -528,7 +532,7 @@ function initTradeStuff()
 				$('.propose_trade').after("<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit trade</button>");
 
 				$('.propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
-				$('.propose_trade').attr("onclick","proposeChosTrade('accept')");
+				$('.propose_trade').attr("onclick","proposeChosTrade('accept'," + trade_id +")");
 
 			}
 			else
