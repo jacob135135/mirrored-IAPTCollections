@@ -312,14 +312,16 @@ function addtoWishlist(item_id)
 	});
 }
 
-function proposeTrade(user1_id, user2_id, offer_id)
+function proposeTrade(user1_id, user2_id, offer_id, editing)
 {
 	req_url = window.location.origin + "/IAPTCollections/default/trade/" + user1_id + "/" + user2_id;
 
 	if(offer_id)
 		req_url += "?show_offer=" +offer_id;
 
-	window.location.href = req_url;
+	if(editing)
+		req_url += "?editing";
+		window.location.href = req_url;
 }
 
 
@@ -352,7 +354,7 @@ function proposeChosTrade(status)
 
 	if (user1_items && user2_items)
 	{
-		if (status == 1)
+		if (status == 'accept')
 		{
 			//@TODO ADD URL !!!
 		}
@@ -431,6 +433,16 @@ function initTradeStuff()
 	show_offer = window.location.href.split("?")[1];
 	if (show_offer)
 	{
+
+		editing = window.location.href.split("?")[2];
+		if (editing == 'editing')
+		{
+			console.log("editing");
+			initTrade();
+			initEnterSupp();
+		}
+
+		console.log("view only");
 		trade_id = show_offer.split("=")[1];
 		req_url = window.location.origin + "/IAPTCollections/default/trade_info.json/" + trade_id;
 
@@ -458,9 +470,20 @@ function initTradeStuff()
 				$('#modal_trade_st #sortable3').append(corresp_li);
 			});
 
-			//$('#modal_trade_st .propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
-			$('.propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
-			$('.propose_trade').attr("onclick","proposeChosTrade(1)");
+			$('.propose_trade').after("<button onclick='rejectTrade("+ trade_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-thumbs-down'></span>Reject trade</button>");
+
+			if (editing != 'editing')
+			{
+				pathname = window.location.pathname;
+				user1_id = pathname.split("/")[4];
+				user2_id = pathname.split("/")[5];
+				oncl = "proposeTrade(" + user1_id + "," + user2_id + "," + trade_id + ",'editing')";
+				$('.propose_trade').after("<button onclick=" + oncl + " class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit trade</button>");
+
+				$('.propose_trade').html("<span class='glyphicon glyphicon-thumbs-up'></span>Accept trade");
+				$('.propose_trade').attr("onclick","proposeChosTrade('accept')");
+
+			}
 
 
 		});
