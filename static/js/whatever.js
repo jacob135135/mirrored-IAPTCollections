@@ -180,6 +180,7 @@ function getItemAllInfo(item_id, list_id)
 			list_name = "wish list";
 		}
 
+		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user"
 		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
 
 		new_html = "<div class='item_view'><img src='" + img_src ;
@@ -187,7 +188,10 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
 		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
-		new_html += "<div>Category: <b>" + data['info'][0]['type'] + "</b><br>";
+		if (data['logged_in'] ==  data['info'][0]['ownedBy']){
+			new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
+		}
+		new_html += "<div><a href='../collections_of_user'>" + data['owner'][0]['username']+ " </a><br>";
 
 		logged_in_id = data['logged_in'];
 		owner_id = data['info'][0]['ownedBy'];
