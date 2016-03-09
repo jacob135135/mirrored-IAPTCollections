@@ -1,6 +1,20 @@
-      <button id="backToTop" onclick="$('html, body').animate({ scrollTop: 0 }, 500);" class="transp small_margins"><span class="glyphicon glyphicon-triangle-top"></span>Top</button>
+      <button id="back_to_top" onclick="$('html, body').animate({ scrollTop: 0 }, 500);" class="transp small_margins"><span class="glyphicon glyphicon-triangle-top"></span>Top</button>
       <div id="right_div">
-        <h2 class="centered">Did you know?</h2>
+        <h1 class="h_with_icons small_margins">FAQ</h1>
+        <button onclick="$('#faq_modal').modal('show');" class="btn btn-primary move_up">View full</button><br>
+          <p class="small_margins">
+            1) I'm new! How do I get started? [First say 15 words ...]
+            <br><br>
+            2) How do I Trade? [First say 15 words ...]
+            <br><br>
+            3) I can't find an item I want for my wish list? [First say 15 words ...]
+            <br><br>
+            4) Can the same item be in multiple collections? [First say 15 words ...]
+            <br><br>
+            5) Any tips and tricks you can share? [First say 15 words ...]
+          </p>
+
+          {{include 'default/faq_modal.html'}}
       </div>
     </div>
   </body>

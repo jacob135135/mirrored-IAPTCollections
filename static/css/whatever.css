@@ -262,17 +262,25 @@ button.transp {background-color: inherit;}
 	margin: 0 auto;
 }
 
+#faq_modal
+{
+	width: 90%;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
 .warning
 {
 	margin-top: 10px;
 	border: 2px solid red;
 }
 
-#backToTop
+#back_to_top
 {
 	position: fixed;
 	bottom: 10px;
-	right: 10px;
+	left: 10px;
 }
 
 label.categ
@@ -291,4 +299,9 @@ label.categ
 {
 	font-weight: normal;
 	margin-right: 15px;
+}
+
+.move_up
+{
+	margin-top: -16px;
 }
