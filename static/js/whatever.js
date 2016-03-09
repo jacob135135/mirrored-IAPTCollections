@@ -312,9 +312,12 @@ function addtoWishlist(item_id)
 	});
 }
 
-function proposeTrade(user1_id, user2_id)
+function proposeTrade(user1_id, user2_id, offer_id)
 {
 	req_url = window.location.origin + "/IAPTCollections/default/trade/" + user1_id + "/" + user2_id;
+
+	if(offer_id)
+		req_url += "?show_offer=" +offer_id;
 
 	window.location.href = req_url;
 }
@@ -339,6 +342,14 @@ function proposeChosTrade()
 	});
 	user1_items = user1_items.substr(0, user1_items.length-1);
 
+
+	// For some reason it is duplicated when it is populated from trade offer
+	if (show_offer)
+	{
+		user1_items = user1_items.substr(0, user1_items.length/2);
+		user2_items = user2_items.substr(0, user2_items.length/2);
+	}
+
 	if (user1_items && user2_items)
 	{
 		add_url = window.location.origin + "/IAPTCollections/default/create_new_trade";
@@ -348,7 +359,7 @@ function proposeChosTrade()
 		$form.append("<input id='user_1' name='user_1' value=" + user1_id + ">");
 		$form.append("<input id='user_2' name='user_2' value=" + user2_id + ">");
 		$form.append("<input id='user_to_respond' name='user_to_respond' value=" + user2_id + ">");
-		//$('body').append($form);
+		$('body').append($form);
 		$form.submit();
 
 		$.ajax({
@@ -404,4 +415,45 @@ function initEnterSupp()
 				 initEnterSupp();
 			}
 	});
+}
+
+function initTradeStuff()
+{
+	initEnterSupp();
+
+	// Amend trade to be as offer
+	show_offer = window.location.href.split("?")[1];
+	if (show_offer)
+	{
+		trade_id = show_offer.split("=")[1];
+		req_url = window.location.origin + "/IAPTCollections/default/trade_info.json/" + trade_id;
+
+		$.ajax({
+		  url: req_url
+		}).done(function(data) {
+			us1 = data['user_1_trading_items'];
+			us1 = us1.substr(0, us1.length-1).split(",");
+
+			us2 = data['user_2_trading_items'];
+			us2 = us2.substr(0, us2.length-1).split(",");
+
+			us1.forEach(function(entry) {
+				corresp_li = $("li[data-id='" + entry + "']")[0];
+				$('#sortable2').append(corresp_li);
+				corresp_li = $("li[data-id='" + entry + "']")[1];
+				$('#modal_trade_st #sortable2').append(corresp_li);
+
+			});
+
+			us2.forEach(function(entry) {
+				corresp_li = $("li[data-id='" + entry + "']")[0];
+				$('#sortable3').append(corresp_li);
+				corresp_li = $("li[data-id='" + entry + "']")[1];
+				$('#modal_trade_st #sortable3').append(corresp_li);
+			});
+
+		});
+
+	}
+
 }
