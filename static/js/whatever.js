@@ -192,9 +192,9 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "' alt='selected item image' class='item_view_fit'></div>";
 		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
-		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
-		if (data['logged_in'] ==  data['info'][0]['ownedBy']){
-			new_html += "<button onclick='go_to_user_collection(" +data['info'][0]['ownedBy']+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b>";
+		if (data['logged_in'] !=  data['info'][0]['ownedBy']){
+			new_html += "<button onclick='go_to_user_collection(" +data['info'][0]['ownedBy']+ ")' class='transp small_margins'><span class='glyphicon glyphicon-eye-open'></span>View user's full public collection</button><br>";
 		}
 
 
