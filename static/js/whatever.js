@@ -368,7 +368,7 @@ function proposeChosTrade(status, trade_id)
 		if (status == 'accept')
 		{
 			$.ajax({
-				url: wwindow.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id;
+				url: wwindow.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id
 			}).done(function() {
 				window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
 			});
