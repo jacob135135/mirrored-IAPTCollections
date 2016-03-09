@@ -301,6 +301,17 @@ function addtoHavelist(item_id)
 	});
 }
 
+function rejectTrade(trade_id)
+{
+	add_url = window.location.origin + "/IAPTCollections/default/delete_trade/" + trade_id;
+
+	$.ajax({
+	  url: add_url
+	}).done(function() {
+		window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+	});
+}
+
 function addtoWishlist(item_id)
 {
 	add_url = window.location.origin + "/IAPTCollections/default/add_item_to_wishlist/" + item_id;
