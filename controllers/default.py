@@ -196,14 +196,36 @@ def trade_info():
     return dict(user_1_trading_items = user_1_trading_items,user_2_trading_items=user_2_trading_items
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
-def trade_history():
+def trade_history_test():
     myTrades = db((db.trades.user_1 == auth.user.id ) | (db.trades.user_2 == auth.user.id)).select()
+
     completed = []
-    offered = []
-    
+    offer_received= []
+    offer_sent = []
     for x in myTrades:
-        lst.append(x)
-    return dict(form=auth(),lst=lst)
+        if x.user_1 == auth.user.id:
+            tradePartner = x.user_2.username
+        else:
+            tradePartner = x.user_1.username
+        s = ""
+        for y in x.user_1_trading_items:
+            s += y.name + ","
+        itemsReceived = s[:-1]
+
+        s = ""
+        for y in x.user_2_trading_items:
+            s += y.name + ","
+        itemsSent = s[:-1]
+        temp = dict(trade_partner = tradePartner,items_received = itemsReceived, items_sent= itemsSent, trade_id = x.id)
+        if x.user_to_respond == None:
+            completed.append(temp)
+        elif x.user_to_respond != auth.user.id:
+            offer_sent.append(temp)
+        elif x.user_to_respond == auth.user.id:
+            offer_received.append(temp)
+
+
+    return dict(form=auth(),completed = completed,offer_sent=offer_sent,offer_received = offer_received)
 
 def edit_trade():
     record = db.trades(request.args(0))
