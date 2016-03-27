@@ -1,0 +1,28 @@
+<div class="col-xs-12">
+<div class="col-xs-3">
+  <p><b>Your tradeables</b></p>
+  <ol id="sortable1" class="connectedSortable">
+    {{for i in user1Tradables:}}
+    <li data-id="{{=i.id}}" tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
+    {{pass}}
+  </ol>
+</div>
+
+<div class="col-xs-3">
+  <p><b>You are giving</b></p>
+  <ol id="sortable2" class="connectedSortable"></ol>
+</div>
+
+<div class="col-xs-3">
+  <p><b>You are getting</b></p>
+  <ol id="sortable3" class="connectedSortable2"></ol>
+</div>
+
+<div class="col-xs-3">
+  <p><b>Their items</b></p>
+  <ol id="sortable4" class="connectedSortable2">
+    {{for i in user2Tradables:}}
+    <li data-id="{{=i.id}}" tabindex="0" class="ui-state-highlight clickable">{{=i.name}}</li>
+    {{pass}}
+  </ol>
+</div>

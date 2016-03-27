@@ -11,7 +11,7 @@
 typeList = ['Advertising and Brand','Architectural','Art','Books,Magazines and Paper','Clothing,Fabric and Textiles','Coins,Currency,Stamps',
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
                           'Themed','Toys and Games','Miscellaneous']
-
+import re
 def index():
     """
     example action using the internationalization operator T and flash
@@ -140,7 +140,7 @@ def add_to_collection():
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
                           'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_id='product_type',_class="form-control")),
                BR(),
-               DIV(LABEL(INPUT(_name='have_list',_type="checkbox"),'Add to have list'),_class="small_margins checkbox"),
+               DIV(H3(LABEL(INPUT(_name='have_list',_type="checkbox"),'  Add to tradable items',_class="label label-default"))),
               _class='form-group col-xs-6'),
                DIV(
                DIV(LABEL('Image*', _for='product_image')),
@@ -164,6 +164,7 @@ def add_to_collection():
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
         db.commit
+        session.flash = T("I DID IT")
         redirect(URL('default','collections'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -504,9 +505,11 @@ def advanced_search():
         public_collection.append(x.id)
     if searchform.accepts(request,session):
 
+        s = request.vars.keyword
+        s = re.sub(r'[^\w\s]','',s)
         if (request.vars.my_collection and request.vars.all_collections):
             tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+                 ((db.item.name.like('%' + s + '%'))| (db.item.description.like('%' + s + '%')))
              & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
             for x in tempresults:
@@ -520,7 +523,7 @@ def advanced_search():
              if request.vars.only_tradables:
                  record = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Have List")).select()[0]
                  tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+                 ((db.item.name.like('%' + s + '%'))| (db.item.description.like('%' + s + '%')))
             & (db.item.ownedBy == auth.user.id) & (db.item.inCollection.contains(record.id))& (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
                  for x in tempresults:
@@ -528,7 +531,7 @@ def advanced_search():
                         results.append(x)
              else:
                 tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+                 ((db.item.name.like('%' + s + '%'))| (db.item.description.like('%' + s + '%')))
             & (db.item.ownedBy == auth.user.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
                 for x in tempresults:
@@ -538,7 +541,7 @@ def advanced_search():
         elif request.vars.all_collections:
 
             tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+                 ((db.item.name.like('%' + s + '%'))| (db.item.description.like('%' + s + '%')))
             & (db.item.ownedBy != auth.user.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
             for x in tempresults:
@@ -551,7 +554,7 @@ def advanced_search():
             record = db((db.auth_user.username == request.vars.single_collection_owner)).select()[0]
 
             tempresults = db(
-                 ((db.item.name.like('%' + request.vars.keyword + '%'))| (db.item.description.like('%' + request.vars.keyword + '%')))
+                 ((db.item.name.like('%' + s + '%'))| (db.item.description.like('%' + s + '%')))
             & (db.item.ownedBy == record.id) & (db.item.price <= request.vars.price_range_max) & (db.item.price >= request.vars.price_range_min)
              ).select()
             for x in tempresults:

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/jquery-ui.css')}}"/>
 
+
     <script src="{{=URL('static','js/jquery.js')}}"></script>
     <script src="{{=URL('static','js/jquery-ui.js')}}"></script>
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
@@ -43,9 +44,7 @@
           {{pass}}
 
         </div>
-      </div>
-
-
+    <div class="flash alert alert-dismissable">{{=response.flash or ''}}</div>
       <div id="header_bottom">
             <a href="{{=URL('default', 'index')}}">
               <img src="{{=URL('static','images/whatever.png')}}" class="small_margins picture button_to_image" alt="page-logo">
@@ -71,7 +70,7 @@
       <div id="left_div">
          <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">My collections</button><br></a>
          <button onclick="redirIfAllowed('wishlist')" class="btn btn-primary small_margins full_width">My wishlist</button><br>
-         <button onclick="redirIfAllowed('have_list')" class="btn btn-primary small_margins full_width">My have list</button><br>
+         <button onclick="redirIfAllowed('have_list')" class="btn btn-primary small_margins full_width">My tradable items</button><br>
          <button onclick="redirIfAllowed('trade_history')" class="btn btn-primary small_margins full_width">My transactions</button><br>
          <a href="{{=URL('default','advanced_search')}}"><button class="btn btn-primary small_margins full_width">Advanced item search</button></a>
       </div>

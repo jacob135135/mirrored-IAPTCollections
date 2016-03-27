@@ -66,6 +66,8 @@ body
 
 .clickable {cursor: pointer;}
 
+
+
 #left_div
 {
 	-webkit-flex: none;
@@ -89,6 +91,8 @@ body
 	background-color: #fae596;
 	min-width: 530px;
 }
+
+
 
 .full_width {width: calc(100% - 10px);}
 
@@ -189,7 +193,7 @@ img.item_view_sm
 {
 	width: 110px;
 	height: 70px;
-	margin-bottom: : 15px;
+	margin-bottom: 15px;
 }
 .properly_centered
 {

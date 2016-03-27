@@ -178,7 +178,7 @@ function getItemAllInfo(item_id, list_id)
 		}
 		else if (list_id == 1)
 		{
-			list_name = "have list";
+			list_name = "tradable items";
 		}
 		else if (list_id == 2)
 		{
@@ -192,7 +192,7 @@ function getItemAllInfo(item_id, list_id)
 		new_html += "' alt='selected item image' class='item_view_fit'></div>";
 		new_html += "<div>Name: <b>" + data['info'][0]['name'] + "</b><br>";
 		new_html += "<div>Value: <b>£" + data['info'][0]['price'] + "</b><br>";
-		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b>";
+		new_html += "<div>Owner: <b>" + data['owner'][0]['username'] + "</b><br>";
 		if (data['logged_in'] !=  data['info'][0]['ownedBy']){
 			new_html += "<button onclick='go_to_user_collection(" +data['info'][0]['ownedBy']+ ")' class='transp small_margins'><span class='glyphicon glyphicon-eye-open'></span>View user's full public collection</button><br>";
 		}
@@ -211,7 +211,7 @@ function getItemAllInfo(item_id, list_id)
 			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 
 			if (data['have_list_ok'] && list_id == 0)
-				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to tradable items</button>";
 
 			oncl =  "delItembyUrl('" + del_url + "')";
 
@@ -250,7 +250,7 @@ function getItemAllInfoForUser(item_id, list_id)
 		}
 		else if (list_id == 1)
 		{
-			list_name = "have list";
+			list_name = "tradable items";
 		}
 		else if (list_id == 2)
 		{
@@ -281,7 +281,7 @@ function getItemAllInfoForUser(item_id, list_id)
 			new_html += "<button onclick='editCollection("+item_id+"," + list_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-edit'></span>Edit item</button>";
 
 			if (data['have_list_ok'] && list_id == 0)
-				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to have list</button>";
+				new_html += "<button onclick='addtoHavelist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to tradable items</button>";
 
 			oncl =  "delItembyUrl('" + del_url + "')";
 
