@@ -319,21 +319,23 @@ function showLoginModal()
 
 function redirIfAllowed(url)
 {
-	info_page = window.location.origin + "/IAPTCollections/default/logged_in.json"
-
-	$.ajax({
-	  url: info_page
-	}).done(function(data ) {
-		if (data['logged_in'] != null)
-	{
-		redir_url = window.location.origin + "/IAPTCollections/default/" + url;
-		window.location.href = redir_url;
-	}
-	else
-	{
-		showLoginModal();
-	}
-	});
+	// info_page = window.location.origin + "/IAPTCollections/default/logged_in.json"
+	//
+	// $.ajax({
+	//   url: info_page
+	// }).done(function(data ) {
+	// 	if (data['logged_in'] != null)
+	// {
+	// 	redir_url = window.location.origin + "/IAPTCollections/default/" + url;
+	// 	window.location.href = redir_url;
+	// }
+	// else
+	// {
+	// 	showLoginModal();
+	// }
+	// });
+	redir_url = window.location.origin + "/IAPTCollections/default/" + url;
+	window.location.href = redir_url;
 }
 
 function redirToHome()
