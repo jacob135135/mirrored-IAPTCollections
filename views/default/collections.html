@@ -12,24 +12,26 @@
           &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit</button></a>
           &nbsp;<button onclick="deleteCollection({{=c.id}})" class="transp"><span class="glyphicon glyphicon-trash"></span>Del</button>
         <div class="centered small_margins">
-          <a href="{{=URL('default','collection',args=''+str(c.id))}}">
-          {{tot = 0}}
-          {{for i in items:}}
-            {{if c.id in i.inCollection:}}
-              {{tot += 1}}
-              {{if tot < 6:}}
-                {{if i.image == None:}}
-                  <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view"><br><b>{{=i.name}}</b></div>
-                {{else:}}
-                  <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view"><br><b>{{=i.name}}</b></div>
+          {{if items:}}
+            <a href="{{=URL('default','collection',args=''+str(c.id))}}">
+            {{tot = 0}}
+            {{for i in items:}}
+              {{if c.id in i.inCollection:}}
+                {{tot += 1}}
+                {{if tot < 6:}}
+                  {{if i.image == None:}}
+                    <div class="item_view"><img src="{{=URL('static','images/question.jpg')}}" alt="?" class="item_view"><br><b>{{=i.name}}</b></div>
+                  {{else:}}
+                    <div class="item_view"><img src="{{=URL('default','download', args=i.image)}}" alt="img for {{=i.name}}" class="item_view"><br><b>{{=i.name}}</b></div>
+                  {{pass}}
                 {{pass}}
               {{pass}}
             {{pass}}
+            {{if tot > 5:}}
+              <div class="others_div">+ {{=tot-5}} other(s)</div>
+            {{pass}}
+            </a>
           {{pass}}
-          {{if tot > 5:}}
-            <div class="others_div">+ {{=tot-5}} other(s)</div>
-          {{pass}}
-          </a>
           </div>
         <br><br>
 
