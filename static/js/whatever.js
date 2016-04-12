@@ -223,6 +223,10 @@ function getItemAllInfo(item_id, list_id)
 				new_html += "<button onclick='addtoWishlist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
 		  if (data['is_tradable'])
 				new_html += "<button onclick='proposeTrade(" + logged_in_id + "," + owner_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
+			else
+			{
+				new_html += "<b>Item not tradeable</b>";
+			}
 		}
 
 		new_html += "</div>";
@@ -293,6 +297,9 @@ function getItemAllInfoForUser(item_id, list_id)
 				new_html += "<button onclick='addtoWishlist(" +item_id+ ")' class='transp small_margins'><span class='glyphicon glyphicon-plus'></span>Add to wishlist</button>";
 		  if (data['is_tradable'])
 				new_html += "<button onclick='proposeTrade(" + logged_in_id + "," + owner_id + ")' class='transp small_margins'><span class='glyphicon glyphicon-tags'></span>&nbsp;&nbsp;Propose trade</button>";
+			else {
+				new_html += "Item not tradeable";
+			}
 		}
 
 		new_html += "</div>";
