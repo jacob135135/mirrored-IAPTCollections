@@ -16,6 +16,19 @@ function doStuffOnload()
 		toggleContrast();
 	}
 }
+$(function () {
+    $(":file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+
+function imageIsLoaded(e) {
+    $('#upld_image').attr('src', e.target.result);
+};
 
 function toggleDyslexia()
 {
@@ -48,7 +61,7 @@ function incFont()
 {
 	current_size = $('body').css('font-size');
 	if (isFontSizeDefined())
-		current_size = parseInt(localStorage.getItem('font_req_size'))
+		current_size = parseInt(localStorage.getItem('font_req_size'));
 
 	req_size = parseInt(current_size) + 2;
 	applySizing(req_size);
@@ -58,7 +71,7 @@ function decFont()
 {
 	current_size = $('body').css('font-size');
 	if (isFontSizeDefined())
-		current_size = parseInt(localStorage.getItem('font_req_size'))
+		current_size = parseInt(localStorage.getItem('font_req_size'));
 
 	req_size = parseInt(current_size) - 2;
   applySizing(req_size);
@@ -185,7 +198,7 @@ function getItemAllInfo(item_id, list_id)
 			list_name = "wish list";
 		}
 
-		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user"
+		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user";
 		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
 
 		new_html = "<div class='item_view'><img src='" + img_src ;
@@ -261,7 +274,7 @@ function getItemAllInfoForUser(item_id, list_id)
 			list_name = "wish list";
 		}
 
-		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user"
+		info_page = window.location.origin + "/IAPTCollections/default/collections_of_user";
 		del_url = window.location.origin + "/IAPTCollections/default/delete_item/" + list_id + "/" + data['info'][0]['id'];
 
 		new_html = "<div class='item_view'><img src='" + img_src ;

@@ -140,11 +140,13 @@ def add_to_collection():
                           'Film and Television','Glass and Pottery','Household Items','Memorabilia','Music','Nature and Animals','Sports','Technology',
                           'Themed','Toys and Games','Miscellaneous', value='Miscellaneous',_name='type',_id='product_type',_class="form-control")),
                BR(),
-               DIV(H3(LABEL(INPUT(_name='have_list',_type="checkbox"),'  Add to tradable items',_class="label label-default"))),
+               DIV(H2(LABEL(INPUT(_name='have_list',_type="checkbox"),'  Add to tradable items',_class="label label-default"))),
               _class='form-group col-xs-6'),
                DIV(
                DIV(LABEL('Image', _for='product_image')),
                DIV(INPUT(_name='image',_type='file',_id='product_image')),
+               BR(),
+               DIV(IMG(_id="upld_image", _alt="Preview of upload",_src=URL('static','images/question.jpg'),_width = 170, _height = 105)),
                BR(),
                DIV(LABEL('Description', _for='product_description')),
                DIV(TEXTAREA(_name='description',_id='product_description',_class='form-control',_rows='8',_placeholder='Please enter item description')),
@@ -302,7 +304,7 @@ def edit_item():
         alt = "?"
     else:
         src = URL('default','download', args=record.image)
-        alt = "image for" + record.name
+        alt = "image for " + record.name
     editform = FORM(DIV(
                DIV(LABEL('Name*', _for='product_name')),
                DIV(INPUT(_name='name',_id='product_name',_value=record.name,_placeholder = "Name of item...",requires=IS_NOT_EMPTY(),_class="form-control")),
@@ -316,7 +318,7 @@ def edit_item():
                           'Themed','Toys and Games','Miscellaneous',_name='type',_id='product_type',value=record.type[0],_class="form-control")),
               _class='form-group col-xs-6'),
                DIV(
-               DIV(IMG(_id='product_current_image',_src=src,_alt=alt,_class="item_view")),
+               DIV(IMG(_id='upld_image',_src=src,_alt=alt,_class="item_view")),
                BR(),
                DIV(LABEL('Change image: ', _for='product_image')),
                DIV(INPUT(_name='image',_type='file',_id='product_image')),
