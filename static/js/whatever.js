@@ -15,6 +15,16 @@ function doStuffOnload()
 	{
 		toggleContrast();
 	}
+
+	$(document).ready (function(){
+            $("#success-alert").hide();
+            $(document).ready (function() {
+                $("#success-alert").alert();
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+               $("#success-alert").alert('close');
+                });
+            });
+        });
 }
 $(function () {
     $(":file").change(function () {
@@ -29,6 +39,8 @@ $(function () {
 function imageIsLoaded(e) {
     $('#upld_image').attr('src', e.target.result);
 };
+
+
 
 function toggleDyslexia()
 {

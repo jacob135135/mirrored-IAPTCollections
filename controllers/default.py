@@ -100,6 +100,7 @@ def new_collection():
     if addform.accepts(request,session):
         db.collection.insert(name=request.vars.name,private=request.vars.private)
         db.commit
+        session.notification = "New collection added"
         redirect(URL('default','collections'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -119,6 +120,7 @@ def edit_collection():
         else:
             x = False
         record.update_record(name=request.vars.name,private=x)
+        session.notification = "Collection edited"
         redirect(URL('default','collections'))
     elif updateform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -166,7 +168,7 @@ def add_to_collection():
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
         db.commit
-        session.flash = T("I DID IT")
+        session.notification = "New item added to collection"
         redirect(URL('default','collections'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -295,7 +297,7 @@ def delete_item():
         collectionList = item.inCollection
         collectionList.remove(record.id)
         item.update_record(inCollection=collectionList)
-
+    session.notification = "Item deleted"
     return dict()
 def edit_item():
     record = db.item(request.args(0))
@@ -329,6 +331,7 @@ def edit_item():
                DIV(INPUT(_type='submit', _value='Submit', _class="form-control btn btn-primary")),
                    _class='form-group col-xs-6'),_class="small_margins")
     if editform.accepts(request,session):
+
         try:
             len(request.vars.image) #This means image not uploaded
             image = record.image
@@ -337,10 +340,13 @@ def edit_item():
         record.update_record(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        image=image)
         if request.vars['list_id'] == '0':
+            session.notification = "Item edited"
             redirect(URL('default','collections'))
         if request.vars['list_id'] == '1':
+            session.notification = "Item edited"
             redirect(URL('default','have_list'))
         if request.vars['list_id'] == '2':
+            session.notification = "Item edited"
             redirect(URL('default','wishlist'))
     elif editform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -381,6 +387,7 @@ def add_to_wishlist():
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
         db.commit
+        session.notification = "Item added to wishlist"
         redirect(URL('default','wishlist'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -422,6 +429,7 @@ def add_to_havelist():
         db.item.insert(name=request.vars.name,price=request.vars.value,type=request.vars.type,description=request.vars.description,
                        inCollection=inCollectionList,ownedBy=auth.user.id,image=image)
         db.commit
+        session.notification = "Item added to tradable list"
         redirect(URL('default','have_list'))
     elif addform.errors:
         response.flash = 'One or more of your form fields has an error. Please see below for more information'
@@ -604,6 +612,7 @@ def add_item_to_havelist():
     collectionList = item.inCollection
     collectionList.append(myHaveList[0].id)
     item.update_record(inCollection=collectionList)
+    session.notification = "Item added to tradable list"
 
 def add_item_to_wishlist():
     myWantList = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Want List")).select()
@@ -613,7 +622,7 @@ def add_item_to_wishlist():
     db.item.insert(name=item.name,price=item.price,type=item.type,description=item.description,
                        inCollection=collectionList,ownedBy=item.ownedBy,image=item.image)
     db.commit
-
+    session.notification = "Item added to wishlist"
 
 def item_info_by_id():
     info = db(db.item.id == request.get_vars.id).select()

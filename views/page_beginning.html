@@ -5,13 +5,22 @@
     <link rel="stylesheet" href="{{=URL('static','css/whatever.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/jquery-ui.css')}}"/>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <script src="{{=URL('static','js/jquery.js')}}"></script>
     <script src="{{=URL('static','js/jquery-ui.js')}}"></script>
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/whatever.js')}}"></script>
+    <script src="{{=URL('static','js/Notify.js')}}"></script>
     <script>$(document).ready (doStuffOnload);</script>
-
+     <script>$(document).ready (function(){
+            $("#success-alert").hide();
+            $("#myWish").click(function showAlert() {
+                $("#success-alert").alert();
+                window.setTimeout(function () {
+                            $("#success-alert").alert('close'); }, 2000);
+                  });
+                    });</script>
 
 </head>
   <title>
@@ -62,6 +71,12 @@
           </div>
         </div>
         </form>
+          <div class="container col-xs-2 small_margins">
+             <div class="alert alert-success" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Success! </strong> {{=session.notification}}
+            </div>
+            </div>
 
       </div>
     </header>

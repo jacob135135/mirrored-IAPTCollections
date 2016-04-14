@@ -5,8 +5,13 @@
         <h1 class="h_with_icons small_margins">My collections</h1>
         <br><br>
         {{for c in collections:}}
-        <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
-
+          {{if c.name == "Have List":}}
+            <h2 class="h_with_icons small_margins">Tradable Items</h2>
+          {{elif c.name == "Want List":}}
+            <h2 class="h_with_icons small_margins">Wishlist</h2>
+          {{else:}}
+            <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
+          {{pass}}
         <div class="centered small_margins">
           <a href="{{=URL('default','collection_of_user',args=''+str(c.id))}}">
           {{tot = 0}}
