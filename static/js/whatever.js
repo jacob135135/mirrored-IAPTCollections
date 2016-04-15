@@ -25,6 +25,12 @@ function doStuffOnload()
                 });
             });
         });
+	add_url = window.location.origin + "/IAPTCollections/default/clearNotifications/";
+
+		$.ajax({
+		  url: add_url
+		}).done(function() {
+		});
 }
 $(function () {
     $(":file").change(function () {

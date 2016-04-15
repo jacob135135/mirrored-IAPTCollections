@@ -61,6 +61,9 @@ def download():
     """
     return response.download(request, db)
 
+def clearNotifications():
+    session.notification = "None"
+    return dict()
 
 def call():
     """
