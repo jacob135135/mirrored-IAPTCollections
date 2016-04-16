@@ -24,13 +24,11 @@ function doStuffOnload()
                $("#success-alert").alert('close');
                 });
             });
-		//add_url = window.location.origin + "/IAPTCollections/default/clearNotifications/";
-        //
-		//$.ajax({
-		//  url: add_url
-		//}).done(function() {
-        //
-		//});
+		add_url = window.location.origin + "/IAPTCollections/default/clearNotifications";
+		return $.ajax({
+        url : add_url,
+        type: 'GET'
+    });
         });
 
 }
@@ -490,8 +488,10 @@ function proposeChosTrade(status, trade_id)
 			$.ajax({
 				url: window.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id
 			}).done(function() {
-				window.location = window.location.origin + "/IAPTCollections/default/trade_history/";
+
 			});
+
+
 		}
 		else
 		{
@@ -516,7 +516,8 @@ function proposeChosTrade(status, trade_id)
 	{
 		$('.trading_div_errors').html("<b>Both users need to offer at least 1 item.</b>");
 	}
-
+	if (status == 'accept'){
+	window.location = window.location.origin + "/IAPTCollections/default/trade_history/";}
 }
 
 function editTrade(trade_id)

@@ -61,9 +61,7 @@ def download():
     """
     return response.download(request, db)
 
-def clearNotifications():
-    session.notification = "None"
-    return dict(x = session.notification)
+
 
 def call():
     """
@@ -667,3 +665,8 @@ def item_info_by_id():
     else:
         wishlist_ok = False
     return dict(info = info, owner= owner, is_tradable = is_tradable, have_list_ok = have_list_ok, wishlist_ok = wishlist_ok, logged_in = auth.user.id)
+
+def clearNotifications():
+    session.notification = "None"
+
+    return dict(x = session.notification)
