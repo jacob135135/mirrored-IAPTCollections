@@ -63,7 +63,7 @@ def download():
 
 def clearNotifications():
     session.notification = "None"
-    return dict()
+    return dict(x = session.notification)
 
 def call():
     """
@@ -215,6 +215,7 @@ def trade_info():
 
 def trade_history():
     myTrades = db((db.trades.user_1 == auth.user.id ) | (db.trades.user_2 == auth.user.id)).select()
+    tradedItems = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Traded Items")).select()
 
     completed = []
     offer_received= []
@@ -232,14 +233,27 @@ def trade_history():
             tradePartner = x.user_2
             itemsReceived = ITEMSSENT[:-1]
             itemsSent = ITEMSREC[:-1]
+
+            IR = x.user_2_trading_items
+            IS = x.user_1_trading_items
         else:
             tradePartner = x.user_1
             itemsReceived = ITEMSREC[:-1]
             itemsSent = ITEMSSENT[:-1]
 
+            IR = x.user_1_trading_items
+            IS = x.user_2_trading_items
+
+        other_traded_items = db((db.collection.ownedBy == tradePartner) & (db.collection.name == "Traded Items")).select()
         temp = dict(trade_partner = tradePartner,items_received = itemsReceived, items_sent= itemsSent, trade_id = x.id)
-        if x.user_to_respond == None:
+        if x.user_to_respond is None:
             completed.append(temp)
+            if not x.items_traded:
+                for l in IR:
+                    db.item.insert(name=l.name,price=l.price,type=l.type,description=l.description,inCollection=[tradedItems[0].id],ownedBy=auth.user.id,image=l.image)
+                for l in IS:
+                    db.item.insert(name=l.name,price=l.price,type=l.type,description=l.description,inCollection=[other_traded_items[0].id],ownedBy=tradePartner,image=l.image)
+                x.update_record(items_traded = True)
         elif x.user_to_respond != auth.user.id:
             offer_sent.append(temp)
         elif x.user_to_respond == auth.user.id:
@@ -259,6 +273,7 @@ def edit_trade():
 def accept_trade():
     record = db.trades(request.args(0))
     record.update_record(user_to_respond = None)
+    session.notification = "Trade Accepted"
     return dict()
 
 def delete_trade():

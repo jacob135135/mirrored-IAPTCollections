@@ -24,13 +24,15 @@ function doStuffOnload()
                $("#success-alert").alert('close');
                 });
             });
+		//add_url = window.location.origin + "/IAPTCollections/default/clearNotifications/";
+        //
+		//$.ajax({
+		//  url: add_url
+		//}).done(function() {
+        //
+		//});
         });
-	add_url = window.location.origin + "/IAPTCollections/default/clearNotifications/";
 
-		$.ajax({
-		  url: add_url
-		}).done(function() {
-		});
 }
 $(function () {
     $(":file").change(function () {
@@ -488,7 +490,7 @@ function proposeChosTrade(status, trade_id)
 			$.ajax({
 				url: window.location.origin + "/IAPTCollections/default/accept_trade/" + trade_id
 			}).done(function() {
-				window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
+				window.location = window.location.origin + "/IAPTCollections/default/trade_history/";
 			});
 		}
 		else
@@ -507,8 +509,7 @@ function proposeChosTrade(status, trade_id)
 
 		$.ajax({
 		}).done(function() {
-			window.location.href = window.location.origin + "/IAPTCollections/default/trade_history";
-
+			window.location = window.location.origin + "/IAPTCollections/default/trade_history/";
 		});
 	}
 	else

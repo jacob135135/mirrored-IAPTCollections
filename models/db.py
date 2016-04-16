@@ -62,7 +62,8 @@ Field('user_1_trading_items', 'list:reference item'),
 Field('user_2_trading_items', 'list:reference item'),
 Field('user_1','reference auth_user'),
 Field('user_2','reference auth_user'),
-Field('user_to_respond','reference auth_user'))
+Field('user_to_respond','reference auth_user'),
+Field('items_traded','boolean',default = False))
 
 #validators
 
@@ -163,6 +164,7 @@ auth.settings.login_url = URL('default','index')
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = True, name = "Default Collection", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Have List", ownedBy = form.vars.id ))
 auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = False, name = "Want List", ownedBy = form.vars.id ))
+auth.settings.register_onaccept.append(lambda form: db.collection.insert(dateCreated = datetime.date.today(), private = True, name = "Traded Items", ownedBy = form.vars.id ))
 
 #########################################################################
 ## Define your tables below (or better in another model file) for example
