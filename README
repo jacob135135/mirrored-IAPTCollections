@@ -1,1 +1,2 @@
-Correct url to open homepage : http://127.0.0.1:8000/IAPTCollections/default (assuming default web2py options)
+Correct url to open homepage : http://127.0.0.1:8000/IAPTCollections/default (assuming default web2py settings)
+Folder needs to be named "IAPTCollections" in order for it to work
