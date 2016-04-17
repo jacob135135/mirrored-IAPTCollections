@@ -460,7 +460,7 @@ def advanced_search():
                DIV(LABEL('Minimum price (in £)*', _for='price_range_min'),
                INPUT(_name='price_range_min',_value = 0,requires=[IS_NOT_EMPTY(), IS_MATCH('[0-9]+',error_message='Please input value without any symbols. Numbers only') ,IS_INT_IN_RANGE(0,1000000001,error_message='Please input a value between 0 and 1 billion')],_class="form-control col-xs-8",_id='price_range_min'),_class='form-group col-xs-6'),
                DIV(LABEL('Maximum price (in £)*', _for='price_range_max'),
-               INPUT(_name='price_range_max',_value = 1000000001,requires=[IS_NOT_EMPTY(), IS_MATCH('[0-9]+',error_message='Please input value without any symbols. Numbers only') ,IS_INT_IN_RANGE(0,1000000001,error_message='Please input a value between 0 and 1 billion')] ,_class="form-control col-xs-8",_id='price_range_max'),_class='form-group col-xs-6'),
+               INPUT(_name='price_range_max',_value = 1000000000,requires=[IS_NOT_EMPTY(), IS_MATCH('[0-9]+',error_message='Please input value without any symbols. Numbers only') ,IS_INT_IN_RANGE(0,1000000001,error_message='Please input a value between 0 and 1 billion')] ,_class="form-control col-xs-8",_id='price_range_max'),_class='form-group col-xs-6'),
                BR(),
                BR(),
                DIV(LABEL(INPUT(_name='my_collection',_type="checkbox",_id='my_collection' ),'Search my collection'),_class="checkbox-inline",_for='my_collection'),
