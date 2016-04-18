@@ -2,11 +2,19 @@
 
 
       <div id="middle_div" tabindex="0">
+          {{if auth.user:}}
         <h1 class="h_with_icons small_margins">My collections</h1>
+          {{else:}}
+        <h1 class="h_with_icons small_margins">Our public collections</h1>
+          {{pass}}
         &nbsp;<button onclick="window.location.href='../new_collection'" class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add new collection</button>
         <br><hr><br>
         {{for c in collections:}}
+          {{if auth.user:}}
         <h2 class="h_with_icons small_margins">{{=c.name}}</h2>
+          {{else:}}
+        <h2 class="h_with_icons small_margins">{{=c.name}} owned by {{=c.ownedBy.username}}</h2>
+          {{pass}}
           &nbsp;<a href="{{=URL('default','collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-eye-open"></span>View items</button></a>
           &nbsp;<a href="{{=URL('default','add_to_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-plus-sign"></span>Add item to collection</button></a>
           &nbsp;<a href="{{=URL('default','edit_collection',args=''+str(c.id))}}"><button class="transp"><span class="glyphicon glyphicon-edit"></span>Edit collection</button></a>

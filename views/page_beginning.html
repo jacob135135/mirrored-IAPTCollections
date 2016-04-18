@@ -75,7 +75,11 @@
 
     <div class="flex_div">
       <div id="left_div">
+           {{if auth.user:}}
          <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">My collections</button><br></a>
+           {{else:}}
+         <a href="{{=URL('default','collections')}}"><button class="btn btn-primary small_margins full_width">Current public collections</button><br></a>
+         {{pass}}
          <button onclick="redirIfAllowed('wishlist')" class="btn btn-primary small_margins full_width">My wishlist</button><br>
          <button onclick="redirIfAllowed('have_list')" class="btn btn-primary small_margins full_width">My tradable items</button><br>
          <button onclick="redirIfAllowed('trade_history')" class="btn btn-primary small_margins full_width">My transactions</button><br>

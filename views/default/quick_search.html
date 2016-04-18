@@ -1,8 +1,6 @@
 {{include 'page_beginning.html'}}
 
-    {{if not auth.user:}}
-      <script>$(document).ready (redirToHome);</script>
-    {{pass}}
+
     <script>$(document).ready (addEnterListeners);</script>
 
       {{if items != []:}}
@@ -25,7 +23,7 @@
         </div>
 
         <div class="col-xs-5" id="ajax_content_div">
-            (Click on an item to view full its information.)
+            (Login to view full information and offer trades)
         </div>
 
       </div>
@@ -37,7 +35,7 @@
       {{else:}}
       <div id="middle_div" tabindex="0">
         <h1 class="small_margins">No results found</h1>
-          {{=x}}
+
       </br>
         </div>
        {{pass}}

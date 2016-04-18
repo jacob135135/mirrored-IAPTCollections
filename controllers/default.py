@@ -211,6 +211,7 @@ def trade_info():
     return dict(user_1_trading_items = user_1_trading_items,user_2_trading_items=user_2_trading_items
                 ,user_1 = record.user_1, user_2 = record.user_2, user_to_respond = record.user_to_respond)
 
+@auth.requires_login()
 def trade_history():
     myTrades = db((db.trades.user_1 == auth.user.id ) | (db.trades.user_2 == auth.user.id)).select()
     tradedItems = db((db.collection.ownedBy == auth.user.id) & (db.collection.name == "Traded Items")).select()
@@ -452,6 +453,8 @@ def add_to_havelist():
     else:
         response.flash = 'Please complete the form below to add a new product.'
     return dict(addform=addform, collection=record)
+
+@auth.requires_login()
 def advanced_search():
     searchform = FORM(DIV(
                DIV(LABEL('Keyword* (for both item name and description)', _for='keyword')),
@@ -467,8 +470,8 @@ def advanced_search():
                BR(),
                DIV(LABEL(INPUT(_name='all_collections',_type="checkbox",_id='all_collections',_checked=True ),'Search all public collections'),_class="checkbox-inline",_for='all_collections'),
                BR(),BR(),
-               DIV(LABEL(INPUT(_name='only_one_user',_type="checkbox",_id='only_one_user' ),'Only search collection of:'),_class="checkbox-inline",_for='only_one_user'),
-               LABEL('(Collection owner)', _for='single_collection_owner'),
+               DIV(LABEL(INPUT(_name='only_one_user',_type="checkbox",_id='only_one_user' ),'Only search collection of: (Name of collection owner) '),_class="checkbox-inline",_for='only_one_user'),
+               LABEL('**Selecting this option deselects the two options above**', _for='single_collection_owner'),
                BR(),
                DIV(INPUT(_name='single_collection_owner',_id='single_collection_owner',_placeholder = "Search for...",_disabled = True,_class="form-control")),
                BR(),BR(),
@@ -610,7 +613,8 @@ def quick_search():
     for x in tempresults:
         if ([i for i in x.inCollection if i in public_collection] != []):#
                 results.append(x)
-    return dict(items = results)
+    return dict(items = results, form = auth())
+
 @auth.requires_login()
 def search_results():
     results = session.results
